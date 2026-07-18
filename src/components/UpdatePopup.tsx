@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { downloadAndInstallApk } from '../lib/apkUpdater'
 
 interface UpdatePopupProps {
   open: boolean
@@ -9,7 +11,15 @@ interface UpdatePopupProps {
 }
 
 export function UpdatePopup({ open, latestVersion, downloadUrl, releaseNotes, onLater }: UpdatePopupProps) {
+  const [downloading, setDownloading] = useState(false)
+
   if (!open) return null
+
+  const handleUpdate = async () => {
+    setDownloading(true)
+    const ok = await downloadAndInstallApk(downloadUrl)
+    if (!ok) setDownloading(false)
+  }
 
   return (
     <AnimatePresence>
@@ -42,25 +52,25 @@ export function UpdatePopup({ open, latestVersion, downloadUrl, releaseNotes, on
           <div style={{ display: 'flex', gap: 12 }}>
             <button
               onClick={onLater}
+              disabled={downloading}
               style={{
                 flex: 1, padding: '12px 0', borderRadius: 10, border: '1px solid #3c4043',
-                background: 'transparent', color: '#e8eaed', fontSize: 15, cursor: 'pointer',
+                background: 'transparent', color: '#9aa0a6', fontSize: 15, cursor: 'pointer',
               }}
             >
               Later
             </button>
-            <a
-              href={downloadUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={handleUpdate}
+              disabled={downloading}
               style={{
-                flex: 1, display: 'block', textAlign: 'center', padding: '12px 0',
-                borderRadius: 10, border: 'none', background: '#8ab4f8', color: '#0f1115',
-                fontSize: 15, fontWeight: 600, textDecoration: 'none', cursor: 'pointer',
+                flex: 1, padding: '12px 0', borderRadius: 10, border: 'none',
+                background: downloading ? '#5a7fa8' : '#8ab4f8',
+                color: '#0f1115', fontSize: 15, fontWeight: 600, cursor: downloading ? 'not-allowed' : 'pointer',
               }}
             >
-              Update Now
-            </a>
+              {downloading ? 'Downloading...' : 'Update Now'}
+            </button>
           </div>
         </motion.div>
       </motion.div>

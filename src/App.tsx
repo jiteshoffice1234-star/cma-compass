@@ -17,7 +17,7 @@ import { Toast } from './components/Toast'
 import { LevelUpOverlay, BadgeUnlockOverlay } from './components/Overlay'
 import { PdfViewer } from './screens/PdfViewer'
 
-const APP_VERSION = '1.2.0'
+const APP_VERSION = '1.3.0'
 
 export default function App() {
   const { ready, onboardingComplete, uiMode, init, levelUp, badgeUnlock, toast, clearToast } = useStore()
