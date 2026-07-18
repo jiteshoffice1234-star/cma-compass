@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+  <rect width="390" height="844" rx="40" fill="#FBFBF9"/>
+  <rect width="390" height="844" rx="40" fill="none" stroke="#000" stroke-width="4"/>
+  <!-- Status bar -->
+  <rect x="0" y="0" width="390" height="44" fill="#FFD43B" rx="0"/>
+  <text x="28" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#2D2D2D">9:41</text>
+  <!-- Header -->
+  <rect x="0" y="44" width="390" height="56" fill="#FBFBF9"/>
+  <rect x="0" y="44" width="390" height="56" fill="none" stroke="#000" stroke-width="3"/>
+  <text x="195" y="78" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="20" fill="#2D2D2D">CMA Compass</text>
+  <!-- Content -->
+  <!-- Paper card 1 -->
+  <rect x="16" y="116" width="358" height="100" rx="8" fill="#fff" stroke="#000" stroke-width="3"/>
+  <rect x="16" y="116" width="358" height="100" rx="8" fill="none" stroke="#000" stroke-width="3" transform="translate(4,-4)"/>
+  <text x="32" y="150" font-family="Inter,sans-serif" font-weight="900" font-size="16" fill="#2D2D2D">Paper 1 · FBLC</text>
+  <text x="32" y="174" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="#888">Fundamentals of Business Laws</text>
+  <text x="32" y="194" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#6C63FF">8 chapters · 240 XP</text>
+  <rect x="320" y="130" width="40" height="40" rx="6" fill="#FFD43B" stroke="#000" stroke-width="2"/>
+  <text x="340" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="16" fill="#2D2D2D">→</text>
+  <!-- Paper card 2 -->
+  <rect x="16" y="232" width="358" height="100" rx="8" fill="#fff" stroke="#000" stroke-width="3"/>
+  <rect x="16" y="232" width="358" height="100" rx="8" fill="none" stroke="#000" stroke-width="3" transform="translate(4,-4)"/>
+  <text x="32" y="266" font-family="Inter,sans-serif" font-weight="900" font-size="16" fill="#2D2D2D">Paper 2 · FFA</text>
+  <text x="32" y="290" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="#888">Fundamentals of Financial Accounting</text>
+  <text x="32" y="310" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#6C63FF">6 chapters · 180 XP</text>
+  <rect x="320" y="246" width="40" height="40" rx="6" fill="#FFD43B" stroke="#000" stroke-width="2"/>
+  <text x="340" y="271" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="16" fill="#2D2D2D">→</text>
+  <!-- Paper card 3 -->
+  <rect x="16" y="348" width="358" height="100" rx="8" fill="#fff" stroke="#000" stroke-width="3"/>
+  <rect x="16" y="348" width="358" height="100" rx="8" fill="none" stroke="#000" stroke-width="3" transform="translate(4,-4)"/>
+  <text x="32" y="382" font-family="Inter,sans-serif" font-weight="900" font-size="16" fill="#2D2D2D">Paper 3 · FBMS</text>
+  <text x="32" y="406" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="#888">Business Mathematics &amp; Statistics</text>
+  <text x="32" y="426" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#6C63FF">5 chapters · 150 XP</text>
+  <rect x="320" y="362" width="40" height="40" rx="6" fill="#FFD43B" stroke="#000" stroke-width="2"/>
+  <text x="340" y="387" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="16" fill="#2D2D2D">→</text>
+  <!-- Bottom nav -->
+  <rect x="0" y="780" width="390" height="64" fill="#FFD43B"/>
+  <rect x="0" y="780" width="390" height="64" fill="none" stroke="#000" stroke-width="3"/>
+  <text x="80" y="820" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#2D2D2D">Papers</text>
+  <text x="195" y="820" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#888">Progress</text>
+  <text x="310" y="820" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#888">Bookmarks</text>
+</svg>

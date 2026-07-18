@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+  <rect width="390" height="844" rx="40" fill="#FBFBF9"/>
+  <rect width="390" height="844" rx="40" fill="none" stroke="#000" stroke-width="4"/>
+  <!-- Status bar -->
+  <rect x="0" y="0" width="390" height="44" fill="#6C63FF"/>
+  <text x="28" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#fff">9:41</text>
+  <!-- Header -->
+  <rect x="0" y="44" width="390" height="56" fill="#6C63FF"/>
+  <rect x="0" y="100" width="390" height="1" fill="#000"/>
+  <text x="44" y="78" font-family="Inter,sans-serif" font-weight="800" font-size="16" fill="#fff">✕</text>
+  <text x="175" y="78" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="16" fill="#fff">Chapter Quiz</text>
+  <rect x="300" y="60" width="40" height="24" rx="6" fill="#FFD43B" stroke="#000" stroke-width="2"/>
+  <text x="320" y="76" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="11" fill="#2D2D2D">1/10</text>
+  <!-- Progress bar -->
+  <rect x="24" y="116" width="342" height="12" rx="2" fill="#E5E2D9" stroke="#000" stroke-width="2"/>
+  <rect x="24" y="116" width="34" height="12" rx="2" fill="#6C63FF" stroke="#000" stroke-width="2"/>
+  <!-- Question -->
+  <text x="24" y="164" font-family="Inter,sans-serif" font-weight="800" font-size="15" fill="#2D2D2D">Which of the following is classified as</text>
+  <text x="24" y="186" font-family="Inter,sans-serif" font-weight="800" font-size="15" fill="#2D2D2D">an operating activity in a cash flow</text>
+  <text x="24" y="208" font-family="Inter,sans-serif" font-weight="800" font-size="15" fill="#2D2D2D">statement?</text>
+  <!-- Option A - correct -->
+  <rect x="24" y="234" width="342" height="50" rx="10" fill="#DCFCE7" stroke="#16A34A" stroke-width="3"/>
+  <rect x="36" y="248" width="28" height="28" rx="6" fill="#16A34A" stroke="#000" stroke-width="2"/>
+  <text x="50" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="14" fill="#fff">A</text>
+  <text x="76" y="266" font-family="Inter,sans-serif" font-weight="700" font-size="14" fill="#2D2D2D">Cash received from customers</text>
+  <text x="330" y="266" font-family="Inter,sans-serif" font-weight="800" font-size="16" fill="#16A34A">✓</text>
+  <!-- Option B - wrong -->
+  <rect x="24" y="296" width="342" height="50" rx="10" fill="#FFE4E2" stroke="#FF6B6B" stroke-width="3"/>
+  <rect x="36" y="310" width="28" height="28" rx="6" fill="#FF6B6B" stroke="#000" stroke-width="2"/>
+  <text x="50" y="330" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="14" fill="#fff">B</text>
+  <text x="76" y="328" font-family="Inter,sans-serif" font-weight="700" font-size="14" fill="#2D2D2D">Purchase of machinery</text>
+  <text x="330" y="328" font-family="Inter,sans-serif" font-weight="800" font-size="16" fill="#FF6B6B">✕</text>
+  <!-- Option C -->
+  <rect x="24" y="358" width="342" height="50" rx="10" fill="#fff" stroke="#000" stroke-width="2"/>
+  <rect x="36" y="372" width="28" height="28" rx="6" fill="#FFD43B" stroke="#000" stroke-width="2"/>
+  <text x="50" y="392" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="14" fill="#2D2D2D">C</text>
+  <text x="76" y="390" font-family="Inter,sans-serif" font-weight="700" font-size="14" fill="#2D2D2D">Issue of shares</text>
+  <!-- Option D -->
+  <rect x="24" y="420" width="342" height="50" rx="10" fill="#fff" stroke="#000" stroke-width="2"/>
+  <rect x="36" y="434" width="28" height="28" rx="6" fill="#FFD43B" stroke="#000" stroke-width="2"/>
+  <text x="50" y="454" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="14" fill="#2D2D2D">D</text>
+  <text x="76" y="452" font-family="Inter,sans-serif" font-weight="700" font-size="14" fill="#2D2D2D">Sale of investments</text>
+  <!-- Next button -->
+  <rect x="24" y="500" width="342" height="48" rx="8" fill="#6C63FF" stroke="#000" stroke-width="3" transform="translate(4,-4)"/>
+  <rect x="24" y="500" width="342" height="48" rx="8" fill="#6C63FF" stroke="#000" stroke-width="3"/>
+  <text x="195" y="530" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="15" fill="#fff">Next Question →</text>
+  <!-- Explanation -->
+  <rect x="24" y="564" width="342" height="60" rx="8" fill="#E5E2D9" stroke="#000" stroke-width="2"/>
+  <text x="36" y="584" font-family="Inter,sans-serif" font-weight="800" font-size="11" fill="#6C63FF">EXPLANATION</text>
+  <text x="36" y="602" font-family="Inter,sans-serif" font-weight="600" font-size="12" fill="#2D2D2D">Cash received from customers is the primary</text>
+  <text x="36" y="618" font-family="Inter,sans-serif" font-weight="600" font-size="12" fill="#2D2D2D">revenue-generating activity → operating.</text>
+</svg>

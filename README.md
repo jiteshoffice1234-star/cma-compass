@@ -1,4 +1,7 @@
-# CMA Compass
+<div align="center">
+  <img src="assets/icon.svg" width="96" alt="CMA Compass icon">
+  <h1>CMA Compass</h1>
+</div>
 
 A self-study Android app for CMA (Certified Management Accountant) students preparing for ICMAI's Foundation and Intermediate exams under the 2022 syllabus.
 
@@ -21,6 +24,12 @@ CMA students in India face a fragmented study experience:
 | No unified practice | Each chapter has a 10-question MCQ quiz, a flashcard stack, and linked PDF summaries/practice sheets — all in one screen. |
 | App updates are painful | OTA update system downloads `web-build.zip` from GitHub Releases and extracts it at runtime — no APK reinstall needed. Falls back to APK if OTA fails. |
 | Boring UI | Neobrutalism design — flat colors, 2–3px black borders, hard offset box shadows, JetBrains Mono + Inter. Fun to use. |
+
+## ## Screenshots
+
+| Papers | Chapter | Quiz |
+|---|---|---|
+| <img src="assets/screenshots/papers.svg" width="260" alt="Papers screen"> | <img src="assets/screenshots/chapter.svg" width="260" alt="Chapter detail"> | <img src="assets/screenshots/quiz.svg" width="260" alt="Quiz overlay"> |
 
 ## Papers Covered
 
@@ -218,9 +227,10 @@ Each GitHub Release includes two assets:
 
 This is a personal project. If you have suggestions or find broken video links, open an issue.
 
-## Privacy
+## Legal
 
-CMA Compass does not collect, store, or transmit any personal data. All progress is stored locally on your device. See the full [Privacy Policy](PRIVACY.md).
+- **[Privacy Policy](PRIVACY.md)** — CMA Compass does not collect, store, or transmit any personal data. All progress is stored locally.
+- **[Terms of Service](TERMS.md)** — The App is provided "as is" for self-study purposes. No affiliation with ICMAI.
 
 ## License
 

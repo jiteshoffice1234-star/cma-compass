@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+  <rect width="390" height="844" rx="40" fill="#FBFBF9"/>
+  <rect width="390" height="844" rx="40" fill="none" stroke="#000" stroke-width="4"/>
+  <!-- Status bar -->
+  <rect x="0" y="0" width="390" height="44" fill="#FBFBF9"/>
+  <rect x="0" y="44" width="390" height="1" fill="#000"/>
+  <text x="28" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#2D2D2D">9:41</text>
+  <!-- Top bar -->
+  <rect x="0" y="44" width="390" height="48" fill="#FBFBF9"/>
+  <rect x="0" y="44" width="390" height="48" fill="none" stroke="#000" stroke-width="2"/>
+  <text x="44" y="74" font-family="Inter,sans-serif" font-weight="800" font-size="14" fill="#2D2D2D">←</text>
+  <text x="155" y="74" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="14" fill="#2D2D2D">Cash Flow Statement</text>
+  <text x="340" y="74" font-family="Inter,sans-serif" font-weight="800" font-size="14" fill="#2D2D2D">☆</text>
+  <!-- Video player -->
+  <rect x="0" y="92" width="390" height="219" fill="#000"/>
+  <text x="195" y="195" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="16" fill="#fff">▶  Playing</text>
+  <text x="195" y="220" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#888">Cash Flow (AS 3) — Full Lecture</text>
+  <rect x="0" y="311" width="390" height="1" fill="#000"/>
+  <!-- Video pills -->
+  <rect x="12" y="320" width="180" height="32" rx="8" fill="#6C63FF" stroke="#000" stroke-width="2"/>
+  <text x="102" y="341" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="11" fill="#fff">▶ Cash Flow Full (3h 03m)</text>
+  <rect x="200" y="320" width="178" height="32" rx="8" fill="#fff" stroke="#000" stroke-width="2"/>
+  <text x="289" y="341" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="11" fill="#2D2D2D">▶ Quick Revision (25m)</text>
+  <!-- Tabs -->
+  <rect x="0" y="358" width="390" height="44" fill="#FBFBF9"/>
+  <rect x="0" y="358" width="390" height="1" fill="#000"/>
+  <rect x="0" y="358" width="97" height="44" fill="#FFD43B"/><text x="48" y="385" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#2D2D2D">Overview</text>
+  <rect x="97" y="358" width="98" height="44" fill="#FBFBF9"/><text x="146" y="385" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#888">Quiz</text>
+  <rect x="195" y="358" width="97" height="44" fill="#FBFBF9"/><text x="243" y="385" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#888">Flashcards</text>
+  <rect x="292" y="358" width="98" height="44" fill="#FBFBF9"/><text x="341" y="385" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#888">PDF</text>
+  <rect x="0" y="401" width="390" height="1" fill="#000"/>
+  <!-- Overview content -->
+  <text x="24" y="436" font-family="Inter,sans-serif" font-weight="900" font-size="18" fill="#2D2D2D">Cash Flow Statement</text>
+  <rect x="230" y="420" width="80" height="22" rx="6" fill="#FFD43B" stroke="#000" stroke-width="2"/>
+  <text x="270" y="435" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="11" fill="#2D2D2D">50 XP</text>
+  <text x="24" y="460" font-family="Inter,sans-serif" font-weight="700" font-size="11" fill="#888">Intermediate · Paper 10 (CAA) · Unit 3</text>
+  <!-- Key points -->
+  <rect x="24" y="478" width="8" height="8" fill="#6C63FF" stroke="#000" stroke-width="1"/>
+  <text x="42" y="488" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="#2D2D2D">Definition of Cash Flow Statement</text>
+  <rect x="24" y="504" width="8" height="8" fill="#6C63FF" stroke="#000" stroke-width="1"/>
+  <text x="42" y="514" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="#2D2D2D">Operating, Investing &amp; Financing activities</text>
+  <rect x="24" y="530" width="8" height="8" fill="#6C63FF" stroke="#000" stroke-width="1"/>
+  <text x="42" y="540" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="#2D2D2D">Direct vs Indirect Method</text>
+  <rect x="24" y="556" width="8" height="8" fill="#6C63FF" stroke="#000" stroke-width="1"/>
+  <text x="42" y="566" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="#2D2D2D">AS 3 format &amp; preparation</text>
+  <!-- Mark as Watched button -->
+  <rect x="24" y="590" width="342" height="48" rx="8" fill="#FFD43B" stroke="#000" stroke-width="3" transform="translate(4,-4)"/>
+  <rect x="24" y="590" width="342" height="48" rx="8" fill="#FFD43B" stroke="#000" stroke-width="3"/>
+  <text x="195" y="620" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="14" fill="#2D2D2D">▶  Mark as Watched (+10 XP)</text>
+  <!-- PDF card -->
+  <rect x="24" y="654" width="342" height="56" rx="8" fill="#fff" stroke="#000" stroke-width="3"/>
+  <rect x="24" y="654" width="342" height="56" rx="8" fill="none" stroke="#000" stroke-width="3" transform="translate(4,-4)"/>
+  <text x="56" y="680" font-family="Inter,sans-serif" font-weight="900" font-size="13" fill="#2D2D2D">📄  Chapter PDFs</text>
+  <text x="56" y="698" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#888">Summary · Practice · Cheat Sheet</text>
+  <text x="330" y="686" font-family="Inter,sans-serif" font-weight="800" font-size="14" fill="#2D2D2D">→</text>
+</svg>
