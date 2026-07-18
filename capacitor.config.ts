@@ -2,21 +2,21 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.accountiq.app',
-  appName: 'AccountIQ',
+  appName: 'CMA Compass',
   webDir: 'dist',
-  backgroundColor: '#0f1115',
+  backgroundColor: '#FBFBF9',
   android: {
-    backgroundColor: '#0f1115',
+    backgroundColor: '#FBFBF9',
   },
   plugins: {
     StatusBar: {
       overlaysWebView: false,
-      style: 'DARK',
-      backgroundColor: '#0f1115',
+      style: 'LIGHT',
+      backgroundColor: '#FBFBF9',
     },
     SplashScreen: {
       launchShowDuration: 600,
-      backgroundColor: '#0f1115',
+      backgroundColor: '#FBFBF9',
     },
     CapacitorSQLite: {
       androidIsEncryption: false,

@@ -27,7 +27,7 @@ function header(doc: jsPDF, chapter: any, type: PdfType) {
   doc.setTextColor(255, 255, 255)
   doc.setFont('helvetica', 'bold')
   doc.setFontSize(16)
-  doc.text('AccountIQ', 14, 12)
+  doc.text('CMA Compass', 14, 12)
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(9)
   doc.text(`${TYPE_LABEL[type]} · Chapter ${chapter.id}: ${chapter.title}`, 14, 19)
@@ -40,7 +40,7 @@ function footer(doc: jsPDF) {
     doc.setPage(i)
     doc.setFontSize(8)
     doc.setTextColor(150, 150, 150)
-    doc.text('AccountIQ · Personal study notes · Generated offline', 14, 287)
+    doc.text('CMA Compass · Personal study notes · Generated offline', 14, 287)
   }
 }
 

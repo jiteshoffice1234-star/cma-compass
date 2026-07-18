@@ -6,7 +6,6 @@ import type { Chapter } from './curriculum'
 
 const F = 'foundation' as const
 const I = 'intermediate' as const
-const PL = 'PLACEHOLDER_VIDEO_ID'
 
 function kp(...points: string[]): string[] {
   return points
@@ -19,7 +18,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   // ==========================================================================
   {
     id: 1, paperId: 2, level: F, section: 'Financial Accounting Fundamentals',
-    title: 'What is Accounting & Why It Matters', duration: '~18 min', videoId: PL, videoPlaylistId: PL,
+    title: 'What is Accounting & Why It Matters', duration: '~18 min',
     keyPoints: kp(
       'Accounting is the systematic recording, classifying, summarising and interpreting of financial transactions of a business.',
       'The primary users of accounting information are owners, managers, investors, lenders, regulators and tax authorities.',
@@ -32,7 +31,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 2, paperId: 2, level: F, section: 'Financial Accounting Fundamentals',
-    title: 'The Accounting Equation', duration: '~20 min', videoId: PL, videoPlaylistId: PL,
+    title: 'The Accounting Equation', duration: '~20 min',
     keyPoints: kp(
       'The accounting equation is Assets = Liabilities + Owner’s Equity (also written A = L + C).',
       'Assets are resources owned by the business (cash, debtors, stock, furniture, building). Liabilities are amounts owed to outsiders.',
@@ -45,7 +44,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 3, paperId: 2, level: F, section: 'Financial Accounting Fundamentals',
-    title: 'Debits & Credits', duration: '~22 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Debits & Credits', duration: '~22 min',
     keyPoints: kp(
       'Debit (Dr) means left side of an account; Credit (Cr) means right side. They are not "good" or "bad".',
       'Rule for personal accounts: Debit the receiver, Credit the giver.',
@@ -58,7 +57,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 4, paperId: 2, level: F, section: 'Financial Accounting Fundamentals',
-    title: 'Journal Entries', duration: '~25 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Journal Entries', duration: '~25 min',
     keyPoints: kp(
       'A journal is the book of original entry — transactions are first recorded here in chronological order.',
       'A compound journal entry affects more than two accounts but total Dr must equal total Cr.',
@@ -71,7 +70,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 5, paperId: 2, level: F, section: 'Financial Accounting Fundamentals',
-    title: 'Ledger & T-Accounts', duration: '~24 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Ledger & T-Accounts', duration: '~24 min',
     keyPoints: kp(
       'A ledger is the book of final entry; it groups all transactions of one account in one place (an account = a T-shape).',
       'Posting is copying amounts from the journal to the respective ledger accounts.',
@@ -84,7 +83,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 6, paperId: 2, level: F, section: 'Financial Accounting Fundamentals',
-    title: 'Trial Balance', duration: '~20 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Trial Balance', duration: '~20 min',
     keyPoints: kp(
       'A trial balance lists all ledger balances (debit and credit) at a point in time to check arithmetical accuracy.',
       'If total debits equal total credits, the books are mathematically balanced — but errors may still exist.',
@@ -97,7 +96,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 7, paperId: 2, level: F, section: 'Preparation of Financial Statements',
-    title: 'Income Statement (P&L)', duration: '~26 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Income Statement (P&L)', duration: '~26 min',
     keyPoints: kp(
       'The Income Statement (Profit & Loss Account) shows revenues and expenses for a period and arrives at net profit/loss.',
       'Trading Account computes Gross Profit = Sales − Cost of Goods Sold (Opening Stock + Purchases − Closing Stock + Direct Expenses).',
@@ -110,7 +109,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 8, paperId: 2, level: F, section: 'Preparation of Financial Statements',
-    title: 'Balance Sheet', duration: '~24 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Balance Sheet', duration: '~24 min',
     keyPoints: kp(
       'A Balance Sheet is a statement of assets, liabilities and equity at a specific date — a financial snapshot.',
       'It follows the accounting equation: Assets = Liabilities + Equity (Liabilities side = Assets side).',
@@ -123,7 +122,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 9, paperId: 2, level: F, section: 'Fundamentals of Cost Accounting',
-    title: 'Bank Reconciliation & Cost Basics', duration: '~24 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Bank Reconciliation & Cost Basics', duration: '~24 min',
     keyPoints: kp(
       'A BRS explains the difference between the bank balance in the Cash Book and the balance per the Bank Pass Book.',
       'Common causes: cheques deposited but not yet cleared, cheques issued but not yet presented, bank charges, interest, direct debits.',
@@ -140,7 +139,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   // ==========================================================================
   {
     id: 41, paperId: 6, level: I, section: 'Preparation of Financial Statements',
-    title: 'Cash Flow Statement (AS 3)', duration: '~3h 03min', videoId: 'qMKi2Q3x0UA', videoPlaylistId: PL,
+    title: 'Cash Flow Statement (AS 3)', duration: '~3h 03min',
     keyPoints: kp(
       'A Cash Flow Statement reports cash inflows and outflows during a period under Operating, Investing and Financing activities (AS 3).',
       'Operating activities: day-to-day business (cash from customers, cash paid to suppliers/employees).',
@@ -153,7 +152,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 42, paperId: 6, level: I, section: 'Accounting for Special Transactions',
-    title: 'Accounts Payable & Receivable', duration: '~22 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Accounts Payable & Receivable', duration: '~22 min',
     keyPoints: kp(
       'Accounts Receivable (sundry debtors) are amounts owed by customers for credit sales — a current asset.',
       'Accounts Payable (sundry creditors) are amounts owed to suppliers for credit purchases — a current liability.',
@@ -166,7 +165,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 43, paperId: 6, level: I, section: 'Accounting Standards',
-    title: 'Depreciation Methods (AS 10)', duration: '~26 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Depreciation Methods (AS 10)', duration: '~26 min',
     keyPoints: kp(
       'Depreciation is the systematic allocation of a tangible asset’s cost (less salvage) over its useful life (AS 10).',
       'Straight Line Method (SLM): equal charge each year = (Cost − Salvage) ÷ Life.',
@@ -179,7 +178,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 44, paperId: 6, level: I, section: 'Accounting Standards',
-    title: 'Inventory Accounting (AS 2)', duration: '~24 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Inventory Accounting (AS 2)', duration: '~24 min',
     keyPoints: kp(
       'Inventory valuation affects both the Balance Sheet (closing stock) and the Income Statement (COGS).',
       'FIFO: first units bought are first issued; ending inventory reflects most recent prices.',
@@ -192,7 +191,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 45, paperId: 6, level: I, section: 'Preparation of Financial Statements',
-    title: 'Financial Ratios & Analysis', duration: '~28 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Financial Ratios & Analysis', duration: '~28 min',
     keyPoints: kp(
       'Liquidity ratios: Current Ratio = Current Assets ÷ Current Liabilities; Ideal ≈ 2:1. Quick Ratio (Acid Test) excludes stock; ideal ≈ 1:1.',
       'Solvency/Leverage: Debt-Equity Ratio = Total Debt ÷ Shareholders’ Equity; higher means more risk.',
@@ -205,7 +204,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 46, paperId: 6, level: I, section: 'Partnership Accounts',
-    title: 'Partnership Accounts', duration: '~28 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Partnership Accounts', duration: '~28 min',
     keyPoints: kp(
       'A partnership is an association of two or more persons carrying on business to share profits (Partnership Act, 1932).',
       'Profit-sharing ratio (PSR) governs division of profit; default is equal sharing if the deed is silent.',
@@ -218,7 +217,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 47, paperId: 6, level: I, section: 'Lease, Branch and Departmental Accounts',
-    title: 'Branch & Departmental Accounts', duration: '~24 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Branch & Departmental Accounts', duration: '~24 min',
     keyPoints: kp(
       'Branch accounts record the results of a branch separately from the head office.',
       'Under the Debtors System, the head office maintains a single Branch Account to find branch profit.',
@@ -231,7 +230,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 48, paperId: 6, level: I, section: 'Accounting Standards',
-    title: 'Introduction to Accounting Standards', duration: '~22 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Introduction to Accounting Standards', duration: '~22 min',
     keyPoints: kp(
       'Accounting Standards (AS) are written policy documents issued by ICAI/NFRA that standardise accounting treatment.',
       'They improve comparability, reliability and transparency of financial statements.',
@@ -248,7 +247,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   // ==========================================================================
   {
     id: 49, paperId: 7, level: I, section: 'Direct Taxation',
-    title: 'Income Tax Basics (India)', duration: '~26 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Income Tax Basics (India)', duration: '~26 min',
     keyPoints: kp(
       'Income tax in India is levied by the Central Government under the Income-tax Act, 1961; the FY runs Apr 1–Mar 31.',
       'Five heads of income: Salaries, House Property, Profits & Gains of Business/Profession, Capital Gains, Other Sources.',
@@ -261,7 +260,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 50, paperId: 7, level: I, section: 'Direct Taxation',
-    title: 'TDS & TCS (India)', duration: '~24 min', videoId: PL, videoPlaylistId: PL,
+    title: 'TDS & TCS (India)', duration: '~24 min',
     keyPoints: kp(
       'TDS (Tax Deducted at Source) deducts tax when payment is made; TCS (Tax Collected at Source) collects tax on receipt/sale.',
       'Common TDS sections: 194C (works contracts, 1%/2%), 194J (professional/technical fees, 10%), 192 (salary, slab rates).',
@@ -274,7 +273,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 51, paperId: 7, level: I, section: 'Direct Taxation',
-    title: 'Income from Salary & House Property', duration: '~26 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Income from Salary & House Property', duration: '~26 min',
     keyPoints: kp(
       'Salary income includes basic pay, allowances, perquisites and profits in lieu of salary.',
       'Standard deduction of ₹50,000 is available from salary income.',
@@ -287,7 +286,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 52, paperId: 7, level: I, section: 'Indirect Taxation',
-    title: 'GST Fundamentals', duration: '~26 min', videoId: PL, videoPlaylistId: PL,
+    title: 'GST Fundamentals', duration: '~26 min',
     keyPoints: kp(
       'GST is a destination-based, multi-stage indirect tax on value addition; implemented in India on 1 July 2017.',
       'Three levies: CGST (Centre) + SGST (State) for intra-state supply; IGST (Centre) for inter-state supply.',
@@ -300,7 +299,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 53, paperId: 7, level: I, section: 'Indirect Taxation',
-    title: 'GST Returns — GSTR-1 & GSTR-3B', duration: '~24 min', videoId: PL, videoPlaylistId: PL,
+    title: 'GST Returns — GSTR-1 & GSTR-3B', duration: '~24 min',
     keyPoints: kp(
       'GSTR-1 reports outward supplies (sales) with invoice-level detail; due by the 11th of the following month.',
       'GSTR-3B is a monthly self-declared summary of outward sales, ITC claimed and net tax payable; filed by the 20th.',
@@ -313,7 +312,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 54, paperId: 7, level: I, section: 'Indirect Taxation',
-    title: 'E-Invoicing & E-Way Bill', duration: '~22 min', videoId: PL, videoPlaylistId: PL,
+    title: 'E-Invoicing & E-Way Bill', duration: '~22 min',
     keyPoints: kp(
       'E-invoicing (IRN) requires generating a unique Invoice Reference Number on the GSTN portal for B2B invoices above the threshold.',
       'An IRN is a hash of supplier GSTIN, document type, document number and financial year; it returns a signed JSON + QR code.',
@@ -330,7 +329,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   // ==========================================================================
   {
     id: 55, paperId: 10, level: I, section: 'Corporate Accounting',
-    title: 'Company Accounts & Share Capital', duration: '~30 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Company Accounts & Share Capital', duration: '~30 min',
     keyPoints: kp(
       'A company has separate legal identity; share capital is divided into equity and preference shares.',
       'Types of share capital: Authorised (maximum permitted), Issued, Subscribed, Called-up, Paid-up.',
@@ -343,7 +342,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 56, paperId: 10, level: I, section: 'Corporate Accounting',
-    title: 'Consolidation & Group Accounts', duration: '~30 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Consolidation & Group Accounts', duration: '~30 min',
     keyPoints: kp(
       'Consolidated financial statements present a parent and its subsidiaries as a single economic entity (Ind AS 110).',
       'Control (power over the investee, exposure to variable returns, ability to use power) requires consolidation.',
@@ -356,7 +355,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 57, paperId: 10, level: I, section: 'Corporate Accounting',
-    title: 'Financial Instruments & Reporting', duration: '~28 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Financial Instruments & Reporting', duration: '~28 min',
     keyPoints: kp(
       'Financial instruments are contracts giving rise to a financial asset for one party and a liability/equity for another (Ind AS 109).',
       'Three classifications for financial assets: Amortised Cost, FVTOCI, FVTPL.',
@@ -369,7 +368,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 58, paperId: 10, level: I, section: 'Auditing',
-    title: 'Auditing — Basic Concepts', duration: '~26 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Auditing — Basic Concepts', duration: '~26 min',
     keyPoints: kp(
       'Auditing is the independent examination of financial statements to express an opinion on their true and fair view.',
       'Objectives: primary (opinion on true & fair view) and secondary (detection/prevention of errors and fraud).',
@@ -382,7 +381,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   },
   {
     id: 59, paperId: 10, level: I, section: 'Auditing',
-    title: 'Audit Report & Company Audit', duration: '~24 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Audit Report & Company Audit', duration: '~24 min',
     keyPoints: kp(
       'The audit report communicates the auditor’s opinion to shareholders.',
       'Opinion types: Unmodified (clean), Qualified, Adverse, and Disclaimer of opinion.',

@@ -3,11 +3,9 @@ import { App } from '@capacitor/app'
 
 export const isNative = Capacitor.isNativePlatform()
 
-export const STATUS_BAR_COLORS: Record<string, string> = {
-  dark: '#0A0A0A',
-  light: '#F8F9FA',
-  claude: '#1A1625',
-}
+// Single light Neobrutalism theme — status bar is always the app surface
+// colour with dark icons.
+const STATUS_BAR_COLOR = '#FBFBF9'
 
 let statusBarPlugin: any = null
 async function loadStatusBar() {
@@ -20,16 +18,13 @@ async function loadStatusBar() {
   }
 }
 
-export async function setStatusBarColor(mode: string) {
+export async function setStatusBarColor(_mode?: string) {
   await loadStatusBar()
   if (!statusBarPlugin) return
   try {
-    await statusBarPlugin.setBackgroundColor({ color: STATUS_BAR_COLORS[mode] || '#0A0A0A' })
-    if (mode === 'light') {
-      await statusBarPlugin.setStyle({ style: 'DARK' })
-    } else {
-      await statusBarPlugin.setStyle({ style: 'LIGHT' })
-    }
+    await statusBarPlugin.setBackgroundColor({ color: STATUS_BAR_COLOR })
+    // Style.Light = dark text/icons, for light backgrounds
+    await statusBarPlugin.setStyle({ style: 'LIGHT' })
   } catch {
     /* noop */
   }

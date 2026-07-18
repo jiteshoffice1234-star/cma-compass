@@ -1,5 +1,6 @@
 import { registerPlugin } from '@capacitor/core'
 import { isNative } from './capacitor'
+import { REPO } from './updateChecker'
 
 export interface OtaUpdaterPlugin {
   getActiveVersion(): Promise<{ version: string | null }>
@@ -56,7 +57,7 @@ export async function hasStagedOtaUpdate(): Promise<boolean> {
 
 export async function getWebBuildDownloadUrl(version: string): Promise<string | null> {
   try {
-    const res = await fetch(`https://api.github.com/repos/jiteshoffice1234-star/AccountIQ/releases/tags/v${version}`)
+    const res = await fetch(`https://api.github.com/repos/${REPO}/releases/tags/v${version}`)
     if (!res.ok) return null
     const data = await res.json()
     const asset = data.assets?.find((a: any) => a.name === 'web-build.zip')

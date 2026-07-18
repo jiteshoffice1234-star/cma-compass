@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect } from 'react'
+import { color, border, shadow } from '../theme'
 
 export function Toast({ message, onClose }: { message: string | null; onClose: () => void }) {
   useEffect(() => {
@@ -18,10 +19,10 @@ export function Toast({ message, onClose }: { message: string | null; onClose: (
           exit={{ y: 120, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 320, damping: 30 }}
           style={{
-            position: 'absolute', bottom: 90, left: 16, right: 16, zIndex: 200,
-            background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14,
-            padding: '14px 16px', color: 'var(--text)', fontSize: 14, fontWeight: 600,
-            boxShadow: '0 8px 30px rgba(0,0,0,0.35)', pointerEvents: 'none',
+            position: 'absolute', bottom: 96, left: 16, right: 16, zIndex: 200,
+            background: color.primary, border: border.thick, borderRadius: 10,
+            padding: '14px 16px', color: color.text, fontSize: 14, fontWeight: 800,
+            boxShadow: shadow.md, pointerEvents: 'none',
           }}
         >
           {message}

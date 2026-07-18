@@ -1,43 +1,19 @@
+/* Neobrutalism theme — flat fills, solid black borders, hard offset shadows. */
 :root {
-  --bg: #0A0A0A;
-  --surface: #141414;
-  --card: #1E1E1E;
-  --border: #2A2A2A;
-  --text: #FFFFFF;
-  --muted: #9CA3AF;
-  --accent: #3B82F6;
-  --success: #22C55E;
-  --error: #EF4444;
-  --xp: #FBBF24;
-  --gradient: none;
-}
-
-[data-theme='light'] {
-  --bg: #F8F9FA;
-  --surface: #FFFFFF;
+  --bg: #FBFBF9;
+  --surface: #F3F1E9;
   --card: #FFFFFF;
-  --border: #E5E7EB;
-  --text: #111827;
-  --muted: #6B7280;
-  --accent: #3B82F6;
+  --border: #000000;
+  --text: #1C293C;
+  --muted: #55637A;
+  --accent: #432DD7;
+  --primary: #FDC800;
   --success: #16A34A;
   --error: #DC2626;
   --xp: #D97706;
-  --gradient: none;
-}
-
-[data-theme='claude'] {
-  --bg: #1A1625;
-  --surface: #231D33;
-  --card: #2D2645;
-  --border: #3D3460;
-  --text: #F0EEFF;
-  --muted: #A89EC9;
-  --accent: #8B5CF6;
-  --success: #34D399;
-  --error: #F87171;
-  --xp: #C4B5FD;
-  --gradient: linear-gradient(135deg, #8B5CF6, #3B82F6);
+  --shadow-sm: 3px 3px 0 #000;
+  --shadow-md: 4px 4px 0 #000;
+  --shadow-lg: 6px 6px 0 #000;
 }
 
 * {
@@ -62,7 +38,10 @@ body {
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   font-feature-settings: 'cv11', 'ss01';
-  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
 }
 
 a {
@@ -82,6 +61,12 @@ input, textarea {
   font-family: inherit;
   user-select: text;
   -webkit-user-select: text;
+}
+
+/* Thick, visible focus states matching border weight */
+:focus-visible {
+  outline: 3px solid #432DD7;
+  outline-offset: 2px;
 }
 
 /* Hide scrollbars everywhere */
@@ -104,18 +89,20 @@ input, textarea {
   user-select: none;
 }
 
+/* Pressing an element sinks it into its hard shadow */
 .tappable {
-  transition: transform 75ms ease, opacity 75ms ease;
+  transition: transform 70ms ease, box-shadow 70ms ease, opacity 70ms ease;
 }
 .tappable:active {
-  transform: scale(0.97);
-  opacity: 0.8;
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 #000 !important;
 }
 
 .shimmer {
-  background: linear-gradient(90deg, var(--card) 25%, var(--surface) 50%, var(--card) 75%);
+  background: linear-gradient(90deg, var(--surface) 25%, var(--card) 50%, var(--surface) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
+  border: 2px solid #000;
 }
 @keyframes shimmer {
   0% { background-position: 200% 0; }
@@ -138,5 +125,9 @@ input, textarea {
   top: -20px;
   width: 8px;
   height: 14px;
+  border: 1px solid #000;
   animation: confettiFall linear forwards;
 }
+
+.spin { animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }

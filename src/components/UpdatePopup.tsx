@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Download, RefreshCw } from 'lucide-react'
 import { isNative } from '../lib/capacitor'
 import { downloadAndInstallApk } from '../lib/apkUpdater'
 import { downloadAndExtractOta, applyOtaVersion, getWebBuildDownloadUrl } from '../lib/otaUpdater'
+import { color, border, shadow, font, APP_NAME } from '../theme'
 
 interface UpdatePopupProps {
   open: boolean
@@ -21,32 +23,34 @@ export function UpdatePopup({ open, latestVersion, downloadUrl, releaseNotes, on
     setStatus('downloading')
 
     if (isNative) {
-      // OTA update — download web build zip, extract, and reload
+      // OTA path first: download the web build zip, extract, apply, reload.
       const webUrl = await getWebBuildDownloadUrl(latestVersion)
-      if (!webUrl) { setStatus('error'); return }
-
-      setStatus('extracting')
-      const ok = await downloadAndExtractOta(webUrl, latestVersion)
-      if (!ok) { setStatus('error'); return }
-
-      await applyOtaVersion(latestVersion)
-      setStatus('done')
-
-      // Reload the app from OTA directory
-      setTimeout(() => window.location.reload(), 1000)
-    } else {
-      // Web fallback — download APK
+      if (webUrl) {
+        setStatus('extracting')
+        const ok = await downloadAndExtractOta(webUrl, latestVersion)
+        if (ok) {
+          await applyOtaVersion(latestVersion)
+          setStatus('done')
+          setTimeout(() => window.location.reload(), 1000)
+          return
+        }
+      }
+      // APK fallback when no web bundle exists or OTA failed (native change).
       const ok = await downloadAndInstallApk(downloadUrl)
-      if (!ok) setStatus('error')
-      else setStatus('done')
+      setStatus(ok ? 'done' : 'error')
+    } else {
+      const ok = await downloadAndInstallApk(downloadUrl)
+      setStatus(ok ? 'done' : 'error')
     }
   }
 
-  const btnText = status === 'downloading' ? 'Downloading...'
-    : status === 'extracting' ? 'Applying...'
+  const btnText = status === 'downloading' ? 'Downloading…'
+    : status === 'extracting' ? 'Applying…'
     : status === 'done' ? 'Updated!'
     : status === 'error' ? 'Failed — Retry'
     : 'Update Now'
+
+  const busy = status === 'downloading' || status === 'extracting'
 
   return (
     <AnimatePresence>
@@ -57,7 +61,7 @@ export function UpdatePopup({ open, latestVersion, downloadUrl, releaseNotes, on
         style={{
           position: 'fixed', inset: 0, zIndex: 9999,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'rgba(0,0,0,0.6)', padding: 24,
+          background: 'rgba(28,41,60,0.6)', padding: 24,
         }}
       >
         <motion.div
@@ -65,39 +69,45 @@ export function UpdatePopup({ open, latestVersion, downloadUrl, releaseNotes, on
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           style={{
-            background: '#1a1d23', borderRadius: 16, padding: 28,
-            maxWidth: 360, width: '100%', color: '#e8eaed',
+            background: color.card, border: border.thick, borderRadius: 14, boxShadow: shadow.lg,
+            padding: 24, maxWidth: 360, width: '100%', color: color.text,
           }}
         >
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>Update Available</h2>
-          <p style={{ color: '#9aa0a6', marginBottom: 4 }}>
-            AccountIQ v{latestVersion} is ready
-          </p>
-          {isNative && <p style={{ fontSize: 12, color: '#8ab4f8', marginBottom: 8 }}>Instant OTA update — no APK download needed</p>}
-          <p style={{ fontSize: 14, color: '#9aa0a6', marginBottom: 20, lineHeight: 1.5 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: color.primary, border: border.thin, borderRadius: 8, boxShadow: '3px 3px 0 #000', padding: '6px 12px', marginBottom: 14 }}>
+            <RefreshCw size={16} />
+            <span style={{ fontWeight: 900, fontSize: 13, letterSpacing: 0.5 }}>UPDATE AVAILABLE</span>
+          </div>
+          <h2 style={{ fontSize: 21, fontWeight: 900, marginBottom: 6 }}>
+            {APP_NAME} <span className="mono" style={{ fontFamily: font.mono }}>v{latestVersion}</span>
+          </h2>
+          {isNative && <p style={{ fontSize: 13, color: color.success, fontWeight: 700, marginBottom: 8 }}>One-tap update — installs automatically</p>}
+          <p style={{ fontSize: 14, color: color.muted, marginBottom: 20, lineHeight: 1.5 }}>
             {releaseNotes.slice(0, 200)}
           </p>
           <div style={{ display: 'flex', gap: 12 }}>
             <button
+              className="tappable"
               onClick={onLater}
-              disabled={status === 'downloading' || status === 'extracting'}
+              disabled={busy}
               style={{
-                flex: 1, padding: '12px 0', borderRadius: 10, border: '1px solid #3c4043',
-                background: 'transparent', color: '#9aa0a6', fontSize: 15, cursor: 'pointer',
+                flex: 1, padding: '13px 0', borderRadius: 10, border: border.thin, boxShadow: shadow.sm,
+                background: color.card, color: color.text, fontSize: 15, fontWeight: 700, cursor: 'pointer', opacity: busy ? 0.5 : 1,
               }}
             >
               {status === 'done' ? 'Close' : 'Later'}
             </button>
             <button
+              className="tappable"
               onClick={handleUpdate}
-              disabled={status === 'downloading' || status === 'extracting' || status === 'done'}
+              disabled={busy || status === 'done'}
               style={{
-                flex: 1, padding: '12px 0', borderRadius: 10, border: 'none',
-                background: status === 'done' ? '#34a853' : status === 'error' ? '#ea4335' : '#8ab4f8',
-                color: '#0f1115', fontSize: 15, fontWeight: 600, cursor: 'pointer',
+                flex: 1, padding: '13px 0', borderRadius: 10, border: border.thick, boxShadow: shadow.md,
+                background: status === 'done' ? color.success : status === 'error' ? color.danger : color.secondary,
+                color: '#fff', fontSize: 15, fontWeight: 800, cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
               }}
             >
-              {btnText}
+              {status === 'idle' && <Download size={16} />}{btnText}
             </button>
           </div>
         </motion.div>

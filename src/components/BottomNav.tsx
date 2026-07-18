@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Home, BookOpen, GraduationCap, User } from 'lucide-react'
 import { useStore } from '../store'
+import { color, border } from '../theme'
 
 const TABS = [
   { path: '/', label: 'Home', icon: Home },
@@ -18,23 +19,31 @@ export function BottomNav() {
   const completedToday = checkDailyGoal()
 
   return (
-    <div className="safe-bottom" style={{ borderTop: '1px solid var(--border)', background: 'var(--surface)', paddingTop: 6 }}>
+    <div className="safe-bottom" style={{ borderTop: border.thick, background: color.card }}>
       {/* daily goal bar */}
-      <div style={{ padding: '0 14px 6px' }}>
-        <div style={{ height: 6, background: 'var(--border)', borderRadius: 3, overflow: 'hidden' }}>
-          <motion.div animate={{ width: `${Math.min(100, (completedToday / goal) * 100)}%` }} style={{ height: '100%', background: 'var(--accent)', borderRadius: 3 }} />
+      <div style={{ padding: '8px 14px 4px' }}>
+        <div style={{ height: 10, background: color.surface, border: border.thin, borderRadius: 5, overflow: 'hidden' }}>
+          <motion.div animate={{ width: `${Math.min(100, (completedToday / goal) * 100)}%` }}
+            style={{ height: '100%', background: color.success }} />
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: 52 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: 56, gap: 4, padding: '0 8px 4px' }}>
         {TABS.map((t) => {
           const active = loc.pathname === t.path
           const Icon = t.icon
           return (
-            <motion.button key={t.path} whileTap={{ scale: 0.9, opacity: 0.7 }} onClick={() => nav(t.path)}
-              style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2, background: 'none', color: active ? 'var(--accent)' : 'var(--muted)' }}>
-              <Icon size={22} strokeWidth={active ? 2.5 : 2} />
-              <span style={{ fontSize: 10, fontWeight: active ? 600 : 500 }}>{t.label}</span>
-            </motion.button>
+            <button key={t.path} className="tappable" onClick={() => nav(t.path)}
+              style={{
+                flex: 1, height: 46, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 1,
+                background: active ? color.primary : 'transparent',
+                border: active ? border.thin : '2px solid transparent',
+                borderRadius: 8,
+                boxShadow: active ? '2px 2px 0 #000' : 'none',
+                color: active ? color.text : color.muted,
+              }}>
+              <Icon size={21} strokeWidth={active ? 2.6 : 2} />
+              <span style={{ fontSize: 10, fontWeight: active ? 800 : 600 }}>{t.label}</span>
+            </button>
           )
         })}
       </div>

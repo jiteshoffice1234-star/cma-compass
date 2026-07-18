@@ -39,10 +39,10 @@ public class ApkUpdaterPlugin extends Plugin {
 
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setTitle("AccountIQ Update");
+        request.setTitle("CMA Compass Update");
         request.setDescription("Downloading update...");
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "AccountIQ-" + System.currentTimeMillis() + ".apk");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "CMACompass-" + System.currentTimeMillis() + ".apk");
         request.setMimeType("application/vnd.android.package-archive");
 
         long downloadId = downloadManager.enqueue(request);

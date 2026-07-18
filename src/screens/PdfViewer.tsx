@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import { useStore } from '../store'
-import { Tappable } from '../components/ui'
+import { IconButton } from '../components/ui'
 import { Capacitor } from '@capacitor/core'
 import { Filesystem } from '@capacitor/filesystem'
+import { color, border } from '../theme'
 
 // Use the legacy build (no ES module worker complications) and the bundled worker.
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs'
@@ -66,16 +66,16 @@ export function PdfViewer() {
   }, [src])
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: 'var(--bg)' }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: color.surface }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 12px 8px' }}>
-        <Tappable onClick={() => nav(-1)}><ArrowLeft size={24} color="var(--text)" /></Tappable>
-        <div style={{ fontWeight: 700, fontSize: 15, flex: 1 }}>{title}</div>
+        <IconButton onClick={() => nav(-1)} size={36}><ArrowLeft size={20} /></IconButton>
+        <div style={{ fontWeight: 800, fontSize: 15, flex: 1 }}>{title}</div>
       </div>
-      <div style={{ flex: 1, overflowY: 'auto', padding: 12, background: '#525659' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: 12, background: color.text }}>
         {loading && <div style={{ display: 'flex', justifyContent: 'center', padding: 60 }}><div className="shimmer" style={{ width: 200, height: 280, borderRadius: 8 }} /></div>}
-        {error && <div style={{ color: '#fff', textAlign: 'center', padding: 40, fontSize: 14 }}>{error}</div>}
+        {error && <div style={{ color: '#fff', textAlign: 'center', padding: 40, fontSize: 14, fontWeight: 600 }}>{error}</div>}
         {pages.map((u, i) => (
-          <img key={i} src={u} style={{ width: '100%', borderRadius: 6, marginBottom: 12, boxShadow: '0 2px 8px rgba(0,0,0,0.4)', display: 'block' }} />
+          <img key={i} src={u} style={{ width: '100%', border: border.thin, marginBottom: 12, boxShadow: '4px 4px 0 rgba(0,0,0,0.6)', display: 'block' }} />
         ))}
       </div>
     </div>

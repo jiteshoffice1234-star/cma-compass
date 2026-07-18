@@ -8,8 +8,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Introduction to Law & Indian Contract Act',
     title: 'Introduction to Law & Indian Contract Act',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Law is a body of rules enforced by the State to regulate human conduct and maintain order.',
       'Sources of Indian law include the Constitution, statutes, customary law, and judicial precedents.',
@@ -28,8 +26,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Sale of Goods Act 1930',
     title: 'Sale of Goods Act 1930',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'A contract of sale transfers ownership of goods from seller to buyer for a price.',
       'Goods may be existing, future, specific, or unascertained as defined under the Act.',
@@ -48,8 +44,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Negotiable Instruments Act 1881',
     title: 'Negotiable Instruments Act 1881',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'A negotiable instrument is freely transferable by delivery or endorsement and delivery.',
       'The three recognized instruments are promissory notes, bills of exchange, and cheques.',
@@ -68,8 +62,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Indian Partnership Act 1932',
     title: 'Indian Partnership Act 1932',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Partnership is the relation between persons who agree to share profits of a business.',
       'Partners may be actual, nominal, or sleeping partners based on participation and liability.',
@@ -88,8 +80,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Limited Liability Partnership Act 2008',
     title: 'Limited Liability Partnership Act 2008',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'An LLP is a separate legal entity distinct from its partners with perpetual succession.',
       'Liability of partners is limited to their agreed contribution to the LLP.',
@@ -108,8 +98,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Business Communication Basics',
     title: 'Business Communication Basics',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Communication is the process of transmitting information, ideas, or attitudes between parties.',
       'The communication process involves sender, encoding, message, channel, receiver, and feedback.',
@@ -128,8 +116,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Corporate Communication & Types',
     title: 'Corporate Communication & Types',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Corporate communication manages the flow of information between the company and stakeholders.',
       'Internal communication targets employees; external communication targets customers and public.',
@@ -148,8 +134,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Arithmetic — Ratio & Proportion',
     title: 'Arithmetic — Ratio & Proportion',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'A ratio compares two quantities of the same kind as a : b expressed in simplest form.',
       'Proportion states that two ratios are equal, written a : b :: c : d.',
@@ -168,8 +152,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Simple & Compound Interest and Annuities',
     title: 'Simple & Compound Interest and Annuities',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Simple interest is SI = P x R x T / 100, computed only on the principal.',
       'Compound interest adds accrued interest to principal before computing the next period.',
@@ -188,8 +170,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Algebra — Indices, Logarithms, Equations',
     title: 'Algebra — Indices, Logarithms, Equations',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Laws of indices: a^m x a^n = a^(m+n), (a^m)^n = a^(mn), a^0 = 1.',
       'A logarithm is the power to which a base must be raised to get a number: log_a(b) = c.',
@@ -208,8 +188,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Permutations & Combinations',
     title: 'Permutations & Combinations',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Factorial n! = n x (n-1) x ... x 1, with 0! defined as 1.',
       'Permutation counts arrangements where order matters: nPr = n! / (n-r)!.',
@@ -228,8 +206,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Statistics — Collection & Presentation of Data',
     title: 'Statistics — Collection & Presentation of Data',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Statistics involves collection, organization, analysis, and interpretation of data.',
       'Data may be primary (collected firsthand) or secondary (already published).',
@@ -248,8 +224,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Measures of Central Tendency & Dispersion',
     title: 'Measures of Central Tendency & Dispersion',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Mean, median, and mode are the three main measures of central tendency.',
       'Mean is the arithmetic average; median is the middle value; mode is the most frequent.',
@@ -268,8 +242,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Correlation & Regression',
     title: 'Correlation & Regression',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Correlation measures the strength and direction of the relationship between two variables.',
       'Karl Pearson’s coefficient r ranges from -1 (perfect negative) to +1 (perfect positive).',
@@ -288,8 +260,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Probability & Index Numbers',
     title: 'Probability & Index Numbers',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Probability of an event = favorable outcomes / total outcomes, ranging from 0 to 1.',
       'Addition and multiplication rules handle union and intersection of events.',
@@ -308,8 +278,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Basic Concepts of Business Economics',
     title: 'Basic Concepts of Business Economics',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Business economics applies economic theory and tools to business decision-making.',
       'It bridges economic theory and managerial practice in areas like pricing and output.',
@@ -328,8 +296,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Theory of Demand & Supply',
     title: 'Theory of Demand & Supply',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Demand is the quantity of a good a consumer is willing and able to buy at a price.',
       'Law of demand: as price falls, quantity demanded rises, ceteris paribus.',
@@ -348,8 +314,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Theory of Production & Cost',
     title: 'Theory of Production & Cost',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Production transforms inputs (land, labour, capital) into output of goods or services.',
       'The law of variable proportions shows diminishing marginal returns in the short run.',
@@ -368,8 +332,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Market Structures (Competition/Monopoly)',
     title: 'Market Structures (Competition/Monopoly)',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Market structure depends on number of firms, product differentiation, and entry barriers.',
       'Perfect competition has many firms, homogeneous products, and free entry.',
@@ -388,8 +350,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Money, Banking & Inflation',
     title: 'Money, Banking & Inflation',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Money serves as medium of exchange, unit of account, store of value, and standard of deferred payment.',
       'The Reserve Bank of India is the central bank responsible for monetary policy.',
@@ -408,8 +368,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Introduction to Management',
     title: 'Introduction to Management',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Management is the process of getting things done with and through people.',
       'It aims to achieve organizational goals efficiently and effectively.',
@@ -428,8 +386,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Functions of Management (POSDCORB)',
     title: 'Functions of Management (POSDCORB)',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'POSDCORB stands for Planning, Organising, Staffing, Directing, Coordinating, Reporting, Budgeting.',
       'Planning sets objectives and the course of action to achieve them.',
@@ -448,8 +404,6 @@ export const FOUND_EXTRA_CHAPTERS: Chapter[] = [
     section: 'Organisation & Leadership',
     title: 'Organisation & Leadership',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Organisation structure defines roles, authority, and communication channels.',
       'Functional, divisional, and matrix are common organisational structures.',

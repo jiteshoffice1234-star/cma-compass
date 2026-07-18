@@ -8,8 +8,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Indian Contract Act 1872',
     title: 'Indian Contract Act 1872',
     duration: '~26 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Section 2(h): a contract is an agreement enforceable by law; agreement = offer + acceptance (Section 2(e), 2(b)).',
       'Essential valid contracts (Section 10): free consent, lawful consideration, lawful object, capacity of parties, not expressly void.',
@@ -28,8 +26,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Sale of Goods Act 1930',
     title: 'Sale of Goods Act 1930',
     duration: '~24 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Sale (Section 4(1)): transfer of ownership for a price; agreement to sell becomes sale on time/condition.',
       'Goods: existing, future, contingent (Section 6); ascertainment (Section 18); specific vs unascertained goods.',
@@ -48,8 +44,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Negotiable Instruments Act 1881',
     title: 'Negotiable Instruments Act 1881',
     duration: '~22 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Negotiable instruments (Section 13): promissory note, bill of exchange, cheque; freely transferable by endorsement.',
       'Promissory note (Section 4): unconditional undertaking in writing to pay a certain sum; maker & payee.',
@@ -68,8 +62,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Indian Partnership Act & LLP',
     title: 'Indian Partnership Act 1932 & LLP Act 2008',
     duration: '~23 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Partnership (Section 4): relation between persons who agree to share profits of a business carried on by all/any acting for all.',
       'Essential elements: agreement, mutual agency, profit sharing, lawful business; minors can be admitted to benefits (Section 30).',
@@ -88,8 +80,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Factories Act & Payment of Wages Act',
     title: 'Factories Act 1948 & Payment of Wages Act 1936',
     duration: '~22 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Factories Act applies to premises with 10+ workers with power or 20+ without power (Section 2(m)).',
       'Health & safety provisions: cleanliness, ventilation, drinking water, latrines, fencing of machinery (Sections 11–35).',
@@ -108,8 +98,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Employees Provident Fund & ESI / Gratuity',
     title: 'EPF, ESI & Payment of Gratuity Acts',
     duration: '~21 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'EPF Act 1952: employer & employee each contribute 12% of basic wages + DA to Provident Fund.',
       'ESIC Act 1948: coverage for employees up to ₹21,000 wage; employer 3.25%, employee 0.75% contribution.',
@@ -128,8 +116,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Companies Act 2013 — Basics',
     title: 'Companies Act 2013 — Basics',
     duration: '~24 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Types of companies: private (≤200 members, min 2) vs public (min 7); one person company (OPC) allowed.',
       'Memorandum of Association (MoA): object, capital, liability, association clauses define company powers.',
@@ -148,8 +134,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Business Ethics & Corporate Governance',
     title: 'Business Ethics & Corporate Governance',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Ethics: moral principles guiding business conduct; values of honesty, integrity, fairness, transparency.',
       'Corporate governance: system by which companies are directed and controlled (Cadbury/SEBI definitions).',
@@ -168,8 +152,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Introduction to Cost Accounting',
     title: 'Introduction to Cost Accounting',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Cost Accounting: process of recording, classifying, allocating costs to determine & control product/service cost.',
       'Cost unit (Section 2): unit of product/service for which cost is ascertained; cost centre: location/person/equipment.',
@@ -188,8 +170,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Material Cost (Purchase, Storage, EOQ, Pricing)',
     title: 'Material Cost — Purchase, Storage, EOQ & Pricing',
     duration: '~26 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Material cost includes purchase price, freight, cartage, insurance in transit, octroi, handling to store.',
       'EOQ (Economic Order Quantity) = sqrt(2DO/C), where D=annual demand, O=ordering cost, C=carrying cost per unit.',
@@ -208,8 +188,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Labour Cost & Remuneration',
     title: 'Labour Cost & Remuneration',
     duration: '~23 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Direct labour: workers directly engaged in production; indirect labour: supervisors, maintenance, storekeepers.',
       'Wages payment: time rate (per hour/day), piece rate (per unit), premium/bonus schemes like Halsey & Rowan.',
@@ -228,8 +206,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Overheads — Allocation, Apportionment, Absorption',
     title: 'Overheads — Allocation, Apportionment & Absorption',
     duration: '~25 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Overheads = indirect material + indirect labour + indirect expenses; grouped as production, administration, selling & distribution.',
       'Allocation: direct charging of overhead to a cost centre; apportionment: distributing common cost on suitable basis.',
@@ -248,8 +224,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Cost Sheet Preparation',
     title: 'Cost Sheet Preparation',
     duration: '~22 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Cost sheet states element-wise cost for a period; format: prime cost → works cost → cost of production → cost of sales.',
       'Prime cost = Direct material + Direct labour + Direct expenses.',
@@ -268,8 +242,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Job & Batch Costing',
     title: 'Job & Batch Costing',
     duration: '~21 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Job costing: costs accumulated for a specific job/contract (e.g. printing, repairs) using job cost sheet.',
       'Each job is a separate cost unit; direct costs identified to job, overhead absorbed by predetermined rate.',
@@ -288,8 +260,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Process Costing',
     title: 'Process Costing',
     duration: '~26 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Process costing used where production is continuous & homogeneous (chemicals, textiles, oil refining).',
       'Cost per unit = (Total cost of process) / (units completed + equivalent units of closing WIP).',
@@ -308,8 +278,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Contract Costing',
     title: 'Contract Costing',
     duration: '~22 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Contract costing: job costing for long-term, large construction contracts (buildings, roads, bridges).',
       'Cost plus (reimbursable) vs fixed price contracts; retainage held by customer until completion.',
@@ -328,8 +296,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Service/Operating Costing',
     title: 'Service/Operating Costing',
     duration: '~20 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Operating costing = cost ascertainment for services (transport, hospital, hotel, power, schools).',
       'Cost unit examples: passenger-km (bus), bed-day (hospital), room-night (hotel), tonne-km (rail).',
@@ -348,8 +314,6 @@ export const INTER_A_CHAPTERS: Chapter[] = [
     section: 'Marginal Costing & Break-even',
     title: 'Marginal Costing & Break-even Analysis',
     duration: '~25 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     keyPoints: [
       'Marginal cost = variable cost of one unit; fixed costs are period costs charged to P&L, not products.',
       'Contribution = Sales − Variable cost; Profit = Contribution − Fixed cost.',

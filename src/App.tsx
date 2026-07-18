@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { Routes, Route } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 import { useStore } from './store'
 import { setStatusBarColor, isNative } from './lib/capacitor'
-import { BADGES } from './lib/levels'
-import { checkForUpdate } from './lib/updateChecker'
+import { checkForUpdate, APP_VERSION } from './lib/updateChecker'
 import { UpdatePopup } from './components/UpdatePopup'
 import { Home } from './screens/Home'
 import { Chapters } from './screens/Chapters'
@@ -16,15 +15,11 @@ import { BottomNav } from './components/BottomNav'
 import { Toast } from './components/Toast'
 import { LevelUpOverlay, BadgeUnlockOverlay } from './components/Overlay'
 import { PdfViewer } from './screens/PdfViewer'
-import { isNative } from './lib/capacitor'
-import { hasStagedOtaUpdate } from './lib/otaUpdater'
-
-const APP_VERSION = '1.4.0'
+import { color } from './theme'
 
 export default function App() {
-  const { ready, onboardingComplete, uiMode, init, levelUp, badgeUnlock, toast, clearToast } = useStore()
+  const { ready, onboardingComplete, init, levelUp, badgeUnlock, toast, clearToast } = useStore()
   const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; notes: string; ota: boolean } | null>(null)
-  const [themeApplied, setThemeApplied] = useState(false)
 
   useEffect(() => {
     init()
@@ -32,6 +27,7 @@ export default function App() {
 
   useEffect(() => {
     if (!ready) return
+    if (isNative) setStatusBarColor('light')
     const t = setTimeout(async () => {
       const info = await checkForUpdate(APP_VERSION)
       if (info) {
@@ -46,22 +42,16 @@ export default function App() {
     return () => clearTimeout(t)
   }, [ready])
 
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', uiMode)
-    if (isNative) setStatusBarColor(uiMode)
-    setThemeApplied(true)
-  }, [uiMode])
-
   if (!ready) {
     return (
-      <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
-        <div className="shimmer" style={{ width: 120, height: 120, borderRadius: 24 }} />
+      <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: color.surface }}>
+        <div className="shimmer" style={{ width: 120, height: 120, borderRadius: 14 }} />
       </div>
     )
   }
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: 'var(--bg)', overflow: 'hidden' }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: color.surface, overflow: 'hidden' }}>
       <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
         <AnimatePresence mode="wait">
           <Routes>
@@ -91,13 +81,6 @@ export default function App() {
         releaseNotes={updateInfo?.notes || ''}
         onLater={() => setUpdateInfo(null)}
       />
-
-      {/* top-bar streak + bell are inside screens; keep mount point */}
-      <TopBarBridge />
     </div>
   )
-}
-
-function TopBarBridge() {
-  return null
 }

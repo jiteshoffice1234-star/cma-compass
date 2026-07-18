@@ -8,8 +8,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Introduction to Operations Management',
     title: 'Introduction to Operations Management',
     duration: '45 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Operations Management transforms inputs (men, machines, materials, money, method) into finished goods and services.',
@@ -28,8 +26,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Production Planning & Control',
     title: 'Production Planning & Control',
     duration: '50 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'PPC objectives: right quality, quantity, time and cost through routing, scheduling, dispatching and follow-up.',
@@ -48,8 +44,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Productivity, Capacity & Facility Layout',
     title: 'Productivity, Capacity & Facility Layout',
     duration: '50 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Capacity = maximum output an operating unit can produce in a given period; design vs effective capacity.',
@@ -68,8 +62,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Inventory & Supply Chain Management',
     title: 'Inventory & Supply Chain Management',
     duration: '55 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'EOQ = √(2 × D × Co / Ch) where D = demand, Co = ordering cost, Ch = holding cost per unit.',
@@ -88,8 +80,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Quality Management & TQM',
     title: 'Quality Management & TQM',
     duration: '50 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Quality dimensions: performance, features, reliability, conformance, durability, serviceability.',
@@ -108,8 +98,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Introduction to Strategic Management',
     title: 'Introduction to Strategic Management',
     duration: '45 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Strategy = long-term direction and scope to achieve advantage through resource configuration.',
@@ -128,8 +116,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Strategic Analysis (SWOT, PESTEL, Porter)',
     title: 'Strategic Analysis (SWOT, PESTEL, Porter)',
     duration: '55 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'SWOT: internal Strengths/Weaknesses and external Opportunities/Threats.',
@@ -148,8 +134,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Strategy Formulation & Implementation',
     title: 'Strategy Formulation & Implementation',
     duration: '50 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Generic strategies: cost leadership, differentiation, focus (Porter).',
@@ -168,8 +152,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Introduction to Financial Management',
     title: 'Introduction to Financial Management',
     duration: '45 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Financial Management maximises shareholder wealth (market value of equity).',
@@ -188,8 +170,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Time Value of Money',
     title: 'Time Value of Money',
     duration: '55 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'FV = PV × (1 + r)^n ; PV = FV / (1 + r)^n for single sums.',
@@ -208,8 +188,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Cost of Capital',
     title: 'Cost of Capital',
     duration: '55 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Cost of equity (Ke): Dividend Growth Model Ke = D1/P0 + g; CAPM Ke = Rf + β(Rm − Rf).',
@@ -228,8 +206,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Capital Structure & Leverage',
     title: 'Capital Structure & Leverage',
     duration: '55 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Capital structure = mix of debt and equity; optimal minimises WACC and maximises value.',
@@ -248,8 +224,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Capital Budgeting (NPV, IRR, Payback)',
     title: 'Capital Budgeting (NPV, IRR, Payback)',
     duration: '60 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'NPV = Σ [CFt / (1 + r)^t] − Initial outlay; accept if NPV > 0.',
@@ -268,8 +242,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Working Capital Management',
     title: 'Working Capital Management',
     duration: '55 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Gross WC = current assets; Net WC = current assets − current liabilities.',
@@ -288,8 +260,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Sources of Finance',
     title: 'Sources of Finance',
     duration: '50 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Equity: equity shares, preference shares, retained earnings, venture capital.',
@@ -308,8 +278,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Introduction to Business Data Analytics',
     title: 'Introduction to Business Data Analytics',
     duration: '45 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Data analytics = examining data to draw conclusions and support decisions.',
@@ -328,8 +296,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Data Visualisation & Analytics Tools',
     title: 'Data Visualisation & Analytics Tools',
     duration: '50 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Visualisation turns data into dashboards: bar, line, pie, scatter, heatmap, histogram.',
@@ -348,8 +314,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Introduction to Management Accounting',
     title: 'Introduction to Management Accounting',
     duration: '45 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Management accounting supplies information for planning, control and decision-making.',
@@ -368,8 +332,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Activity Based Costing (ABC)',
     title: 'Activity Based Costing (ABC)',
     duration: '55 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'ABC traces overhead via cost pools → cost drivers → activities → products.',
@@ -388,8 +350,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Marginal Costing & Decision Making',
     title: 'Marginal Costing & Decision Making',
     duration: '55 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Marginal cost = variable cost of one extra unit; contribution = Sales − Variable cost.',
@@ -408,8 +368,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Standard Costing & Variance Analysis',
     title: 'Standard Costing & Variance Analysis',
     duration: '60 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Standard cost = predetermined realistic cost per unit; variance = Actual − Standard.',
@@ -428,8 +386,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Budgeting & Budgetary Control',
     title: 'Budgeting & Budgetary Control',
     duration: '55 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Budget = quantitative plan expressed in money/units for a period.',
@@ -448,8 +404,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Divisional Performance Measurement',
     title: 'Divisional Performance Measurement',
     duration: '55 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'ROI = Controllable profit / Divisional investment (or capital employed).',
@@ -468,8 +422,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Responsibility Accounting',
     title: 'Responsibility Accounting',
     duration: '45 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Responsibility accounting assigns costs/revenues to accountable managers.',
@@ -488,8 +440,6 @@ export const INTER_B_CHAPTERS: Chapter[] = [
     section: 'Decision Theory & Relevant Costing',
     title: 'Decision Theory & Relevant Costing',
     duration: '55 min',
-    videoId: 'PLACEHOLDER_VIDEO_ID',
-    videoPlaylistId: 'PLACEHOLDER_VIDEO_ID',
     xpAvailable: 35,
     keyPoints: [
       'Relevant costs: future, incremental (avoidable), differ between alternatives.',
