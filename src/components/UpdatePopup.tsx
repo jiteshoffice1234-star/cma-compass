@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { isNative } from '../lib/capacitor'
 import { downloadAndInstallApk } from '../lib/apkUpdater'
+import { downloadAndExtractOta, applyOtaVersion, getWebBuildDownloadUrl } from '../lib/otaUpdater'
 
 interface UpdatePopupProps {
   open: boolean
@@ -11,15 +13,40 @@ interface UpdatePopupProps {
 }
 
 export function UpdatePopup({ open, latestVersion, downloadUrl, releaseNotes, onLater }: UpdatePopupProps) {
-  const [downloading, setDownloading] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'downloading' | 'extracting' | 'done' | 'error'>('idle')
 
   if (!open) return null
 
   const handleUpdate = async () => {
-    setDownloading(true)
-    const ok = await downloadAndInstallApk(downloadUrl)
-    if (!ok) setDownloading(false)
+    setStatus('downloading')
+
+    if (isNative) {
+      // OTA update — download web build zip, extract, and reload
+      const webUrl = await getWebBuildDownloadUrl(latestVersion)
+      if (!webUrl) { setStatus('error'); return }
+
+      setStatus('extracting')
+      const ok = await downloadAndExtractOta(webUrl, latestVersion)
+      if (!ok) { setStatus('error'); return }
+
+      await applyOtaVersion(latestVersion)
+      setStatus('done')
+
+      // Reload the app from OTA directory
+      setTimeout(() => window.location.reload(), 1000)
+    } else {
+      // Web fallback — download APK
+      const ok = await downloadAndInstallApk(downloadUrl)
+      if (!ok) setStatus('error')
+      else setStatus('done')
+    }
   }
+
+  const btnText = status === 'downloading' ? 'Downloading...'
+    : status === 'extracting' ? 'Applying...'
+    : status === 'done' ? 'Updated!'
+    : status === 'error' ? 'Failed — Retry'
+    : 'Update Now'
 
   return (
     <AnimatePresence>
@@ -46,30 +73,31 @@ export function UpdatePopup({ open, latestVersion, downloadUrl, releaseNotes, on
           <p style={{ color: '#9aa0a6', marginBottom: 4 }}>
             AccountIQ v{latestVersion} is ready
           </p>
+          {isNative && <p style={{ fontSize: 12, color: '#8ab4f8', marginBottom: 8 }}>Instant OTA update — no APK download needed</p>}
           <p style={{ fontSize: 14, color: '#9aa0a6', marginBottom: 20, lineHeight: 1.5 }}>
             {releaseNotes.slice(0, 200)}
           </p>
           <div style={{ display: 'flex', gap: 12 }}>
             <button
               onClick={onLater}
-              disabled={downloading}
+              disabled={status === 'downloading' || status === 'extracting'}
               style={{
                 flex: 1, padding: '12px 0', borderRadius: 10, border: '1px solid #3c4043',
                 background: 'transparent', color: '#9aa0a6', fontSize: 15, cursor: 'pointer',
               }}
             >
-              Later
+              {status === 'done' ? 'Close' : 'Later'}
             </button>
             <button
               onClick={handleUpdate}
-              disabled={downloading}
+              disabled={status === 'downloading' || status === 'extracting' || status === 'done'}
               style={{
                 flex: 1, padding: '12px 0', borderRadius: 10, border: 'none',
-                background: downloading ? '#5a7fa8' : '#8ab4f8',
-                color: '#0f1115', fontSize: 15, fontWeight: 600, cursor: downloading ? 'not-allowed' : 'pointer',
+                background: status === 'done' ? '#34a853' : status === 'error' ? '#ea4335' : '#8ab4f8',
+                color: '#0f1115', fontSize: 15, fontWeight: 600, cursor: 'pointer',
               }}
             >
-              {downloading ? 'Downloading...' : 'Update Now'}
+              {btnText}
             </button>
           </div>
         </motion.div>

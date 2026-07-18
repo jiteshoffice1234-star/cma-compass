@@ -16,12 +16,14 @@ import { BottomNav } from './components/BottomNav'
 import { Toast } from './components/Toast'
 import { LevelUpOverlay, BadgeUnlockOverlay } from './components/Overlay'
 import { PdfViewer } from './screens/PdfViewer'
+import { isNative } from './lib/capacitor'
+import { hasStagedOtaUpdate } from './lib/otaUpdater'
 
-const APP_VERSION = '1.3.0'
+const APP_VERSION = '1.4.0'
 
 export default function App() {
   const { ready, onboardingComplete, uiMode, init, levelUp, badgeUnlock, toast, clearToast } = useStore()
-  const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; notes: string } | null>(null)
+  const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; notes: string; ota: boolean } | null>(null)
   const [themeApplied, setThemeApplied] = useState(false)
 
   useEffect(() => {
@@ -32,7 +34,14 @@ export default function App() {
     if (!ready) return
     const t = setTimeout(async () => {
       const info = await checkForUpdate(APP_VERSION)
-      if (info) setUpdateInfo({ version: info.latestVersion, url: info.downloadUrl, notes: info.releaseNotes })
+      if (info) {
+        setUpdateInfo({
+          version: info.latestVersion,
+          url: info.downloadUrl,
+          notes: info.releaseNotes,
+          ota: isNative,
+        })
+      }
     }, 5000)
     return () => clearTimeout(t)
   }, [ready])
