@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AccountIQ</string>
+    <string name="title_activity_main">AccountIQ</string>
+    <string name="package_name">com.accountiq.app</string>
+    <string name="custom_url_scheme">com.accountiq.app</string>
+</resources>
