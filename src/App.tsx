@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from './store'
 import { setStatusBarColor, isNative } from './lib/capacitor'
 import { BADGES } from './lib/levels'
+import { checkForUpdate } from './lib/updateChecker'
+import { UpdatePopup } from './components/UpdatePopup'
 import { Home } from './screens/Home'
 import { Chapters } from './screens/Chapters'
 import { ChapterDetail } from './screens/ChapterDetail'
@@ -15,13 +17,25 @@ import { Toast } from './components/Toast'
 import { LevelUpOverlay, BadgeUnlockOverlay } from './components/Overlay'
 import { PdfViewer } from './screens/PdfViewer'
 
+const APP_VERSION = '1.1.0'
+
 export default function App() {
   const { ready, onboardingComplete, uiMode, init, levelUp, badgeUnlock, toast, clearToast } = useStore()
+  const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; notes: string } | null>(null)
   const [themeApplied, setThemeApplied] = useState(false)
 
   useEffect(() => {
     init()
   }, [])
+
+  useEffect(() => {
+    if (!ready) return
+    const t = setTimeout(async () => {
+      const info = await checkForUpdate(APP_VERSION)
+      if (info) setUpdateInfo({ version: info.latestVersion, url: info.downloadUrl, notes: info.releaseNotes })
+    }, 5000)
+    return () => clearTimeout(t)
+  }, [ready])
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', uiMode)
@@ -61,6 +75,13 @@ export default function App() {
       <Toast message={toast} onClose={clearToast} />
       <LevelUpOverlay data={levelUp} />
       <BadgeUnlockOverlay data={badgeUnlock} />
+      <UpdatePopup
+        open={!!updateInfo}
+        latestVersion={updateInfo?.version || ''}
+        downloadUrl={updateInfo?.url || ''}
+        releaseNotes={updateInfo?.notes || ''}
+        onLater={() => setUpdateInfo(null)}
+      />
 
       {/* top-bar streak + bell are inside screens; keep mount point */}
       <TopBarBridge />
