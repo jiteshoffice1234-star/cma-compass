@@ -87,7 +87,7 @@ export function StageTestOverlay({ paperId, grand, onClose }: { paperId: number;
               {q.options.map((opt, i) => {
                 const isCorrect = i === q.correctIndex
                 const isSel = selected === i
-                let bg = color.card, brd = border.thin
+                let bg: string = color.card, brd: string = border.thin
                 if (answered) {
                   if (isCorrect) { bg = color.successTint; brd = `3px solid ${color.success}` }
                   else if (isSel) { bg = color.dangerTint; brd = `3px solid ${color.danger}` }

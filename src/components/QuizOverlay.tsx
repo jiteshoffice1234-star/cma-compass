@@ -78,14 +78,14 @@ export function QuizOverlay({ chapterId, onClose }: { chapterId: number; onClose
               {q.options.map((opt, i) => {
                 const isCorrect = i === q.correctIndex
                 const isSel = selected === i
-                let bg = color.card, brd = border.thin, textColor = color.text
+                let bg: string = color.card, brd: string = border.thin
                 if (answered) {
-                  if (isCorrect) { bg = color.successTint; brd = `3px solid ${color.success}`; textColor = color.text }
-                  else if (isSel) { bg = color.dangerTint; brd = `3px solid ${color.danger}`; textColor = color.text }
+                  if (isCorrect) { bg = color.successTint; brd = `3px solid ${color.success}` }
+                  else if (isSel) { bg = color.dangerTint; brd = `3px solid ${color.danger}` }
                 }
                 return (
                   <Tappable key={i} onClick={() => choose(i)}
-                    style={{ display: 'flex', alignItems: 'center', gap: 12, background: bg, border: brd, borderRadius: 10, boxShadow: answered && !isCorrect && !isSel ? 'none' : shadow.sm, padding: 14, width: '100%', color: textColor, fontWeight: 600, fontSize: 15, textAlign: 'left' }}>
+                    style={{ display: 'flex', alignItems: 'center', gap: 12, background: bg, border: brd, borderRadius: 10, boxShadow: answered && !isCorrect && !isSel ? 'none' : shadow.sm, padding: 14, width: '100%', color: color.text, fontWeight: 600, fontSize: 15, textAlign: 'left' }}>
                     <div className="mono" style={{ width: 28, height: 28, borderRadius: 6, border: border.thin, background: answered && isCorrect ? color.success : answered && isSel ? color.danger : color.primary, color: answered && (isCorrect || isSel) ? '#fff' : color.text, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, flexShrink: 0, fontFamily: font.mono }}>{String.fromCharCode(65 + i)}</div>
                     <div style={{ flex: 1 }}>{opt}</div>
                     {answered && isCorrect && <Check size={20} color={color.success} strokeWidth={3} />}
