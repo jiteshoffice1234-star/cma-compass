@@ -140,7 +140,7 @@ export const CURRICULUM_CHAPTERS: Chapter[] = [
   // ==========================================================================
   {
     id: 41, paperId: 6, level: I, section: 'Preparation of Financial Statements',
-    title: 'Cash Flow Statement (AS 3)', duration: '~28 min', videoId: PL, videoPlaylistId: PL,
+    title: 'Cash Flow Statement (AS 3)', duration: '~3h 03min', videoId: 'qMKi2Q3x0UA', videoPlaylistId: PL,
     keyPoints: kp(
       'A Cash Flow Statement reports cash inflows and outflows during a period under Operating, Investing and Financing activities (AS 3).',
       'Operating activities: day-to-day business (cash from customers, cash paid to suppliers/employees).',

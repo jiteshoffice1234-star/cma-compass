@@ -86,42 +86,65 @@ export function chapterById(id: number): Chapter | undefined {
 
 // ---------------------------------------------------------------------------
 // Curated, verified YouTube playlists (each ID confirmed live & public).
-// Chapters have no per-video ID yet, so the player opens the best-fit playlist
-// for the chapter's paper (and section, for the mixed tax paper). India-first
-// where a strong Indian/CA-CS-CMA playlist exists; best global otherwise.
+// India-first CMA-specific playlists from top faculty channels.
+// Each playlist provides 2hr+ of detailed, concept-focused lectures per paper.
 // ---------------------------------------------------------------------------
 const PLAYLISTS = {
-  accountingBasics: 'PL5zKSeS09l339nB6ujJPQ9Rsv99_b-aTb', // Accounting Stuff — Accounting Basics
-  financialAccounting: 'PLiaygP8qeQGUBcPmEHtQv3qUOlSOkyAVR', // Financial Accounting (B.Com/M.Com/CA/CS/CMA)
-  advancedAccounting: 'PLWJbGDNtMCZONqVZVpZP74SWoEA71jiOX', // CA Inter Advanced Accounts
+  accountingBasics: 'PL6BOecg3cC7XVrbAFretJRiyXtPk7qXL6', // CMA Foundation Accounts — Akash Agarwal Classes (full syllabus)
+  financialAccounting: 'PLzj7mF_Rlz1peizPOHBLt92hB37Vh--FP', // CMA Inter Financial Accounting — CMA Saarthi (full syllabus)
+  advancedAccounting: 'PLzj7mF_Rlz1peizPOHBLt92hB37Vh--FP', // CMA Inter Financial Accounting — CMA Saarthi
   gst: 'PLyY2ccCWylAozEb7wfWYjPAJjCiKoNRP4', // GST Full Course — CA Raj K Agrawal
-  corporateFinance: 'PL-ao-8pxqJKI4FrS306fpa9za0Rc_wz83', // Learn Corporate Finance
+  corporateFinance: 'PLzj7mF_Rlz1petajiy3_5LDYclWJatDu_', // FM & BDA — CMA Saarthi
+  costAccounting: 'PLzj7mF_Rlz1qu1kod-u0Bi6gowhC7Hfaw', // CMA Inter Cost Accounting — CMA Saarthi
   strategicManagement: 'PL-ao-8pxqJKLwBr-921a5V9o3P_Uva_mv', // Strategic Management (MBA)
   statistics: 'PLntYGYK-wJE2ASx6oemhxTa0AF5920Bs1', // Khan Academy — Statistics & Probability
-  economics: 'PLSQl0a2vh4HBEuNYvU8OrPW5qN0A4D7p4', // Khan Academy — Microeconomics
+  economics: 'PL6BOecg3cC7UizK3-BGmFRZ8RAO7wJG3p', // CMA Foundation Economics — Akash Agarwal Classes
+  laws: 'PL6BOecg3cC7Xt7gWN7SAzHkTWx7lHdoOT', // CMA Foundation Law — Akash Agarwal Classes
+  businessCommunication: 'PL6BOecg3cC7Uy39-PaAZIZUq_XRVDY_jI', // CMA Foundation Communication — Akash Agarwal Classes
+  maths: 'PL6BOecg3cC7Ui02pqtsf8X8zi-jpjrLd3n', // CMA Foundation Maths — Akash Agarwal Classes
+  tax: 'PLyY2ccCWylAozEb7wfWYjPAJjCiKoNRP4', // GST + Income Tax — CA Raj K Agrawal
+  management: 'PL6BOecg3cC7UaHhPC0SlOqrLPVUtRE2_h', // CMA Foundation Management — Akash Agarwal Classes
 } as const
 
 // paperId -> default playlist
 const PAPER_PLAYLIST: Record<number, string> = {
-  1: PLAYLISTS.economics, // FBLC — Business Laws & Communication (closest general fallback)
-  2: PLAYLISTS.accountingBasics, // FFCA — Fundamentals of Financial & Cost Accounting
-  3: PLAYLISTS.statistics, // FBMS — Business Mathematics & Statistics
-  4: PLAYLISTS.economics, // FBEM — Business Economics & Management
-  5: PLAYLISTS.economics, // BLE — Business Laws & Ethics (general fallback)
-  6: PLAYLISTS.financialAccounting, // FA — Financial Accounting
-  7: PLAYLISTS.gst, // DITX — Direct & Indirect Taxation (section-aware below)
-  8: PLAYLISTS.accountingBasics, // CA — Cost Accounting
+  1: PLAYLISTS.laws, // FBLC — default to Business Laws
+  2: PLAYLISTS.accountingBasics, // FFCA — Fundamentals of Financial & Cost Accounting (CMA Foundation Accounts)
+  3: PLAYLISTS.maths, // FBMS — Business Mathematics & Statistics (CMA Foundation Maths)
+  4: PLAYLISTS.economics, // FBEM — Business Economics & Management (default to Economics)
+  5: PLAYLISTS.laws, // BLE — Business Laws & Ethics
+  6: PLAYLISTS.financialAccounting, // FA — Financial Accounting (CMA Saarthi)
+  7: PLAYLISTS.tax, // DITX — Direct & Indirect Taxation
+  8: PLAYLISTS.costAccounting, // CA — Cost Accounting (CMA Saarthi)
   9: PLAYLISTS.strategicManagement, // OMSM — Operations & Strategic Management
   10: PLAYLISTS.advancedAccounting, // CAA — Corporate Accounting & Auditing
-  11: PLAYLISTS.corporateFinance, // FMDA — Financial Management & Business Data Analytics
-  12: PLAYLISTS.corporateFinance, // MA — Management Accounting
+  11: PLAYLISTS.corporateFinance, // FMDA — Financial Management & Business Data Analytics (CMA Saarthi)
+  12: PLAYLISTS.corporateFinance, // MA — Management Accounting (CMA Saarthi FM)
 }
 
 // Resolve the best playlist to embed for a given chapter.
+// Multi-subject papers use the chapter's section to pick a subject-specific playlist.
 export function playlistForChapter(chapter: Chapter): string {
-  // Direct taxation is income-tax focused; the GST playlist still lives on the
-  // same tax faculty's channel, so both tax sections use it (India-first).
-  if (chapter.paperId === 7) return PLAYLISTS.gst
+  // Paper 1 (FBLC): Business Laws OR Business Communication
+  if (chapter.paperId === 1) {
+    if (chapter.section?.toLowerCase().includes('communication')) return PLAYLISTS.businessCommunication
+    return PLAYLISTS.laws
+  }
+  // Paper 4 (FBEM): Business Economics OR Management
+  if (chapter.paperId === 4) {
+    if (chapter.section?.toLowerCase().includes('management')) return PLAYLISTS.management
+    return PLAYLISTS.economics
+  }
+  // Paper 9 (OMSM): Operations Management OR Strategic Management
+  if (chapter.paperId === 9) {
+    if (chapter.section?.toLowerCase().includes('strategic')) return PLAYLISTS.strategicManagement
+    return PLAYLISTS.strategicManagement // best available fallback
+  }
+  // Paper 10 (CAA): Corporate Accounting has cash-flow chapter — check for Cash Flow
+  if (chapter.paperId === 10) {
+    if (chapter.title?.toLowerCase().includes('cash flow')) return PLAYLISTS.financialAccounting
+    return PLAYLISTS.advancedAccounting
+  }
   return PAPER_PLAYLIST[chapter.paperId] ?? PLAYLISTS.financialAccounting
 }
 
