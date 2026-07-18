@@ -1,6 +1,5 @@
-// GitHub repo that hosts releases (APK + web-build.zip). The repository slug is
-// unchanged by the app rename so existing installs keep receiving updates.
-export const REPO = 'jiteshoffice1234-star/AccountIQ'
+// GitHub repo that hosts releases (APK + web-build.zip).
+export const REPO = 'jiteshoffice1234-star/cma-compass'
 
 // Keep in sync with package.json "version" and android versionName.
 export const APP_VERSION = '2.0.0'
