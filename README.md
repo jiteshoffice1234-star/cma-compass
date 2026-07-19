@@ -9,21 +9,13 @@
 
 ## Screenshots
 
-| Onboarding | Level Selection | Home Dashboard |
-|---|---|---|
-| <img src="assets/screenshots/01_onboarding.png" width="240" alt="Onboarding"> | <img src="assets/screenshots/02_level_select.png" width="240" alt="Level Selection"> | <img src="assets/screenshots/04_home.png" width="240" alt="Home Dashboard"> |
-
-| Chapters List | Chapter Detail | Video Player |
-|---|---|---|
-| <img src="assets/screenshots/05_chapters.png" width="240" alt="Chapters"> | <img src="assets/screenshots/08_chapter_overview.png" width="240" alt="Chapter Detail"> | <img src="assets/screenshots/06_chapter_detail.png" width="240" alt="Video Player"> |
-
-| Quiz | Flashcards | PDF Reader |
-|---|---|---|
-| <img src="assets/screenshots/09_quiz.png" width="240" alt="Quiz"> | <img src="assets/screenshots/10_flashcards.png" width="240" alt="Flashcards"> | <img src="assets/screenshots/11_pdf.png" width="240" alt="PDF Reader"> |
-
-| Practice Hub | Profile & Badges |
+| Home Dashboard | Chapters |
 |---|---|
-| <img src="assets/screenshots/12_practice.png" width="240" alt="Practice"> | <img src="assets/screenshots/07_profile.png" width="240" alt="Profile"> |
+| <img src="assets/screenshots/04_home.png" width="400" alt="Home Dashboard"> | <img src="assets/screenshots/05_chapters.png" width="400" alt="Chapters"> |
+
+| Chapter Detail | Practice |
+|---|---|
+| <img src="assets/screenshots/06_chapter_detail.png" width="400" alt="Chapter Detail"> | <img src="assets/screenshots/12_practice.png" width="400" alt="Practice"> |
 
 ---
 
