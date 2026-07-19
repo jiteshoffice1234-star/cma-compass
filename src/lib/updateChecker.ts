@@ -2,7 +2,7 @@
 export const REPO = 'jiteshoffice1234-star/cma-compass'
 
 // Keep in sync with package.json "version" and android versionName.
-export const APP_VERSION = '2.2.0'
+export const APP_VERSION = '2.3.0'
 
 export interface UpdateInfo {
   available: boolean

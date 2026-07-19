@@ -173,7 +173,7 @@ export function Practice() {
         </div>
       </BottomSheet>
 
-      {activeTest && <StageTestOverlay paperId={activeTest.paperId} grand={activeTest.grand} onClose={() => setActiveTest(null)} />}
+      {activeTest && <StageTestOverlay paperId={activeTest.paperId} grand={activeTest.grand} level={level} onClose={() => setActiveTest(null)} />}
     </div>
   )
 }

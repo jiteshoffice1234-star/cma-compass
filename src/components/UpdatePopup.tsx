@@ -31,7 +31,7 @@ export function UpdatePopup({ open, latestVersion, downloadUrl, releaseNotes, on
         if (ok) {
           await applyOtaVersion(latestVersion)
           setStatus('done')
-          setTimeout(() => window.location.reload(), 1000)
+          // The native plugin will now reload the webview automatically!
           return
         }
       }

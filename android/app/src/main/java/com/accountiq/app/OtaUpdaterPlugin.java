@@ -112,6 +112,14 @@ public class OtaUpdaterPlugin extends Plugin {
         SharedPreferences prefs = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().putString(KEY_ACTIVE_VERSION, version).apply();
 
+        // Dynamically update the bridge and reload on the UI thread
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                bridge.setServerBasePath(otaDir.getAbsolutePath());
+                bridge.reload();
+            });
+        }
+
         JSObject ret = new JSObject();
         ret.put("success", true);
         ret.put("version", version);

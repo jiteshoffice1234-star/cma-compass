@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, Check, X as XIcon, ArrowRight, Trophy } from 'lucide-react'
 import { useStore } from '../store'
 import { questions } from '../data/questions'
-import { paperById, chaptersForPaper } from '../data/curriculum'
+import { paperById, chaptersForPaper, chaptersForLevel, Level } from '../data/curriculum'
 import { Tappable, Button, IconButton } from '../components/ui'
 import { Confetti } from '../components/Confetti'
 import { color, border, shadow, font } from '../theme'
@@ -17,12 +17,15 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
-export function StageTestOverlay({ paperId, grand, onClose }: { paperId: number; grand: boolean; onClose: () => void }) {
+export function StageTestOverlay({ paperId, grand, level, onClose }: { paperId: number; grand: boolean; level: Level; onClose: () => void }) {
   const total = grand ? 50 : 20
   const testQuestions = useMemo(() => {
     let pool = questions
     if (!grand) {
       const ids = new Set(chaptersForPaper(paperId).map((c) => c.id))
+      pool = questions.filter((q) => ids.has(q.chapterId))
+    } else {
+      const ids = new Set(chaptersForLevel(level).map((c) => c.id))
       pool = questions.filter((q) => ids.has(q.chapterId))
     }
     return shuffle(pool).slice(0, Math.min(total, pool.length))
