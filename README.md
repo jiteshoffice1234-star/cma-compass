@@ -1,16 +1,38 @@
 <div align="center">
   <img src="assets/icon.svg" width="96" alt="CMA Compass icon">
   <h1>CMA Compass</h1>
+  <p><strong>Crack the CMA exam. One chapter at a time.</strong></p>
+  <p>A free, open-source Android app for CMA (Certified Management Accountant) students preparing for ICMAI's Foundation, Intermediate, and Final exams under the 2022 syllabus.</p>
 </div>
 
-A self-study Android app for CMA (Certified Management Accountant) students preparing for ICMAI's Foundation and Intermediate exams under the 2022 syllabus.
+---
+
+## Screenshots
+
+| Onboarding | Level Selection | Home Dashboard |
+|---|---|---|
+| <img src="assets/screenshots/01_onboarding.png" width="240" alt="Onboarding"> | <img src="assets/screenshots/02_level_select.png" width="240" alt="Level Selection"> | <img src="assets/screenshots/04_home.png" width="240" alt="Home Dashboard"> |
+
+| Chapters List | Chapter Detail | Video Player |
+|---|---|---|
+| <img src="assets/screenshots/05_chapters.png" width="240" alt="Chapters"> | <img src="assets/screenshots/08_chapter_overview.png" width="240" alt="Chapter Detail"> | <img src="assets/screenshots/06_chapter_detail.png" width="240" alt="Video Player"> |
+
+| Quiz | Flashcards | PDF Reader |
+|---|---|---|
+| <img src="assets/screenshots/09_quiz.png" width="240" alt="Quiz"> | <img src="assets/screenshots/10_flashcards.png" width="240" alt="Flashcards"> | <img src="assets/screenshots/11_pdf.png" width="240" alt="PDF Reader"> |
+
+| Practice Hub | Profile & Badges |
+|---|---|
+| <img src="assets/screenshots/12_practice.png" width="240" alt="Practice"> | <img src="assets/screenshots/07_profile.png" width="240" alt="Profile"> |
+
+---
 
 ## The Problem
 
 CMA students in India face a fragmented study experience:
 
 - **Scattered resources** — YouTube lectures are spread across dozens of channels (Akash Agarwal Classes, CMA Saarthi, JKSC CMA Surat, Unique Academy, CA Raj K Agrawal, etc.). Students waste time hunting for the right video for each chapter.
-- **No structured curriculum** — The syllabus has 12 papers across 2 levels. Without a guided path, students miss chapters or study out of order.
+- **No structured curriculum** — The syllabus has 12+ papers across 3 levels. Without a guided path, students miss chapters or study out of order.
 - **No progress tracking** — It's hard to know which chapters are done, which quizzes are passed, and how much you've actually studied.
 - **No unified practice** — Quizzes, flashcards, and PDF summaries live in different apps or websites. There's no single hub.
 
@@ -19,44 +41,96 @@ CMA students in India face a fragmented study experience:
 | Problem | Solution |
 |---|---|
 | Fragmented video sources | Curated, verified YouTube playlists per paper + specific lecture options per chapter (full lecture, quick revision, worked examples). Every video ID is live-checked. |
-| No structured syllabus | Full Foundation (Papers 1–4) and Intermediate (Papers 5–12) syllabus mapped chapter-by-chapter with sections, key points, and XP rewards. |
+| No structured syllabus | Full Foundation (Papers 1–4), Intermediate (Papers 5–12), and Final (Papers 13–20) syllabus mapped chapter-by-chapter with sections, key points, and XP rewards. |
 | No progress tracking | Built-in progress store (video watched, quiz passed, XP earned, bookmarks). Chapters unlock sequentially. |
 | No unified practice | Each chapter has a 10-question MCQ quiz, a flashcard stack, and linked PDF summaries/practice sheets — all in one screen. |
 | App updates are painful | OTA update system downloads `web-build.zip` from GitHub Releases and extracts it at runtime — no APK reinstall needed. Falls back to APK if OTA fails. |
 | Boring UI | Neobrutalism design — flat colors, 2–3px black borders, hard offset box shadows, JetBrains Mono + Inter. Fun to use. |
 
-## ## Screenshots
-
-| Papers | Chapter | Quiz |
-|---|---|---|
-| <img src="assets/screenshots/papers.svg" width="260" alt="Papers screen"> | <img src="assets/screenshots/chapter.svg" width="260" alt="Chapter detail"> | <img src="assets/screenshots/quiz.svg" width="260" alt="Quiz overlay"> |
-
-## Papers Covered
-
-| Paper | Code | Level |
-|---|---|---|
-| 1. Fundamentals of Business Laws & Communication | FBLC | Foundation |
-| 2. Fundamentals of Financial Accounting | FFA | Foundation |
-| 3. Fundamentals of Business Mathematics & Statistics | FBMS | Foundation |
-| 4. Fundamentals of Business Economics & Management | FBEM | Foundation |
-| 5. Financial Accounting | FA | Intermediate |
-| 6. Laws & Ethics | LE | Intermediate |
-| 7. Direct & Indirect Taxation | DT | Intermediate |
-| 8. Cost Accounting | CA | Intermediate |
-| 9. Operations Management & Strategic Management | OMSM | Intermediate |
-| 10. Corporate Accounting & Auditing | CAA | Intermediate |
-| 11. Financial Management & Business Data Analytics | FMDA | Intermediate |
-| 12. Management Accounting | MA | Intermediate |
+---
 
 ## Features
 
-- **Curated video lectures** — Paper-level playlists and chapter-specific lecture options with labels like "Full Lecture (3h 03min)" or "Quick Revision"
-- **Chapter quizzes** — 10 MCQs per chapter, pass at 6/10 to earn 20 XP. Wrong-answer highlights with correct answer shown.
-- **Flashcards** — Chapter-wise flashcards with a card-flip UI
-- **PDF library** — Chapter summaries, practice sheets, and cheat sheets rendered with pdfjs-dist
-- **Progress tracking** — XP counter, video watch marks, quiz scores, chapter bookmarks, sequential unlocking
-- **OTA updates** — In-app update checker queries GitHub Releases for the latest version, downloads `web-build.zip`, extracts it to `filesDir/ota/{version}/`, and reloads the WebView. No APK reinstall.
-- **Neobrutalism UI** — Single light theme. Flat `#FBFBF9` background, `#FFD43B` primary, `#6C63FF` secondary, `#2D2D2D` text, 2–3px solid black borders, `4px 4px 0 #000` shadows.
+### Onboarding
+- Personalized welcome with name input
+- Level selection (Foundation / Intermediate / Final)
+- Daily study goal setting (1–3 chapters per day)
+- Clean, guided first-run experience
+
+### Home Dashboard
+- **"Continue Learning"** card — jump straight back into your current chapter
+- **XP counter** — see your total experience points at a glance
+- **Streak tracker** — maintain your daily study streak
+- **Paper progress** — circular progress rings for each paper (FBLC, FFCA, FBMS, FBEM, etc.)
+- **Search bar** — search chapters, glossary terms, and formulas instantly
+
+### Chapter System
+- **Sequential unlocking** — chapters unlock as you complete previous ones
+- **Video lectures** — embedded YouTube player with curated CMA-specific lectures
+- **Overview tab** — key points, XP reward, paper/section info
+- **Quiz tab** — 10-question MCQ quiz (unlocks after watching the lecture)
+- **Flashcards tab** — chapter-wise flashcards with term/definition flip
+- **PDF tab** — in-app PDF reader with Summary, Practice Problems, and Cheat Sheet
+
+### Practice Hub
+- **Flashcards** — spaced repetition drills across all chapters
+- **Paper Tests** — 20 mixed questions from a paper, Grand Final with 50 questions
+- **Formula Sheet** — all formulas, searchable
+- **Glossary** — 150+ CMA terms, A–Z
+
+### Profile & Badges
+- **XP progress bar** — track your level progression (Beginner → Expert)
+- **Day streak** — consecutive study days
+- **Chapters completed** — total chapters done out of all available
+- **12 badges** — First Step, On Fire (7-day streak), Perfectionist (10/10 quiz), CMA Foundation, CMA Final, Speed Run, and more
+- **Theme switcher** — choose from Neobrutalism, Glassmorphism, Claymorphism, Neumorphism, Skeuomorphism, Vaporwave, and Cyberpunk themes
+
+### OTA Updates
+- In-app update checker queries GitHub Releases
+- Downloads `web-build.zip` and extracts to device storage
+- No APK reinstall needed — reloads the WebView from the new bundle
+- Falls back to APK download if OTA fails
+
+---
+
+## Papers Covered
+
+### CMA Foundation (Papers 1–4)
+
+| Paper | Code | Subjects |
+|---|---|---|
+| 1. Fundamentals of Business Laws & Communication | FBLC | Business Laws, Business Communication |
+| 2. Fundamentals of Financial Accounting | FFCA | Financial Accounting Fundamentals |
+| 3. Fundamentals of Business Mathematics & Statistics | FBMS | Mathematics, Statistics |
+| 4. Fundamentals of Business Economics & Management | FBEM | Business Economics, Management |
+
+### CMA Intermediate (Papers 5–12)
+
+| Paper | Code | Group |
+|---|---|---|
+| 5. Financial Accounting | FA | Group I |
+| 6. Laws & Ethics | LE | Group I |
+| 7. Direct & Indirect Taxation | DT | Group I |
+| 8. Cost Accounting | CA | Group I |
+| 9. Operations Management & Strategic Management | OMSM | Group II |
+| 10. Corporate Accounting & Auditing | CAA | Group II |
+| 11. Financial Management & Business Data Analytics | FMDA | Group II |
+| 12. Management Accounting | MA | Group II |
+
+### CMA Final (Papers 13–20)
+
+| Paper | Code | Group |
+|---|---|---|
+| 13. Corporate & Economic Laws | CEL | Group I |
+| 14. Strategic Cost Management | SCM | Group I |
+| 15. Direct Tax Laws & International Taxation | DTL | Group I |
+| 16. Financial Analysis & Business Valuation | FABV | Group I |
+| 17. Corporate Financial Reporting | CFR | Group II |
+| 18. Strategic Financial Management | SFM | Group II |
+| 19. Direct & Indirect Tax Laws & Practice | DITP | Group II |
+| 20. Strategic Performance Management & Business Valuation | SPM | Group II |
+
+---
 
 ## Architecture
 
@@ -71,23 +145,21 @@ CMA students in India face a fragmented study experience:
 │  │  │router)│ │        │ │  (animations)│  │ │
 │  │  └───────┘ └────────┘ └─────────────┘  │ │
 │  │  ┌────────────────────────────────────┐ │ │
-│  │  │  Screens + Components (ui.tsx)     │ │ │
+│  │  │  Screens + Components              │ │ │
 │  │  │  ChapterDetail, QuizOverlay,       │ │ │
-│  │  │  FlashcardStack, PdfTab, etc.      │ │ │
+│  │  │  FlashcardStack, PdfTab,           │ │ │
+│  │  │  PracticeSession, Loader           │ │ │
 │  │  └────────────────────────────────────┘ │ │
 │  │  ┌────────────────────────────────────┐ │ │
 │  │  │  Data Layer                        │ │ │
-│  │  │  curriculum.ts (chapters, papers)  │ │ │
-│  │  │  videos.ts (video IDs per chapter) │ │ │
-│  │  │  themes.ts (design tokens)         │ │ │
+│  │  │  curriculum.ts, videos.ts,         │ │ │
+│  │  │  chapters_final.ts, pastPapers.ts  │ │ │
+│  │  │  studyMaterial.ts, themes.ts       │ │ │
 │  │  └────────────────────────────────────┘ │ │
 │  └─────────────────────────────────────────┘ │
 │  ┌─────────────────────────────────────────┐ │
 │  │  Native Plugins (Java)                  │ │
-│  │  OtaUpdaterPlugin: download zip →       │ │
-│  │    extract → SharedPrefs → WebView reload│ │
-│  │  ApkUpdaterPlugin: download APK →       │ │
-│  │    install via Intent                   │ │
+│  │  OtaUpdaterPlugin, ApkUpdaterPlugin     │ │
 │  └─────────────────────────────────────────┘ │
 └─────────────────────────────────────────────┘
 ```
@@ -108,6 +180,8 @@ CMA students in India face a fragmented study experience:
 | PDF Generation | jsPDF 2.5 |
 | Icons | lucide-react |
 | CI/CD | GitHub Actions |
+
+---
 
 ## Setup & Development
 
@@ -159,6 +233,8 @@ After changing web code, rebuild and sync:
 npm run build && npx cap sync android
 ```
 
+---
+
 ## How OTA Updates Work
 
 1. **GitHub Actions** builds the web app and packages `dist/` into `web-build.zip`
@@ -168,6 +244,8 @@ npm run build && npx cap sync android
    - **Install OTA** (default) — downloads `web-build.zip`, extracts to `filesDir/ota/{version}/`, writes version to `SharedPreferences`, and reloads the WebView from the new directory
    - **Download APK** — fallback; downloads the APK and triggers Android's package installer
 5. On next app cold start, `MainActivity.java` reads `SharedPreferences` and loads the OTA directory if one is active
+
+---
 
 ## Project Structure
 
@@ -180,39 +258,58 @@ cma-compass/
 │       ├── MainActivity.java   # App entry, OTA dir detection
 │       ├── OtaUpdaterPlugin.java  # Native OTA update plugin
 │       └── ApkUpdaterPlugin.java  # Native APK download/install plugin
+├── assets/
+│   ├── icon.svg                # App icon (compass SVG)
+│   └── screenshots/            # Real app screenshots (PNG)
 ├── src/
 │   ├── components/
 │   │   ├── ui.tsx              # Reusable: Tappable, Card, Button, IconButton, etc.
 │   │   ├── QuizOverlay.tsx     # Quiz overlay for chapters
 │   │   ├── FlashcardStack.tsx  # Chapter flashcards
 │   │   ├── UpdatePopup.tsx     # OTA/APK update prompt
-│   │   └── ...
+│   │   ├── Loader.tsx          # Custom loading animation
+│   │   └── PracticeSession.tsx # Practice test session
 │   ├── data/
 │   │   ├── curriculum.ts       # Chapters, papers, level definitions, playlists
 │   │   ├── videos.ts           # ChapterVideo[] per chapter
 │   │   ├── chapters.ts         # Chapter data (Foundation core)
 │   │   ├── chapters_found_extra.ts  # Extra Foundation chapters
 │   │   ├── chapters_inter_a.ts # Intermediate Group I chapters
-│   │   └── chapters_inter_b.ts # Intermediate Group II chapters
+│   │   ├── chapters_inter_b.ts # Intermediate Group II chapters
+│   │   ├── chapters_final.ts   # Final level chapters
+│   │   ├── questions.ts        # Foundation/Intermediate quiz questions
+│   │   ├── questions_final.ts  # Final level quiz questions
+│   │   ├── pastPapers.ts       # Past exam papers data
+│   │   └── studyMaterial.ts    # Official ICMAI study material PDFs
 │   ├── lib/
 │   │   ├── otaUpdater.ts       # TypeScript bridge for OtaUpdaterPlugin
 │   │   ├── updateChecker.ts    # GitHub API version check
-│   │   └── ...
+│   │   ├── themes.ts           # Theme definitions (7 themes)
+│   │   └── levels.ts           # Level management
 │   ├── screens/
+│   │   ├── Onboarding.tsx      # First-run onboarding flow
 │   │   ├── ChapterDetail.tsx   # Chapter screen: video + tabs
 │   │   ├── PaperScreen.tsx     # Paper listing with chapters
-│   │   ├── LevelScreen.tsx     # Level selection (Foundation/Intermediate)
-│   │   └── StageTestOverlay.tsx # Paper-level mock test overlay
-│   ├── store.ts                # Zustand store (progress, bookmarks, etc.)
-│   └── theme.ts                # Design tokens (neobrutalism)
+│   │   ├── LevelScreen.tsx     # Level selection
+│   │   ├── StageTestOverlay.tsx # Paper-level mock test overlay
+│   │   └── PdfTab.tsx          # In-app PDF reader
+│   ├── store/
+│   │   └── index.ts            # Zustand store (progress, bookmarks, etc.)
+│   ├── theme.ts                # Design tokens (neobrutalism)
+│   └── index.css               # Global styles, theme CSS variables
 ├── index.html
 ├── package.json
 ├── capacitor.config.ts
 ├── tsconfig.json
 ├── vite.config.ts
 ├── tailwind.config.js
-└── postcss.config.js
+├── postcss.config.js
+├── PRIVACY.md                  # Privacy Policy
+├── TERMS.md                    # Terms of Service
+└── README.md                   # This file
 ```
+
+---
 
 ## Releases
 
@@ -223,14 +320,21 @@ Each GitHub Release includes two assets:
 
 [View all releases →](https://github.com/jiteshoffice1234-star/cma-compass/releases)
 
+---
+
 ## Contributing
 
 This is a personal project. If you have suggestions or find broken video links, open an issue.
 
+---
+
 ## Legal
 
-- **[Privacy Policy](PRIVACY.md)** — CMA Compass does not collect, store, or transmit any personal data. All progress is stored locally.
+- **[Privacy Policy](PRIVACY.md)** — CMA Compass does not collect, store, or transmit any personal data. All progress is stored locally on your device.
 - **[Terms of Service](TERMS.md)** — The App is provided "as is" for self-study purposes. No affiliation with ICMAI.
+- **ICMAI** — The CMA name and syllabus are the property of the Institute of Cost Accountants of India. This app is not affiliated with or endorsed by ICMAI.
+
+---
 
 ## License
 
