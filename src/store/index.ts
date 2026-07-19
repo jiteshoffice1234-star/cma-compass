@@ -130,13 +130,13 @@ export const useStore = create<AppState>((set, get) => ({
       weeklyChallengeId: weekly.challenge_id,
       weeklyProgress: weekly.progress,
     })
-    document.documentElement.setAttribute('data-theme', (profile.ui_mode as ThemeMode) || 'dark')
+    document.documentElement.setAttribute('data-theme', normalizeTheme(profile.ui_mode))
   },
 
   completeOnboarding: async (name, dailyGoal, theme, level) => {
     await saveProfile({ name, daily_goal: dailyGoal, ui_mode: theme, level, onboarding_complete: 1 })
-    set({ name, dailyGoal, uiMode: theme, level, onboardingComplete: true })
     document.documentElement.setAttribute('data-theme', theme)
+    requestAnimationFrame(() => set({ name, dailyGoal, uiMode: theme, level, onboardingComplete: true }))
   },
 
   setLevel: async (level) => {
@@ -146,8 +146,8 @@ export const useStore = create<AppState>((set, get) => ({
 
   setTheme: async (t) => {
     await saveProfile({ ui_mode: t })
-    set({ uiMode: t })
     document.documentElement.setAttribute('data-theme', t)
+    requestAnimationFrame(() => set({ uiMode: t }))
   },
 
   setDailyGoal: async (g) => {

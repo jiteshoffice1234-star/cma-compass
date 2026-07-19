@@ -44,7 +44,7 @@
   --warning: #F59E0B;
   --danger: #EF4444;
   --surface: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%) fixed;
-  --card: rgba(255, 255, 255, 0.05);
+  --card: rgba(255, 255, 255, 0.12);
   --text: #F8FAFC;
   --muted: #94A3B8;
   --ink: rgba(255, 255, 255, 0.1);
@@ -75,7 +75,7 @@
   --card: #F1F5F9;
   --text: #334155;
   --muted: #94A3B8;
-  --ink: transparent;
+  --ink: rgba(148, 163, 184, 0.5);
   --primary-tint: rgba(139, 92, 246, 0.1);
   --secondary-tint: rgba(244, 63, 94, 0.1);
   --success-tint: rgba(20, 184, 166, 0.1);
@@ -84,8 +84,8 @@
   --sh-sm: 6px 6px 12px #E2E8F0, -6px -6px 12px #FFFFFF, inset 2px 2px 4px rgba(255,255,255,0.8);
   --sh-md: 8px 8px 16px #E2E8F0, -8px -8px 16px #FFFFFF, inset 2px 2px 5px rgba(255,255,255,0.9);
   --sh-lg: 12px 12px 24px #D1D5DB, -12px -12px 24px #FFFFFF;
-  --bd-thin: 1px solid transparent;
-  --bd-thick: 2px solid transparent;
+  --bd-thin: 1px solid var(--ink);
+  --bd-thick: 2px solid var(--ink);
   --r-sm: 16px; --r-md: 24px; --r-lg: 32px;
   --blur: none;
   --font-ui: 'Nunito', system-ui, -apple-system, sans-serif;
@@ -156,7 +156,7 @@
   --warning: #B967FF;
   --danger: #FF5470;
   --surface: linear-gradient(180deg, #0F0026 0%, #290849 50%, #FF2A6D 100%) fixed;
-  --card: rgba(15, 0, 38, 0.7);
+  --card: rgba(15, 0, 38, 0.85);
   --text: #FFFFFF;
   --muted: #FFB3E1;
   --ink: #FF71CE;
@@ -172,7 +172,7 @@
   --bd-thick: 2px solid #FF71CE;
   --r-sm: 0px; --r-md: 4px; --r-lg: 8px;
   --blur: none;
-  --font-ui: 'Courier New', monospace;
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 /* ---- 7 · CYBERPUNK ---- */

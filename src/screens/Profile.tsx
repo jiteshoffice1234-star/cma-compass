@@ -81,46 +81,46 @@ export function Profile() {
 
   return (
     <PageTransition>
-      <div style={{ height: '100%', overflowY: 'auto', background: color.surface, paddingBottom: 90 }}>
+      <div style={{ height: '100%', overflowY: 'auto', background: color.surface, paddingBottom: 80 }}>
         {/* header */}
-        <div style={{ padding: '24px 16px 16px', textAlign: 'center' }}>
-          <div style={{ width: 76, height: 76, borderRadius: 14, border: border.thick, boxShadow: shadow.md, background: color.primary, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 30, fontWeight: 900, color: color.text }}>
+        <div style={{ padding: '20px 16px 12px', textAlign: 'center' }}>
+          <div style={{ width: 60, height: 60, borderRadius: 12, border: border.thick, boxShadow: shadow.md, background: color.primary, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 900, color: color.text }}>
             {name.charAt(0).toUpperCase()}
           </div>
-          <div style={{ fontWeight: 900, fontSize: 21, marginTop: 12 }}>{name}</div>
-          <div style={{ display: 'inline-block', color: '#fff', background: color.secondary, border: border.thin, borderRadius: 6, padding: '2px 10px', fontWeight: 800, fontSize: 13, marginTop: 6 }}>{level.name}</div>
-          <div style={{ margin: '14px auto 0', maxWidth: 280 }}>
-            <div className="mono" style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: color.muted, marginBottom: 5, fontWeight: 700, fontFamily: font.mono }}>
+          <div style={{ fontWeight: 900, fontSize: 19, marginTop: 10 }}>{name}</div>
+          <div style={{ display: 'inline-block', color: '#fff', background: color.secondary, border: border.thin, borderRadius: 6, padding: '2px 10px', fontWeight: 800, fontSize: 12, marginTop: 5 }}>{level.name}</div>
+          <div style={{ margin: '12px auto 0', maxWidth: 260 }}>
+            <div className="mono" style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: color.muted, marginBottom: 4, fontWeight: 700, fontFamily: font.mono }}>
               <span>{totalXp} XP</span>
               <span>{level.next ? `${level.next} XP` : 'MAX'}</span>
             </div>
-            <div style={{ height: 12, background: color.card, border: border.thin, borderRadius: 6, overflow: 'hidden' }}>
-              <motion.div animate={{ width: `${pct}%` }} style={{ height: '100%', background: color.warning }} />
+            <div style={{ height: 10, background: color.card, border: border.thin, borderRadius: 5, overflow: 'hidden' }}>
+              <motion.div animate={{ width: `${pct}%` }} initial={false} style={{ height: '100%', background: color.warning }} />
             </div>
           </div>
         </div>
 
         {/* stats */}
-        <div style={{ padding: '4px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
-          <StatCard icon={<Flame size={20} color={color.warning} />} value={currentStreak} label="Day streak" />
-          <StatCard icon={<BookOpen size={20} color={color.secondary} />} value={`${chaptersDone}/${levelChapters.length}`} label="Chapters" />
-          <StatCard icon={<Trophy size={20} color={color.success} />} value={`${badgesUnlocked}/${relevantBadges.length}`} label="Badges" />
+        <div style={{ padding: '2px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+          <StatCard icon={<Flame size={18} color={color.warning} />} value={currentStreak} label="Day streak" />
+          <StatCard icon={<BookOpen size={18} color={color.secondary} />} value={`${chaptersDone}/${levelChapters.length}`} label="Chapters" />
+          <StatCard icon={<Trophy size={18} color={color.success} />} value={`${badgesUnlocked}/${relevantBadges.length}`} label="Badges" />
         </div>
 
         {/* badges */}
-        <div style={{ padding: '18px 16px 6px' }}>
-          <div style={{ fontWeight: 900, fontSize: 17, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 8 }}><Award size={18} color={color.secondary} /> Badges</div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div style={{ padding: '14px 16px 4px' }}>
+          <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}><Award size={16} color={color.secondary} /> Badges</div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
             {relevantBadges.map((b) => {
               const Icon = BADGE_ICONS[b.icon] || Star
               const unlocked = !!badges[b.id]
               return (
-                <div key={b.id} style={{ display: 'flex', gap: 11, alignItems: 'center', background: unlocked ? color.card : color.surface, border: border.thin, borderRadius: 10, boxShadow: unlocked ? shadow.sm : 'none', padding: 12, opacity: unlocked ? 1 : 0.5 }}>
-                  <div style={{ width: 38, height: 38, borderRadius: 8, border: border.thin, background: unlocked ? color.primaryTint : color.surface, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <Icon size={20} color={unlocked ? color.secondary : color.muted} />
+                <div key={b.id} style={{ display: 'flex', gap: 10, alignItems: 'center', background: unlocked ? color.card : color.surface, border: border.thin, borderRadius: 8, boxShadow: unlocked ? shadow.sm : 'none', padding: 10, opacity: unlocked ? 1 : 0.5 }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 6, border: border.thin, background: unlocked ? color.primaryTint : color.surface, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Icon size={18} color={unlocked ? color.secondary : color.muted} />
                   </div>
                   <div style={{ minWidth: 0 }}>
-                    <div style={{ fontWeight: 800, fontSize: 13, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{b.name}</div>
+                    <div style={{ fontWeight: 800, fontSize: 12, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{b.name}</div>
                     <div style={{ color: color.muted, fontSize: 11, lineHeight: 1.3, fontWeight: 600 }}>{unlocked ? 'Unlocked' : b.desc}</div>
                   </div>
                 </div>
@@ -130,25 +130,25 @@ export function Profile() {
         </div>
 
         {/* settings */}
-        <div style={{ padding: '18px 16px 6px' }}>
-          <div style={{ fontWeight: 900, fontSize: 17, marginBottom: 10 }}>Settings</div>
+        <div style={{ padding: '14px 16px 4px' }}>
+          <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 8 }}>Settings</div>
           <Card style={{ padding: 0, overflow: 'hidden' }}>
-            <SettingRow icon={<GraduationCap size={18} color={color.secondary} />} label="Level" value={LEVEL_LABELS[userLevel]} onClick={() => setSheet('level')} />
-            <div style={{ height: 2, background: '#000' }} />
-            <SettingRow icon={<Settings size={18} color={color.primary} />} label="Theme" value={THEMES.find(t => t.id === uiMode)?.name || 'Default'} onClick={() => setSheet('theme')} />
-            <div style={{ height: 2, background: '#000' }} />
-            <SettingRow icon={<Target size={18} color={color.success} />} label="Daily goal" value={`${dailyGoal} ${dailyGoal === 1 ? 'chapter' : 'chapters'}`} onClick={() => setSheet('goal')} />
-            <div style={{ height: 2, background: '#000' }} />
-            <SettingRow icon={<RefreshCw size={18} color={color.secondary} className={checking ? 'spin' : ''} />} label={checking ? 'Checking…' : 'Check for update'} value={`v${APP_VERSION}`} onClick={() => !checking && checkUpdates()} />
-            <div style={{ height: 2, background: '#000' }} />
-            <SettingRow icon={<Download size={18} color={color.success} />} label="Export progress" value="" onClick={handleExport} />
-            <div style={{ height: 2, background: '#000' }} />
-            <SettingRow icon={<Upload size={18} color={color.secondary} />} label="Import progress" value="" onClick={() => importRef.current?.click()} />
+            <SettingRow icon={<GraduationCap size={16} color={color.secondary} />} label="Level" value={LEVEL_LABELS[userLevel]} onClick={() => setSheet('level')} />
+            <div style={{ height: 1, background: color.black }} />
+            <SettingRow icon={<Settings size={16} color={color.primary} />} label="Theme" value={THEMES.find(t => t.id === uiMode)?.name || 'Default'} onClick={() => setSheet('theme')} />
+            <div style={{ height: 1, background: color.black }} />
+            <SettingRow icon={<Target size={16} color={color.success} />} label="Daily goal" value={`${dailyGoal} ${dailyGoal === 1 ? 'chapter' : 'chapters'}`} onClick={() => setSheet('goal')} />
+            <div style={{ height: 1, background: color.black }} />
+            <SettingRow icon={<RefreshCw size={16} color={color.secondary} className={checking ? 'spin' : ''} />} label={checking ? 'Checking…' : 'Check for update'} value={`v${APP_VERSION}`} onClick={() => !checking && checkUpdates()} />
+            <div style={{ height: 1, background: color.black }} />
+            <SettingRow icon={<Download size={16} color={color.success} />} label="Export progress" value="" onClick={handleExport} />
+            <div style={{ height: 1, background: color.black }} />
+            <SettingRow icon={<Upload size={16} color={color.secondary} />} label="Import progress" value="" onClick={() => importRef.current?.click()} />
             <input ref={importRef} type="file" accept=".json" style={{ display: 'none' }} onChange={handleImport} />
-            <div style={{ height: 2, background: '#000' }} />
-            <SettingRow icon={<RotateCcw size={18} color={color.danger} />} label="Reset progress" value="" onClick={() => setSheet('reset')} danger />
+            <div style={{ height: 1, background: color.black }} />
+            <SettingRow icon={<RotateCcw size={16} color={color.danger} />} label="Reset progress" value="" onClick={() => setSheet('reset')} danger />
           </Card>
-          <div className="mono" style={{ textAlign: 'center', color: color.muted, fontSize: 11, marginTop: 18, fontWeight: 700, fontFamily: font.mono }}>
+          <div className="mono" style={{ textAlign: 'center', color: color.muted, fontSize: 11, marginTop: 14, fontWeight: 700, fontFamily: font.mono }}>
             {APP_NAME} v{APP_VERSION} · Longest streak {longestStreak} days
           </div>
         </div>
@@ -225,9 +225,9 @@ export function Profile() {
 
 function StatCard({ icon, value, label }: { icon: React.ReactNode; value: React.ReactNode; label: string }) {
   return (
-    <div style={{ background: color.card, border: border.thin, borderRadius: 10, boxShadow: shadow.sm, padding: '14px 8px', textAlign: 'center' }}>
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 6 }}>{icon}</div>
-      <div className="mono" style={{ fontWeight: 800, fontSize: 17, fontFamily: font.mono }}>{value}</div>
+    <div style={{ background: color.card, border: border.thin, borderRadius: 8, boxShadow: shadow.sm, padding: '10px 6px', textAlign: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 4 }}>{icon}</div>
+      <div className="mono" style={{ fontWeight: 800, fontSize: 15, fontFamily: font.mono }}>{value}</div>
       <div style={{ color: color.muted, fontSize: 11, marginTop: 1, fontWeight: 700 }}>{label}</div>
     </div>
   )
@@ -235,10 +235,10 @@ function StatCard({ icon, value, label }: { icon: React.ReactNode; value: React.
 
 function SettingRow({ icon, label, value, onClick, danger }: { icon: React.ReactNode; label: string; value: string; onClick: () => void; danger?: boolean }) {
   return (
-    <Tappable onClick={onClick} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 16, width: '100%', textAlign: 'left' }}>
+    <Tappable onClick={onClick} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', width: '100%', textAlign: 'left' }}>
       {icon}
-      <span style={{ fontWeight: 700, fontSize: 15, flex: 1, color: danger ? color.danger : color.text }}>{label}</span>
-      {value && <span className="mono" style={{ color: color.muted, fontSize: 13, fontWeight: 700, fontFamily: font.mono }}>{value}</span>}
+      <span style={{ fontWeight: 700, fontSize: 14, flex: 1, color: danger ? color.danger : color.text }}>{label}</span>
+      {value && <span className="mono" style={{ color: color.muted, fontSize: 12, fontWeight: 700, fontFamily: font.mono }}>{value}</span>}
     </Tappable>
   )
 }
