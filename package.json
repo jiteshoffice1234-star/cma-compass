@@ -1,7 +1,8 @@
 {
   "name": "cma-compass",
-  "private": true,
-  "version": "2.4.0",
+  "private": false,
+  "license": "MIT",
+  "version": "2.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite",

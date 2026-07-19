@@ -1,7 +1,6 @@
 import { jsPDF } from 'jspdf'
 import { curriculum } from '../data/curriculum'
 import { questions } from '../data/questions'
-import { flashcards } from '../data/flashcards'
 import { formulas } from '../data/formulas'
 import { Capacitor } from '@capacitor/core'
 import { Filesystem, Directory } from '@capacitor/filesystem'

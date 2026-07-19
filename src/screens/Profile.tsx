@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import {
   Flame, Trophy, BookOpen, Footprints, Star, Layers, BarChart3, Brain,
   Landmark, Zap, Moon, Crown, Target, RotateCcw, Award, GraduationCap,
   Scroll, Calculator, Sigma, TrendingUp, Scale, Coins, Settings, Building2, LineChart, ClipboardList,
-  RefreshCw,
+  RefreshCw, Download, Upload,
 } from 'lucide-react'
 import { useStore } from '../store'
 import { chaptersForLevel, LEVEL_LABELS, papersForLevel, Level } from '../data/curriculum'
@@ -13,8 +13,8 @@ import { Card, Tappable, PageTransition, Button } from '../components/ui'
 import { BottomSheet } from '../components/BottomSheet'
 import { checkForUpdate, APP_VERSION } from '../lib/updateChecker'
 import { UpdatePopup } from '../components/UpdatePopup'
+import { exportProgressToJson, importProgressFromJson, downloadJson } from '../lib/backup'
 import { color, border, shadow, font, APP_NAME } from '../theme'
-import { THEMES } from '../lib/themes'
 
 const BADGE_ICONS: Record<string, any> = {
   footprints: Footprints, flame: Flame, star: Star, layers: Layers,
@@ -24,13 +24,39 @@ const BADGE_ICONS: Record<string, any> = {
   settings: Settings, 'building-2': Building2, 'line-chart': LineChart, 'clipboard-list': ClipboardList,
 }
 
-const LEVEL_OPTIONS: Level[] = ['foundation', 'intermediate', 'final']
+const LEVEL_OPTIONS: Level[] = ['foundation', 'intermediate']
 
 export function Profile() {
-  const { name, totalXp, currentStreak, longestStreak, progress, badges, dailyGoal, level: userLevel, setDailyGoal, setLevel, resetProgress, showToast, uiMode, setTheme } = useStore()
-  const [sheet, setSheet] = useState<'none' | 'goal' | 'reset' | 'level' | 'theme'>('none')
+  const { name, totalXp, currentStreak, longestStreak, progress, badges, dailyGoal, level: userLevel, setDailyGoal, setLevel, resetProgress, showToast, refreshProgress } = useStore()
+  const [sheet, setSheet] = useState<'none' | 'goal' | 'reset' | 'level'>('none')
   const [checking, setChecking] = useState(false)
-  const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; webBuildUrl: string | null; notes: string } | null>(null)
+  const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; notes: string } | null>(null)
+  const importRef = useRef<HTMLInputElement>(null)
+
+  const handleExport = async () => {
+    try {
+      const json = await exportProgressToJson()
+      const date = new Date().toISOString().split('T')[0]
+      downloadJson(json, `cma-compass-backup-${date}.json`)
+      showToast('📥 Backup downloaded')
+    } catch {
+      showToast('❌ Export failed')
+    }
+  }
+
+  const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    try {
+      const text = await file.text()
+      const result = await importProgressFromJson(text)
+      showToast(result.message)
+      if (result.success) await refreshProgress()
+    } catch {
+      showToast('❌ Import failed')
+    }
+    e.target.value = ''
+  }
 
   const level = levelForXp(totalXp)
   const levelChapters = chaptersForLevel(userLevel)
@@ -48,7 +74,7 @@ export function Profile() {
     setChecking(true)
     const info = await checkForUpdate(APP_VERSION)
     setChecking(false)
-    if (info) setUpdateInfo({ version: info.latestVersion, url: info.downloadUrl, webBuildUrl: info.webBuildUrl, notes: info.releaseNotes })
+    if (info) setUpdateInfo({ version: info.latestVersion, url: info.downloadUrl, notes: info.releaseNotes })
     else showToast('You are on the latest version')
   }
 
@@ -108,11 +134,14 @@ export function Profile() {
           <Card style={{ padding: 0, overflow: 'hidden' }}>
             <SettingRow icon={<GraduationCap size={18} color={color.secondary} />} label="Level" value={LEVEL_LABELS[userLevel]} onClick={() => setSheet('level')} />
             <div style={{ height: 2, background: '#000' }} />
-            <SettingRow icon={<Settings size={18} color={color.primary} />} label="Theme" value={THEMES.find(t => t.id === uiMode)?.name || 'Default'} onClick={() => setSheet('theme')} />
-            <div style={{ height: 2, background: '#000' }} />
             <SettingRow icon={<Target size={18} color={color.success} />} label="Daily goal" value={`${dailyGoal} ${dailyGoal === 1 ? 'chapter' : 'chapters'}`} onClick={() => setSheet('goal')} />
             <div style={{ height: 2, background: '#000' }} />
             <SettingRow icon={<RefreshCw size={18} color={color.secondary} className={checking ? 'spin' : ''} />} label={checking ? 'Checking…' : 'Check for update'} value={`v${APP_VERSION}`} onClick={() => !checking && checkUpdates()} />
+            <div style={{ height: 2, background: '#000' }} />
+            <SettingRow icon={<Download size={18} color={color.success} />} label="Export progress" value="" onClick={handleExport} />
+            <div style={{ height: 2, background: '#000' }} />
+            <SettingRow icon={<Upload size={18} color={color.secondary} />} label="Import progress" value="" onClick={() => importRef.current?.click()} />
+            <input ref={importRef} type="file" accept=".json" style={{ display: 'none' }} onChange={handleImport} />
             <div style={{ height: 2, background: '#000' }} />
             <SettingRow icon={<RotateCcw size={18} color={color.danger} />} label="Reset progress" value="" onClick={() => setSheet('reset')} danger />
           </Card>
@@ -147,28 +176,6 @@ export function Profile() {
         </div>
       </BottomSheet>
 
-      <BottomSheet open={sheet === 'theme'} onClose={() => setSheet('none')} title="App Theme">
-        <div style={{ color: color.muted, fontSize: 13, marginBottom: 12, lineHeight: 1.5, fontWeight: 600 }}>
-          Choose how the app looks. This applies instantly to all screens.
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: '2px 4px 4px 2px' }}>
-          {THEMES.map((t) => (
-            <Tappable key={t.id} onClick={() => { setTheme(t.id); setSheet('none') }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: uiMode === t.id ? color.primaryTint : color.card, border: uiMode === t.id ? border.thick : border.thin, borderRadius: 10, boxShadow: shadow.sm, padding: 16 }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 800, fontSize: 15 }}>{t.name}</div>
-                <div style={{ color: color.muted, fontSize: 12, fontWeight: 600 }}>{t.desc}</div>
-                <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
-                  {Object.values(t.preview).map((hex, i) => (
-                    <div key={i} style={{ width: 16, height: 16, borderRadius: '50%', background: hex, border: '1px solid rgba(0,0,0,0.2)' }} />
-                  ))}
-                </div>
-              </div>
-              {uiMode === t.id && <span style={{ color: color.secondary, fontWeight: 900 }}>✓</span>}
-            </Tappable>
-          ))}
-        </div>
-      </BottomSheet>
-
       <BottomSheet open={sheet === 'reset'} onClose={() => setSheet('none')} title="Reset all progress?">
         <div style={{ color: color.muted, fontSize: 14, marginBottom: 16, lineHeight: 1.5, fontWeight: 600 }}>
           This permanently erases your XP, streak, badges and chapter progress. This cannot be undone.
@@ -183,7 +190,6 @@ export function Profile() {
         open={!!updateInfo}
         latestVersion={updateInfo?.version || ''}
         downloadUrl={updateInfo?.url || ''}
-        webBuildUrl={updateInfo?.webBuildUrl || null}
         releaseNotes={updateInfo?.notes || ''}
         onLater={() => setUpdateInfo(null)}
       />

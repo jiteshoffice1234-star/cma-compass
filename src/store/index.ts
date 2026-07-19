@@ -2,16 +2,15 @@ import { create } from 'zustand'
 import { curriculum, Level, chaptersForLevel, chaptersForPaper, papersForLevel, chapterById } from '../data/curriculum'
 import {
   getProfile, saveProfile, getChapterProgress, getAllChapterProgress, saveChapterProgress,
-  addXp, getTotalXp, getXpTodayCount, getBadges, unlockBadge, getStreak, saveStreak,
-  getStreakRawDate, recordQuizAttempt, getFlashcardProgress, getAllFlashcardProgress, saveFlashcardProgress,
+  addXp, getTotalXp, getBadges, unlockBadge, getStreak, saveStreak,
+  recordQuizAttempt, getFlashcardProgress, saveFlashcardProgress,
   getBookmarks, toggleBookmark, getWeeklyChallenge, saveWeeklyChallenge, initDatabase,
   StreakRow,
 } from '../lib/store'
 import type { ChapterProgressRow } from '../lib/db'
 import { BADGES, WEEKLY_CHALLENGES, getChallengeForWeek, weekNumber, levelForXp } from '../lib/levels'
-import { ThemeId, DEFAULT_THEME, normalizeTheme } from '../lib/themes'
 
-export type ThemeMode = ThemeId
+export type ThemeMode = 'dark' | 'light' | 'claude'
 
 function dateStr(d = new Date()): string {
   return d.toISOString().slice(0, 10)
@@ -54,7 +53,7 @@ export interface AppState {
   setPdfsGenerated: () => Promise<void>
   markVideoWatched: (chapterId: number) => Promise<void>
   markPdfRead: (chapterId: number, type: string) => Promise<void>
-  completeQuiz: (chapterId: number, score: number, total: number, perfect: boolean, attempts: { q: string; correct: boolean }[]) => Promise<void>
+  completeQuiz: (chapterId: number, score: number, perfect: boolean, attempts: { q: string; correct: boolean }[]) => Promise<void>
   isUnlocked: (chapterId: number) => boolean
   reviewFlashcard: (flashcardId: string, quality: number) => Promise<void>
   toggleBookmarkChapter: (chapterId: number) => Promise<void>
@@ -74,7 +73,7 @@ export const useStore = create<AppState>((set, get) => ({
   name: 'Student',
   dailyGoal: 1,
   level: 'foundation',
-  uiMode: DEFAULT_THEME,
+  uiMode: 'dark',
   totalXp: 0,
   currentStreak: 0,
   longestStreak: 0,
@@ -118,7 +117,7 @@ export const useStore = create<AppState>((set, get) => ({
       name: profile.name,
       dailyGoal: profile.daily_goal,
       level: (profile.level as Level) || 'foundation',
-      uiMode: normalizeTheme(profile.ui_mode),
+      uiMode: (profile.ui_mode as ThemeMode) || 'dark',
       pdfsGenerated: !!profile.pdfs_generated,
       progress,
       totalXp: xp,
@@ -130,7 +129,7 @@ export const useStore = create<AppState>((set, get) => ({
       weeklyChallengeId: weekly.challenge_id,
       weeklyProgress: weekly.progress,
     })
-    document.documentElement.setAttribute('data-theme', normalizeTheme(profile.ui_mode))
+    document.documentElement.setAttribute('data-theme', (profile.ui_mode as ThemeMode) || 'dark')
   },
 
   completeOnboarding: async (name, dailyGoal, theme, level) => {
@@ -161,93 +160,132 @@ export const useStore = create<AppState>((set, get) => ({
   },
 
   isUnlocked: (chapterId) => {
-    const ch = chapterById(chapterId)
-    if (!ch) return false
-    // Chapters unlock sequentially within the chosen level.
-    const levelChapters = chaptersForLevel(get().level).sort((a, b) => a.id - b.id)
-    const idx = levelChapters.findIndex((c) => c.id === chapterId)
-    if (idx <= 0) return true
-    const prev = levelChapters[idx - 1]
-    const prevProg = get().progress[prev.id]
-    return !!(prevProg && prevProg.quiz_passed)
+    try {
+      const ch = chapterById(chapterId)
+      if (!ch) return false
+      // Chapters unlock sequentially within the chosen level.
+      const levelChapters = chaptersForLevel(get().level).sort((a, b) => a.id - b.id)
+      const idx = levelChapters.findIndex((c) => c.id === chapterId)
+      if (idx <= 0) return true
+      const prev = levelChapters[idx - 1]
+      const prevProg = get().progress[prev.id]
+      if (!prevProg) {
+        console.warn('[Store] Previous chapter progress missing for unlock check', { prev: prev.id, current: chapterId })
+        return false
+      }
+      return !!prevProg.quiz_passed
+    } catch (error) {
+      console.error('[Store] Error checking unlock:', error, { chapterId })
+      return false // Fail safe — lock chapter
+    }
   },
 
   markVideoWatched: async (chapterId) => {
-    const cur = await getChapterProgress(chapterId)
-    if (cur.video_watched) return
-    const row: ChapterProgressRow = { ...cur, chapter_id: chapterId, video_watched: 1 }
-    await saveChapterProgress(row)
-    set({ progress: { ...get().progress, [chapterId]: row } })
-    await addXp(10, 'video', chapterId)
-    await afterXp(get, set, { chapterId, reason: 'video' })
-    get().showToast('+10 XP · Video watched')
-    await maybeCompleteChapter(get, set, chapterId)
+    try {
+      const cur = await getChapterProgress(chapterId)
+      if (cur.video_watched) return
+      const row: ChapterProgressRow = { ...cur, chapter_id: chapterId, video_watched: 1 }
+      // DB write first, UI update only after success
+      await saveChapterProgress(row)
+      set({ progress: { ...get().progress, [chapterId]: row } })
+      await addXp(10, 'video', chapterId)
+      await afterXp(get, set, { chapterId, reason: 'video' })
+      get().showToast('+10 XP · Video watched')
+      await maybeCompleteChapter(get, set, chapterId)
+    } catch (error) {
+      console.error('[Store] Failed to mark video watched:', error, { chapterId })
+      get().showToast('❌ Failed to save progress. Try again.')
+    }
   },
 
   markPdfRead: async (chapterId, type) => {
-    const cur = await getChapterProgress(chapterId)
-    let read: string[] = []
-    try { read = JSON.parse(cur.pdfs_read || '[]') } catch { read = [] }
-    if (read.includes(type)) return
-    read.push(type)
-    const row: ChapterProgressRow = { ...cur, chapter_id: chapterId, pdfs_read: JSON.stringify(read) }
-    await saveChapterProgress(row)
-    set({ progress: { ...get().progress, [chapterId]: row } })
-    await addXp(5, 'pdf_' + type, chapterId)
-    await afterXp(get, set, { chapterId, reason: 'pdf' })
-    get().showToast('+5 XP · PDF read')
+    try {
+      const cur = await getChapterProgress(chapterId)
+      let read: string[] = []
+      try { read = JSON.parse(cur.pdfs_read || '[]') } catch { read = [] }
+      if (read.includes(type)) return
+      read.push(type)
+      const row: ChapterProgressRow = { ...cur, chapter_id: chapterId, pdfs_read: JSON.stringify(read) }
+      await saveChapterProgress(row)
+      set({ progress: { ...get().progress, [chapterId]: row } })
+      await addXp(5, 'pdf_' + type, chapterId)
+      await afterXp(get, set, { chapterId, reason: 'pdf' })
+      get().showToast('+5 XP · PDF read')
+    } catch (error) {
+      console.error('[Store] Failed to mark PDF read:', error, { chapterId, type })
+    }
   },
 
-  completeQuiz: async (chapterId, score, total, perfect, attempts) => {
-    for (const a of attempts) {
-      await recordQuizAttempt(chapterId, a.q, a.correct)
-    }
-    const passMark = Math.max(1, Math.ceil((total || 10) * 0.6))
-    const passed = score >= passMark
-    const cur = await getChapterProgress(chapterId)
-    const alreadyScored = cur.quiz_completed && cur.quiz_score >= score
+  completeQuiz: async (chapterId, score, perfect, attempts) => {
+    try {
+      // Validate score against recorded attempts
+      const correctCount = attempts.filter(a => a.correct).length
+      if (score !== correctCount) {
+        console.warn('[Quiz] Score mismatch:', { score, correctCount, attempts: attempts.length })
+      }
+      if (attempts.length < 1) {
+        console.warn('[Quiz] No attempts recorded for quiz completion')
+      }
 
-    const row: ChapterProgressRow = {
-      ...cur,
-      chapter_id: chapterId,
-      quiz_completed: 1,
-      quiz_score: Math.max(cur.quiz_score || 0, score),
-      quiz_passed: passed ? 1 : cur.quiz_passed,
-      completed: passed ? 1 : cur.completed,
-      completed_at: passed && !cur.completed_at ? new Date().toISOString() : cur.completed_at,
-    }
-    await saveChapterProgress(row)
-    set({ progress: { ...get().progress, [chapterId]: row } })
+      // Record all attempts first (for audit trail)
+      for (const a of attempts) {
+        await recordQuizAttempt(chapterId, a.q, a.correct)
+      }
+      const passed = score >= 6
+      const cur = await getChapterProgress(chapterId)
 
-    // XP: award quiz XP only the first time the quiz is passed for this chapter
-    if (passed && !cur.quiz_passed) {
-      await addXp(20, 'quiz', chapterId)
-      if (perfect) await addXp(15, 'perfect_quiz', chapterId)
-      await afterXp(get, set, { chapterId, reason: 'quiz' })
-      get().showToast(perfect ? '+35 XP · Perfect quiz!' : '+20 XP · Quiz passed')
-      await bumpWeekly(get, set, 1)
-    } else if (!passed) {
-      get().showToast(`Scored ${score}/10 · need 6 to pass`)
-    }
+      const row: ChapterProgressRow = {
+        ...cur,
+        chapter_id: chapterId,
+        quiz_completed: 1,
+        quiz_score: Math.max(cur.quiz_score || 0, score),
+        quiz_passed: passed ? 1 : cur.quiz_passed,
+        completed: passed ? 1 : cur.completed,
+        completed_at: passed && !cur.completed_at ? new Date().toISOString() : cur.completed_at,
+      }
+      await saveChapterProgress(row)
+      set({ progress: { ...get().progress, [chapterId]: row } })
 
-    if (perfect) await tryBadge(get, set, 'perfect')
-    await maybeCompleteChapter(get, set, chapterId)
-    void alreadyScored
+      // XP: award quiz XP only the first time the quiz is passed for this chapter
+      if (passed && !cur.quiz_passed) {
+        await addXp(20, 'quiz', chapterId)
+        if (perfect) await addXp(15, 'perfect_quiz', chapterId)
+        await afterXp(get, set, { chapterId, reason: 'quiz' })
+        get().showToast(perfect ? '+35 XP · Perfect quiz!' : '+20 XP · Quiz passed')
+        await bumpWeekly(get, set, 1)
+      } else if (!passed) {
+        get().showToast(`Scored ${score}/10 · need 6 to pass`)
+      }
+
+      if (perfect) await tryBadge(get, set, 'perfect')
+      await maybeCompleteChapter(get, set, chapterId)
+    } catch (error) {
+      console.error('[Store] Quiz completion failed:', error, { chapterId, score })
+      get().showToast('❌ Failed to save quiz result')
+    }
   },
 
   reviewFlashcard: async (flashcardId, quality) => {
-    const curFp = await getFlashcardProgress(flashcardId)
-    const difficulty = curFp?.difficulty ?? 3
-    const { difficulty: nd, next } = nextReview(quality, difficulty)
-    const reviewCount = (curFp?.review_count ?? 0) + 1
-    await saveFlashcardProgress({ flashcard_id: flashcardId, difficulty: nd, next_review: next, review_count: reviewCount })
-    await get().bumpWeeklyProgress(1)
+    try {
+      const curFp = await getFlashcardProgress(flashcardId)
+      const difficulty = curFp?.difficulty ?? 3
+      const { difficulty: nd, next } = nextReview(quality, difficulty)
+      const reviewCount = (curFp?.review_count ?? 0) + 1
+      await saveFlashcardProgress({ flashcard_id: flashcardId, difficulty: nd, next_review: next, review_count: reviewCount })
+      await get().bumpWeeklyProgress(1)
+    } catch (error) {
+      console.error('[Store] Failed to review flashcard:', error, { flashcardId })
+    }
   },
 
   toggleBookmarkChapter: async (chapterId) => {
-    await toggleBookmark(chapterId)
-    const bms = await getBookmarks()
-    set({ bookmarks: bms })
+    try {
+      await toggleBookmark(chapterId)
+      const bms = await getBookmarks()
+      set({ bookmarks: bms })
+    } catch (error) {
+      console.error('[Store] Failed to toggle bookmark:', error, { chapterId })
+    }
   },
 
   checkDailyGoal: () => {
@@ -256,53 +294,68 @@ export const useStore = create<AppState>((set, get) => ({
   },
 
   completeGrandFinal: async () => {
-    await addXp(200, 'grand_final', null)
-    await touchStreak(get, set)
-    const allDone = chaptersForLevel(get().level).every((c) => get().progress[c.id]?.completed)
-    set({ grandFinalDone: true, totalXp: get().totalXp + 200 })
-    await afterXp(get, set, { chapterId: null, reason: 'grand_final' })
-    get().showToast('Grand Final cleared! +200 XP')
-    if (allDone) await tryBadge(get, set, 'cfo')
+    try {
+      await addXp(200, 'grand_final', null)
+      await touchStreak(get, set)
+      const allDone = chaptersForLevel(get().level).every((c) => get().progress[c.id]?.completed)
+      set({ grandFinalDone: true, totalXp: get().totalXp + 200 })
+      await afterXp(get, set, { chapterId: null, reason: 'grand_final' })
+      get().showToast('Grand Final cleared! +200 XP')
+      if (allDone) await tryBadge(get, set, 'cfo')
+    } catch (error) {
+      console.error('[Store] Grand Final failed:', error)
+    }
   },
 
   resetProgress: async () => {
-    const profile = await getProfile()
-    // wipe by resetting each row/store to defaults via localStorage/db reset
-    await saveProfile({ ...profile, pdfs_generated: 0 })
-    // reset chapter progress
-    for (const c of curriculum) {
-      await saveChapterProgress({
-        chapter_id: c.id, video_watched: 0, pdfs_read: '[]', quiz_completed: 0,
-        quiz_score: 0, quiz_passed: 0, completed: 0, completed_at: null,
+    try {
+      const profile = await getProfile()
+      await saveProfile({ ...profile, pdfs_generated: 0 })
+      for (const c of curriculum) {
+        await saveChapterProgress({
+          chapter_id: c.id, video_watched: 0, pdfs_read: '[]', quiz_completed: 0,
+          quiz_score: 0, quiz_passed: 0, completed: 0, completed_at: null,
+        })
+      }
+      await saveStreak({ id: 1, current_streak: 0, longest_streak: 0, last_active_date: null })
+      set({
+        progress: {}, totalXp: 0, currentStreak: 0, longestStreak: 0, lastActiveDate: null,
+        badges: {}, bookmarks: [], grandFinalDone: false, pdfsGenerated: false, weeklyProgress: 0,
       })
+      get().showToast('Progress reset')
+      await get().refreshProgress()
+    } catch (error) {
+      console.error('[Store] Reset failed:', error)
+      get().showToast('❌ Failed to reset progress')
     }
-    await saveStreak({ id: 1, current_streak: 0, longest_streak: 0, last_active_date: null })
-    set({
-      progress: {}, totalXp: 0, currentStreak: 0, longestStreak: 0, lastActiveDate: null,
-      badges: {}, bookmarks: [], grandFinalDone: false, pdfsGenerated: false, weeklyProgress: 0,
-    })
-    get().showToast('Progress reset')
-    await get().refreshProgress()
   },
 
   refreshProgress: async () => {
-    const all = await getAllChapterProgress()
-    const prog: Record<number, ChapterProgressRow> = {}
-    all.forEach((p) => (prog[p.chapter_id] = p))
-    const xp = await getTotalXp()
-    set({ progress: prog, totalXp: xp })
+    try {
+      const all = await getAllChapterProgress()
+      const prog: Record<number, ChapterProgressRow> = {}
+      all.forEach((p) => (prog[p.chapter_id] = p))
+      const xp = await getTotalXp()
+      set({ progress: prog, totalXp: xp })
+    } catch (error) {
+      console.error('[Store] Refresh progress failed:', error)
+    }
   },
 
   bumpWeeklyProgress: async (n) => {
-    const ws = weekStartStr()
-    let weekly = await getWeeklyChallenge()
-    if (!weekly || weekly.week_start !== ws) {
-      const challenge = getChallengeForWeek(weekNumber())
-      weekly = { id: 1, challenge_id: challenge.id ?? 0, week_start: ws, progress: 0, completed: 0 }
+    try {
+      const ws = weekStartStr()
+      let weekly = await getWeeklyChallenge()
+      if (!weekly || weekly.week_start !== ws) {
+        const challenge = getChallengeForWeek(weekNumber())
+        weekly = { id: 1, challenge_id: challenge.id ?? 0, week_start: ws, progress: 0, completed: 0 }
+      }
+      weekly = { ...weekly, progress: weekly.progress + n }
+      await saveWeeklyChallenge(weekly)
+      set({ weeklyChallengeId: weekly.challenge_id, weeklyProgress: weekly.progress })
+    } catch (error) {
+      console.error('[Store] Weekly progress update failed:', error)
     }
-    weekly = { ...weekly, progress: weekly.progress + n }
-    await saveWeeklyChallenge(weekly)
-    set({ weeklyChallengeId: weekly.challenge_id, weeklyProgress: weekly.progress })
   },
 
   showToast: (msg) => {
@@ -349,7 +402,7 @@ async function touchStreak(get: () => AppState, set: (p: Partial<AppState>) => v
   if (cs >= 7) await tryBadge(get, set, 'on_fire')
 }
 
-async function bumpWeekly(get: () => AppState, set: (p: Partial<AppState>) => void, n: number) {
+async function bumpWeekly(get: () => AppState, _set: (p: Partial<AppState>) => void, n: number) {
   await get().bumpWeeklyProgress(n)
 }
 

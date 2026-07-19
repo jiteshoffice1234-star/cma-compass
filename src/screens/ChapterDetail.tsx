@@ -4,12 +4,11 @@ import { AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Bookmark, BookmarkCheck, Play, FileText, Check, ListVideo } from 'lucide-react'
 import { useStore } from '../store'
 import { curriculum, paperById, LEVEL_LABELS, playlistForChapter, videosForChapter } from '../data/curriculum'
-import { studyMaterialForPaper } from '../data/studyMaterial'
 import { Tappable, Card, ProgressRing, Skeleton, IconButton, Button } from '../components/ui'
 import { QuizOverlay } from '../components/QuizOverlay'
 import { FlashcardStack } from '../components/FlashcardStack'
 import { PdfTab } from './PdfTab'
-import { color, border, shadow, font } from '../theme'
+import { color, border, font } from '../theme'
 
 type Tab = 'overview' | 'quiz' | 'flashcards' | 'pdf'
 
@@ -30,7 +29,6 @@ export function ChapterDetail() {
   const videos = videosForChapter(chapterId)
   const playlistId = playlistForChapter(chapter)
   const [videoIdx, setVideoIdx] = useState(0) // index into videos; -1 = playlist
-  const studyMaterials = studyMaterialForPaper(chapter.paperId)
 
   useEffect(() => { setVideoIdx(videos.length ? 0 : -1); setVideoLoading(true) }, [chapterId])
 
@@ -133,32 +131,6 @@ export function ChapterDetail() {
               <FileText size={20} color={color.secondary} />
               <div style={{ flex: 1 }}><div style={{ fontWeight: 800, fontSize: 14 }}>Chapter PDFs</div><div style={{ color: color.muted, fontSize: 12, fontWeight: 600 }}>Summary, Practice, Cheat Sheet</div></div>
             </Card>
-
-            {studyMaterials.length > 0 && (
-              <div style={{ marginTop: 24 }}>
-                <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span>📚 Study Material</span>
-                  <span style={{ fontSize: 11, background: color.primaryTint, color: color.primary, padding: '2px 6px', borderRadius: 4, border: border.thin }}>Official ICMAI</span>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  {studyMaterials.map((sm, i) => (
-                    <Tappable
-                      key={i}
-                      onClick={() => nav(`/pdf?src=${encodeURIComponent(sm.url)}&title=${encodeURIComponent(sm.title)}`)}
-                      style={{ display: 'flex', alignItems: 'center', gap: 12, background: color.card, border: border.thin, borderRadius: 10, padding: 12, boxShadow: shadow.sm }}
-                    >
-                      <div style={{ width: 36, height: 36, borderRadius: 8, background: color.secondaryTint, border: border.thin, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <FileText size={18} color={color.secondary} />
-                      </div>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontWeight: 700, fontSize: 14 }}>{sm.title}</div>
-                        <div style={{ fontSize: 12, color: color.muted, fontWeight: 600, marginTop: 2 }}>Read official PDF</div>
-                      </div>
-                    </Tappable>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         )}
 
