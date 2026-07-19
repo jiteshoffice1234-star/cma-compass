@@ -10,11 +10,12 @@ interface UpdatePopupProps {
   open: boolean
   latestVersion: string
   downloadUrl: string
+  webBuildUrl?: string | null
   releaseNotes: string
   onLater: () => void
 }
 
-export function UpdatePopup({ open, latestVersion, downloadUrl, releaseNotes, onLater }: UpdatePopupProps) {
+export function UpdatePopup({ open, latestVersion, downloadUrl, webBuildUrl, releaseNotes, onLater }: UpdatePopupProps) {
   const [status, setStatus] = useState<'idle' | 'downloading' | 'extracting' | 'done' | 'error'>('idle')
 
   if (!open) return null
@@ -24,7 +25,7 @@ export function UpdatePopup({ open, latestVersion, downloadUrl, releaseNotes, on
 
     if (isNative) {
       // OTA path first: download the web build zip, extract, apply, reload.
-      const webUrl = await getWebBuildDownloadUrl(latestVersion)
+      const webUrl = webBuildUrl || await getWebBuildDownloadUrl(latestVersion)
       if (webUrl) {
         setStatus('extracting')
         const ok = await downloadAndExtractOta(webUrl, latestVersion)
@@ -39,8 +40,8 @@ export function UpdatePopup({ open, latestVersion, downloadUrl, releaseNotes, on
       const ok = await downloadAndInstallApk(downloadUrl)
       setStatus(ok ? 'done' : 'error')
     } else {
-      const ok = await downloadAndInstallApk(downloadUrl)
-      setStatus(ok ? 'done' : 'error')
+      window.open(downloadUrl, '_blank')
+      setStatus('done')
     }
   }
 

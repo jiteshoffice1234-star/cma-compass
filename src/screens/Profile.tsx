@@ -30,7 +30,7 @@ export function Profile() {
   const { name, totalXp, currentStreak, longestStreak, progress, badges, dailyGoal, level: userLevel, setDailyGoal, setLevel, resetProgress, showToast, uiMode, setTheme } = useStore()
   const [sheet, setSheet] = useState<'none' | 'goal' | 'reset' | 'level' | 'theme'>('none')
   const [checking, setChecking] = useState(false)
-  const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; notes: string } | null>(null)
+  const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; webBuildUrl: string | null; notes: string } | null>(null)
 
   const level = levelForXp(totalXp)
   const levelChapters = chaptersForLevel(userLevel)
@@ -48,7 +48,7 @@ export function Profile() {
     setChecking(true)
     const info = await checkForUpdate(APP_VERSION)
     setChecking(false)
-    if (info) setUpdateInfo({ version: info.latestVersion, url: info.downloadUrl, notes: info.releaseNotes })
+    if (info) setUpdateInfo({ version: info.latestVersion, url: info.downloadUrl, webBuildUrl: info.webBuildUrl, notes: info.releaseNotes })
     else showToast('You are on the latest version')
   }
 
@@ -183,6 +183,7 @@ export function Profile() {
         open={!!updateInfo}
         latestVersion={updateInfo?.version || ''}
         downloadUrl={updateInfo?.url || ''}
+        webBuildUrl={updateInfo?.webBuildUrl || null}
         releaseNotes={updateInfo?.notes || ''}
         onLater={() => setUpdateInfo(null)}
       />

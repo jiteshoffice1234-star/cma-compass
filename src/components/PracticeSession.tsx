@@ -4,6 +4,7 @@ import { X, Check, X as XIcon, ArrowRight, ArrowLeft, Clock, Flag, RotateCcw } f
 import { useStore } from '../store'
 import { questions, Question } from '../data/questions'
 import { chaptersForLevel, chaptersForPaper, paperById, Level } from '../data/curriculum'
+import { EXAM_TERMS } from '../data/pastPapers'
 import { Tappable } from './ui'
 import { Confetti } from './Confetti'
 import { color, border, shadow, font } from '../theme'
@@ -11,6 +12,7 @@ import { color, border, shadow, font } from '../theme'
 export interface SessionConfig {
   level: Level
   paperId: number | null // null = all subjects in the level
+  termId: string
   count: number
   timed: boolean
   minutes: number
@@ -75,6 +77,7 @@ export function PracticeSession({ config, onClose }: { config: SessionConfig; on
   const pct = pool.length ? Math.round((score / pool.length) * 100) : 0
   const passed = pct >= 40 // ICMAI pass mark per paper is 40%
   const subjectLabel = config.paperId ? `${paperById(config.paperId)?.code} · ${paperById(config.paperId)?.name}` : 'All subjects'
+  const termLabel = EXAM_TERMS.find((t) => t.id === config.termId)?.label ?? 'Latest ICMAI archive'
 
   const mm = String(Math.floor(remaining / 60)).padStart(2, '0')
   const ss = String(remaining % 60).padStart(2, '0')
@@ -112,7 +115,10 @@ export function PracticeSession({ config, onClose }: { config: SessionConfig; on
             </div>
           </div>
           <div style={{ flex: 1, overflowY: 'auto', padding: 16 }}>
-            <div style={{ color: color.muted, fontSize: 12, marginBottom: 8, fontWeight: 600 }}>{subjectLabel}</div>
+            <div style={{ color: color.muted, fontSize: 12, marginBottom: 8, fontWeight: 600 }}>{subjectLabel} · {termLabel}</div>
+            <div style={{ background: color.secondaryTint, color: color.secondary, border: border.thin, borderRadius: 8, padding: '8px 10px', fontSize: 12, fontWeight: 800, marginBottom: 14 }}>
+              Practice mode is aligned to official ICMAI past-paper terms. Use the paper PDFs from the setup screen for the original institute paper.
+            </div>
             <div style={{ fontWeight: 800, fontSize: 18, lineHeight: 1.4, marginBottom: 20 }}>{q.question}</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {q.options.map((opt, i) => {
@@ -146,7 +152,7 @@ export function PracticeSession({ config, onClose }: { config: SessionConfig; on
             <div className="mono" style={{ fontSize: 30, fontWeight: 800, color: '#fff', fontFamily: font.mono }}>{pct}%</div>
           </motion.div>
           <div style={{ fontWeight: 900, fontSize: 22, marginTop: 16 }}>{passed ? 'Passed!' : 'Keep practising'}</div>
-          <div style={{ color: color.muted, fontSize: 14, marginTop: 6, fontWeight: 600 }}>Pass mark is 40% (ICMAI standard)</div>
+          <div style={{ color: color.muted, fontSize: 14, marginTop: 6, fontWeight: 600 }}>Pass mark is 40% (ICMAI standard) · {termLabel}</div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, margin: '20px 0' }}>
             <Stat label="Marks" value={`${score}/${pool.length}`} />

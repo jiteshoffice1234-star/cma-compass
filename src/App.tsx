@@ -20,7 +20,7 @@ import { color } from './theme'
 
 export default function App() {
   const { ready, onboardingComplete, init, levelUp, badgeUnlock, toast, clearToast } = useStore()
-  const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; notes: string; ota: boolean } | null>(null)
+  const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; webBuildUrl: string | null; notes: string; ota: boolean } | null>(null)
 
   useEffect(() => {
     init()
@@ -35,6 +35,7 @@ export default function App() {
         setUpdateInfo({
           version: info.latestVersion,
           url: info.downloadUrl,
+          webBuildUrl: info.webBuildUrl,
           notes: info.releaseNotes,
           ota: isNative,
         })
@@ -75,6 +76,7 @@ export default function App() {
         open={!!updateInfo}
         latestVersion={updateInfo?.version || ''}
         downloadUrl={updateInfo?.url || ''}
+        webBuildUrl={updateInfo?.webBuildUrl || null}
         releaseNotes={updateInfo?.notes || ''}
         onLater={() => setUpdateInfo(null)}
       />

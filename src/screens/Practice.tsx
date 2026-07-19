@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { CreditCard, Layers, Calculator, BookA, Lock, ArrowRight, Play, Settings2 } from 'lucide-react'
 import { useStore } from '../store'
 import { chaptersForLevel, papersForLevel } from '../data/curriculum'
@@ -9,15 +10,18 @@ import { FormulaSheet } from './FormulaSheet'
 import { Glossary } from './Glossary'
 import { StageTestOverlay } from './StageTestOverlay'
 import { PracticeSession, SessionConfig } from '../components/PracticeSession'
+import { EXAM_TERMS, FOUNDATION_MCQ_BANK, hasPastPapers, pastPaperUrl } from '../data/pastPapers'
 import { color, border, shadow } from '../theme'
 
 export function Practice() {
+  const nav = useNavigate()
   const [sheet, setSheet] = useState<'none' | 'flashcards' | 'formulas' | 'glossary' | 'stage' | 'setup'>('none')
   const [activeTest, setActiveTest] = useState<{ paperId: number; grand: boolean } | null>(null)
   
   // Practice Exam Setup State
   const [sessionConfig, setSessionConfig] = useState<SessionConfig | null>(null)
   const [setupPaperId, setSetupPaperId] = useState<number | null>(null)
+  const [setupTermId, setSetupTermId] = useState<string>(EXAM_TERMS[0]?.id ?? 'jun26')
   const [setupCount, setSetupCount] = useState<number>(100)
   const [setupTimed, setSetupTimed] = useState<boolean>(true)
   const [setupMinutes, setSetupMinutes] = useState<number>(120)
@@ -25,6 +29,7 @@ export function Practice() {
   const progress = useStore((s) => s.progress)
   const level = useStore((s) => s.level)
   const papers = papersForLevel(level).filter((p) => chaptersForLevel(level).some((c) => c.paperId === p.id))
+  const setupTerm = EXAM_TERMS.find((t) => t.id === setupTermId) ?? EXAM_TERMS[0]
   const allDone = chaptersForLevel(level).every((c) => progress[c.id]?.completed)
 
   const tiles = [
@@ -38,11 +43,22 @@ export function Practice() {
     setSessionConfig({
       level,
       paperId: setupPaperId,
+      termId: setupTermId,
       count: setupCount,
       timed: setupTimed,
       minutes: setupTimed ? setupMinutes : 0
     })
     setSheet('none')
+  }
+
+  const openOfficialPaper = () => {
+    if (level === 'foundation') {
+      window.open(FOUNDATION_MCQ_BANK, '_blank')
+      return
+    }
+    if (!setupPaperId || !setupTerm || !hasPastPapers(setupPaperId)) return
+    const url = pastPaperUrl(setupPaperId, setupTerm.folder)
+    nav(`/pdf?src=${encodeURIComponent(url)}&title=${encodeURIComponent(`ICMAI Paper ${setupPaperId} · ${setupTerm.label}`)}`)
   }
 
   if (sessionConfig) {
@@ -108,6 +124,37 @@ export function Practice() {
                 </Tappable>
               ))}
             </div>
+          </div>
+
+          <div>
+            <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>Official Paper Term</div>
+            <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 4 }}>
+              {EXAM_TERMS.map(term => (
+                <Tappable
+                  key={term.id}
+                  onClick={() => setSetupTermId(term.id)}
+                  style={{ flexShrink: 0, padding: '8px 14px', background: setupTermId === term.id ? color.secondary : color.card, color: setupTermId === term.id ? '#fff' : color.text, border: border.thin, borderRadius: 8, fontWeight: 800, fontSize: 13 }}
+                >
+                  {term.label}
+                </Tappable>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ background: color.secondaryTint, border: border.thin, borderRadius: 10, padding: 12 }}>
+            <div style={{ fontWeight: 900, fontSize: 14, marginBottom: 4 }}>Official ICMAI source</div>
+            <div style={{ color: color.muted, fontSize: 12, fontWeight: 700, lineHeight: 1.4 }}>
+              {level === 'foundation'
+                ? 'Foundation objective practice is linked to ICMAI official MCQ portal.'
+                : setupPaperId
+                  ? `Open ${setupTerm?.label ?? 'selected term'} official paper PDF inside the app, then practise with the configured drill.`
+                  : 'Choose one subject to open its official paper PDF inside the app.'}
+            </div>
+            {(level === 'foundation' || (setupPaperId && setupTerm && hasPastPapers(setupPaperId))) && (
+              <Button variant="secondary" onClick={openOfficialPaper} style={{ width: '100%', marginTop: 10 }}>
+                {level === 'foundation' ? 'Open ICMAI MCQ Portal' : 'Open Official Paper PDF'}
+              </Button>
+            )}
           </div>
 
           <div>

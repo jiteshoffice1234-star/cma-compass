@@ -53,9 +53,9 @@
   --success-tint: rgba(16, 185, 129, 0.2);
   --warning-tint: rgba(245, 158, 11, 0.2);
   --danger-tint: rgba(239, 68, 68, 0.2);
-  --sh-sm: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --sh-md: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --sh-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --sh-sm: 0 3px 10px rgba(0, 0, 0, 0.28);
+  --sh-md: 0 6px 18px rgba(0, 0, 0, 0.34);
+  --sh-lg: 0 10px 26px rgba(0, 0, 0, 0.42);
   --bd-thin: 1px solid rgba(255, 255, 255, 0.1);
   --bd-thick: 1.5px solid rgba(255, 255, 255, 0.2);
   --r-sm: 12px; --r-md: 20px; --r-lg: 28px;
@@ -165,9 +165,9 @@
   --success-tint: rgba(5, 255, 161, 0.2);
   --warning-tint: rgba(185, 103, 255, 0.2);
   --danger-tint: rgba(255, 84, 112, 0.2);
-  --sh-sm: 0 0 10px rgba(255, 113, 206, 0.6);
-  --sh-md: 0 0 15px rgba(255, 113, 206, 0.8), 0 0 5px rgba(1, 205, 254, 0.5);
-  --sh-lg: 0 0 25px #FF71CE, 0 0 10px #01CDFE;
+  --sh-sm: 0 0 6px rgba(255, 113, 206, 0.45);
+  --sh-md: 0 0 10px rgba(255, 113, 206, 0.55), 0 0 4px rgba(1, 205, 254, 0.35);
+  --sh-lg: 0 0 16px rgba(255, 113, 206, 0.75), 0 0 8px rgba(1, 205, 254, 0.55);
   --bd-thin: 1px solid rgba(1, 205, 254, 0.5);
   --bd-thick: 2px solid #FF71CE;
   --r-sm: 0px; --r-md: 4px; --r-lg: 8px;
@@ -261,7 +261,8 @@ input, textarea {
 
 /* Press feedback */
 .tappable {
-  transition: transform 70ms ease, box-shadow 70ms ease, opacity 70ms ease;
+  transition: transform 70ms ease, opacity 70ms ease;
+  will-change: transform;
 }
 .tappable:active {
   transform: translate(2px, 2px);

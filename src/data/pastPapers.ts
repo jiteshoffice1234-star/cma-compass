@@ -13,9 +13,11 @@ export interface ExamTerm {
 
 // Newest first. Only terms whose PDFs are confirmed live are listed.
 export const EXAM_TERMS: ExamTerm[] = [
+  { id: 'jun26', label: 'June 2026', folder: 'June26' },
   { id: 'dec25', label: 'December 2025', folder: 'Dec25' },
   { id: 'jun25', label: 'June 2025', folder: 'June25' },
   { id: 'dec24', label: 'December 2024', folder: 'Dec24' },
+  { id: 'jun24', label: 'June 2024', folder: 'Jun24' },
   { id: 'dec23', label: 'December 2023', folder: 'Dec23' },
 ]
 
