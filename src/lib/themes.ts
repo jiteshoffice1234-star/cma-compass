@@ -1,7 +1,3 @@
-// Central registry of the app's full visual themes.
-// Each id maps to a [data-theme='<id>'] block in index.css that restyles the
-// entire app (colours + design "physics"). Neobrutalism is the default.
-
 export type ThemeId = 'neo' | 'glass' | 'clay' | 'neu' | 'skeuo' | 'vapor' | 'cyber'
 
 export interface ThemeMeta {
@@ -32,7 +28,6 @@ export const THEMES: ThemeMeta[] = [
 
 const IDS = new Set(THEMES.map((t) => t.id))
 
-// Coerce any stored value (incl. legacy 'light'/'dark'/'claude') to a valid theme.
 export function normalizeTheme(v: any): ThemeId {
   return IDS.has(v) ? (v as ThemeId) : DEFAULT_THEME
 }

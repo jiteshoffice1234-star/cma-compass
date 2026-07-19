@@ -20,7 +20,7 @@ import { color } from './theme'
 
 export default function App() {
   const { ready, onboardingComplete, init, levelUp, badgeUnlock, toast, clearToast } = useStore()
-  const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; webBuildUrl: string | null; notes: string; ota: boolean } | null>(null)
+  const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; webBuildUrl?: string | null; notes: string; ota: boolean } | null>(null)
 
   useEffect(() => {
     init()

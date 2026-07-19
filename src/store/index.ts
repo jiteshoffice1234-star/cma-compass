@@ -9,8 +9,9 @@ import {
 } from '../lib/store'
 import type { ChapterProgressRow } from '../lib/db'
 import { BADGES, WEEKLY_CHALLENGES, getChallengeForWeek, weekNumber, levelForXp } from '../lib/levels'
+import { ThemeId, DEFAULT_THEME, normalizeTheme } from '../lib/themes'
 
-export type ThemeMode = 'dark' | 'light' | 'claude'
+export type ThemeMode = ThemeId
 
 function dateStr(d = new Date()): string {
   return d.toISOString().slice(0, 10)
@@ -53,7 +54,7 @@ export interface AppState {
   setPdfsGenerated: () => Promise<void>
   markVideoWatched: (chapterId: number) => Promise<void>
   markPdfRead: (chapterId: number, type: string) => Promise<void>
-  completeQuiz: (chapterId: number, score: number, perfect: boolean, attempts: { q: string; correct: boolean }[]) => Promise<void>
+  completeQuiz: (chapterId: number, score: number, total: number, perfect: boolean, attempts: { q: string; correct: boolean }[]) => Promise<void>
   isUnlocked: (chapterId: number) => boolean
   reviewFlashcard: (flashcardId: string, quality: number) => Promise<void>
   toggleBookmarkChapter: (chapterId: number) => Promise<void>
@@ -73,7 +74,7 @@ export const useStore = create<AppState>((set, get) => ({
   name: 'Student',
   dailyGoal: 1,
   level: 'foundation',
-  uiMode: 'dark',
+  uiMode: DEFAULT_THEME,
   totalXp: 0,
   currentStreak: 0,
   longestStreak: 0,
@@ -117,7 +118,7 @@ export const useStore = create<AppState>((set, get) => ({
       name: profile.name,
       dailyGoal: profile.daily_goal,
       level: (profile.level as Level) || 'foundation',
-      uiMode: (profile.ui_mode as ThemeMode) || 'dark',
+      uiMode: normalizeTheme(profile.ui_mode),
       pdfsGenerated: !!profile.pdfs_generated,
       progress,
       totalXp: xp,
@@ -216,7 +217,7 @@ export const useStore = create<AppState>((set, get) => ({
     }
   },
 
-  completeQuiz: async (chapterId, score, perfect, attempts) => {
+  completeQuiz: async (chapterId, score, _total, perfect, attempts) => {
     try {
       // Validate score against recorded attempts
       const correctCount = attempts.filter(a => a.correct).length

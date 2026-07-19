@@ -8,6 +8,7 @@ export interface UpdateInfo {
   available: boolean
   latestVersion: string
   downloadUrl: string
+  webBuildUrl?: string
   releaseNotes: string
 }
 
@@ -19,10 +20,12 @@ export async function checkForUpdate(currentVersion: string): Promise<UpdateInfo
     const latest = data.tag_name.replace(/^v/, '')
     if (latest === currentVersion) return null
     const apk = data.assets?.find((a: any) => a.name.endsWith('.apk'))
+    const webZip = data.assets?.find((a: any) => a.name.endsWith('.zip'))
     return {
       available: true,
       latestVersion: latest,
       downloadUrl: apk?.browser_download_url || data.assets?.[0]?.browser_download_url || data.html_url,
+      webBuildUrl: webZip?.browser_download_url,
       releaseNotes: data.body || `Version ${latest} available`,
     }
   } catch {
