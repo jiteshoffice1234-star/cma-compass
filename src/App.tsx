@@ -15,6 +15,7 @@ import { BottomNav } from './components/BottomNav'
 import { Toast } from './components/Toast'
 import { LevelUpOverlay, BadgeUnlockOverlay } from './components/Overlay'
 import { PdfViewer } from './screens/PdfViewer'
+import { LoaderScreen } from './components/Loader'
 import { color } from './theme'
 
 export default function App() {
@@ -43,11 +44,7 @@ export default function App() {
   }, [ready])
 
   if (!ready) {
-    return (
-      <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: color.surface }}>
-        <div className="shimmer" style={{ width: 120, height: 120, borderRadius: 14 }} />
-      </div>
-    )
+    return <LoaderScreen />
   }
 
   return (

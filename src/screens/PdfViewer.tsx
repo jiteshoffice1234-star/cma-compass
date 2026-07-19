@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react'
 import { IconButton } from '../components/ui'
 import { Capacitor } from '@capacitor/core'
 import { Filesystem } from '@capacitor/filesystem'
+import { Loader } from '../components/Loader'
 import { color, border } from '../theme'
 
 // Use the legacy build (no ES module worker complications) and the bundled worker.
@@ -72,7 +73,7 @@ export function PdfViewer() {
         <div style={{ fontWeight: 800, fontSize: 15, flex: 1 }}>{title}</div>
       </div>
       <div style={{ flex: 1, overflowY: 'auto', padding: 12, background: color.text }}>
-        {loading && <div style={{ display: 'flex', justifyContent: 'center', padding: 60 }}><div className="shimmer" style={{ width: 200, height: 280, borderRadius: 8 }} /></div>}
+        {loading && <div style={{ display: 'flex', justifyContent: 'center', padding: 60 }}><Loader size={48} /></div>}
         {error && <div style={{ color: '#fff', textAlign: 'center', padding: 40, fontSize: 14, fontWeight: 600 }}>{error}</div>}
         {pages.map((u, i) => (
           <img key={i} src={u} style={{ width: '100%', border: border.thin, marginBottom: 12, boxShadow: '4px 4px 0 rgba(0,0,0,0.6)', display: 'block' }} />

@@ -9,6 +9,7 @@ import { color, border, shadow, font, APP_NAME } from '../theme'
 const LEVELS: { id: Level; blurb: string }[] = [
   { id: 'foundation', blurb: 'Papers 1–4 · the entry level of the CMA course' },
   { id: 'intermediate', blurb: 'Papers 5–12 · Groups I & II' },
+  { id: 'final', blurb: 'Papers 13–20 · Groups III & IV — the advanced professional level' },
 ]
 
 export function Onboarding() {

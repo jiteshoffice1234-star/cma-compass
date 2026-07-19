@@ -1,18 +1,27 @@
 import { useState } from 'react'
-import { CreditCard, Layers, Calculator, BookA, Lock, ArrowRight } from 'lucide-react'
+import { CreditCard, Layers, Calculator, BookA, Lock, ArrowRight, Play, Settings2 } from 'lucide-react'
 import { useStore } from '../store'
 import { chaptersForLevel, papersForLevel } from '../data/curriculum'
-import { Card, Tappable } from '../components/ui'
+import { Card, Tappable, Button } from '../components/ui'
 import { BottomSheet } from '../components/BottomSheet'
 import { FlashcardsDue } from './FlashcardsDue'
 import { FormulaSheet } from './FormulaSheet'
 import { Glossary } from './Glossary'
 import { StageTestOverlay } from './StageTestOverlay'
+import { PracticeSession, SessionConfig } from '../components/PracticeSession'
 import { color, border, shadow } from '../theme'
 
 export function Practice() {
-  const [sheet, setSheet] = useState<'none' | 'flashcards' | 'formulas' | 'glossary' | 'stage'>('none')
+  const [sheet, setSheet] = useState<'none' | 'flashcards' | 'formulas' | 'glossary' | 'stage' | 'setup'>('none')
   const [activeTest, setActiveTest] = useState<{ paperId: number; grand: boolean } | null>(null)
+  
+  // Practice Exam Setup State
+  const [sessionConfig, setSessionConfig] = useState<SessionConfig | null>(null)
+  const [setupPaperId, setSetupPaperId] = useState<number | null>(null)
+  const [setupCount, setSetupCount] = useState<number>(100)
+  const [setupTimed, setSetupTimed] = useState<boolean>(true)
+  const [setupMinutes, setSetupMinutes] = useState<number>(120)
+
   const progress = useStore((s) => s.progress)
   const level = useStore((s) => s.level)
   const papers = papersForLevel(level).filter((p) => chaptersForLevel(level).some((c) => c.paperId === p.id))
@@ -25,23 +34,125 @@ export function Practice() {
     { key: 'glossary' as const, icon: BookA, tint: color.dangerTint, iconColor: color.danger, title: 'Glossary', desc: '150+ terms, A–Z' },
   ]
 
+  const startPractice = () => {
+    setSessionConfig({
+      level,
+      paperId: setupPaperId,
+      count: setupCount,
+      timed: setupTimed,
+      minutes: setupTimed ? setupMinutes : 0
+    })
+    setSheet('none')
+  }
+
+  if (sessionConfig) {
+    return <PracticeSession config={sessionConfig} onClose={() => setSessionConfig(null)} />
+  }
+
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: color.surface }}>
       <div style={{ padding: '16px 16px 8px' }}>
         <div style={{ fontWeight: 900, fontSize: 27 }}>Practice</div>
         <div style={{ color: color.muted, fontSize: 14, marginTop: 2, fontWeight: 600 }}>Drill, test, and revise.</div>
       </div>
-      <div style={{ flex: 1, padding: 16, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, alignContent: 'start', overflowY: 'auto' }}>
-        {tiles.map((t) => {
-          const Icon = t.icon
-          return (
-            <Card key={t.key} style={{ padding: 16, minHeight: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} onClick={() => setSheet(t.key)}>
-              <div style={{ width: 44, height: 44, borderRadius: 8, border: border.thin, background: t.tint, display: 'flex', alignItems: 'center', justifyContent: 'center', color: t.iconColor }}><Icon size={22} /></div>
-              <div><div style={{ fontWeight: 800, fontSize: 16 }}>{t.title}</div><div style={{ color: color.muted, fontSize: 12, marginTop: 2, fontWeight: 600 }}>{t.desc}</div></div>
-            </Card>
-          )
-        })}
+      <div style={{ flex: 1, padding: 16, display: 'flex', flexDirection: 'column', gap: 16, overflowY: 'auto' }}>
+        
+        <Card style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 12, background: color.primaryTint, border: border.thick }} onClick={() => setSheet('setup')}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ width: 48, height: 48, borderRadius: 12, background: color.primary, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', border: border.thin }}>
+              <Layers size={24} />
+            </div>
+            <div style={{ background: color.primary, color: '#fff', padding: '4px 10px', borderRadius: 20, fontSize: 12, fontWeight: 800, border: border.thin }}>MOCK EXAM</div>
+          </div>
+          <div>
+            <div style={{ fontWeight: 900, fontSize: 22, marginTop: 4 }}>Practice Exam</div>
+            <div style={{ color: color.text, fontSize: 14, marginTop: 4, fontWeight: 600, opacity: 0.8 }}>Full-length timed sessions (100 Qs). Select subjects, simulate real exams, and review answers.</div>
+          </div>
+          <Button variant="primary" style={{ marginTop: 8, width: '100%', display: 'flex', justifyContent: 'center', gap: 8 }}>
+            <Settings2 size={18} /> Configure & Start
+          </Button>
+        </Card>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+          {tiles.map((t) => {
+            const Icon = t.icon
+            return (
+              <Card key={t.key} style={{ padding: 16, minHeight: 140, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} onClick={() => setSheet(t.key)}>
+                <div style={{ width: 40, height: 40, borderRadius: 8, border: border.thin, background: t.tint, display: 'flex', alignItems: 'center', justifyContent: 'center', color: t.iconColor }}><Icon size={20} /></div>
+                <div><div style={{ fontWeight: 800, fontSize: 15 }}>{t.title}</div><div style={{ color: color.muted, fontSize: 12, marginTop: 2, fontWeight: 600 }}>{t.desc}</div></div>
+              </Card>
+            )
+          })}
+        </div>
       </div>
+
+      <BottomSheet open={sheet === 'setup'} onClose={() => setSheet('none')} title="Configure Exam">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '0 4px 16px' }}>
+          
+          <div>
+            <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>Subject</div>
+            <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 4 }}>
+              <Tappable
+                onClick={() => setSetupPaperId(null)}
+                style={{ flexShrink: 0, padding: '8px 16px', background: setupPaperId === null ? color.secondary : color.card, color: setupPaperId === null ? '#fff' : color.text, border: border.thin, borderRadius: 8, fontWeight: 800, fontSize: 13 }}
+              >
+                All Subjects (Mixed)
+              </Tappable>
+              {papers.map(p => (
+                <Tappable
+                  key={p.id}
+                  onClick={() => setSetupPaperId(p.id)}
+                  style={{ flexShrink: 0, padding: '8px 16px', background: setupPaperId === p.id ? color.secondary : color.card, color: setupPaperId === p.id ? '#fff' : color.text, border: border.thin, borderRadius: 8, fontWeight: 800, fontSize: 13 }}
+                >
+                  {p.code}
+                </Tappable>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>Questions</div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              {[25, 50, 100].map(count => (
+                <Tappable
+                  key={count}
+                  onClick={() => setSetupCount(count)}
+                  style={{ flex: 1, textAlign: 'center', padding: '10px 0', background: setupCount === count ? color.primaryTint : color.card, border: setupCount === count ? border.thick : border.thin, borderRadius: 8, fontWeight: 800, fontSize: 14 }}
+                >
+                  {count} Qs
+                </Tappable>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8, display: 'flex', justifyContent: 'space-between' }}>
+              <span>Timed Mode</span>
+              <Tappable onClick={() => setSetupTimed(!setupTimed)} style={{ background: setupTimed ? color.success : color.card, border: border.thin, borderRadius: 20, width: 44, height: 24, position: 'relative' }}>
+                <div style={{ position: 'absolute', top: 2, left: setupTimed ? 22 : 2, width: 18, height: 18, background: '#fff', border: border.thin, borderRadius: '50%', transition: '0.2s' }} />
+              </Tappable>
+            </div>
+            {setupTimed && (
+              <div style={{ display: 'flex', gap: 8 }}>
+                {[30, 60, 90, 120].map(mins => (
+                  <Tappable
+                    key={mins}
+                    onClick={() => setSetupMinutes(mins)}
+                    style={{ flex: 1, textAlign: 'center', padding: '8px 0', background: setupMinutes === mins ? color.card : 'transparent', border: setupMinutes === mins ? border.thin : '1px solid transparent', borderRadius: 8, fontWeight: 700, fontSize: 13, opacity: setupMinutes === mins ? 1 : 0.6 }}
+                  >
+                    {mins}m
+                  </Tappable>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Button variant="primary" onClick={startPractice} style={{ marginTop: 8, width: '100%', display: 'flex', justifyContent: 'center', gap: 8 }}>
+            <Play size={18} /> Start Exam
+          </Button>
+
+        </div>
+      </BottomSheet>
 
       <BottomSheet open={sheet === 'flashcards'} onClose={() => setSheet('none')} title="Flashcards Due"><FlashcardsDue /></BottomSheet>
       <BottomSheet open={sheet === 'formulas'} onClose={() => setSheet('none')} title="Formula Sheet" height={'80%'}><FormulaSheet /></BottomSheet>
