@@ -16,9 +16,10 @@ import { Toast } from './components/Toast'
 import { LevelUpOverlay, BadgeUnlockOverlay } from './components/Overlay'
 import { PdfViewer } from './screens/PdfViewer'
 import { LoaderScreen } from './components/Loader'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { color } from './theme'
 
-export default function App() {
+function AppContent() {
   const { ready, onboardingComplete, init, levelUp, badgeUnlock, toast, clearToast } = useStore()
   const [updateInfo, setUpdateInfo] = useState<{ version: string; url: string; webBuildUrl?: string | null; notes: string; ota: boolean } | null>(null)
 
@@ -81,5 +82,13 @@ export default function App() {
         onLater={() => setUpdateInfo(null)}
       />
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <ErrorBoundary>
+      <AppContent />
+    </ErrorBoundary>
   )
 }

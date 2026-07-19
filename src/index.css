@@ -316,7 +316,7 @@ input, textarea {
 .loader:after {
   content: "";
   grid-area: 1/1;
-  background: #514b82;
+  background: var(--secondary);
   animation: l6-1 1.5s infinite linear, l6-2 1.5s infinite linear;
 }
 .loader:after {
@@ -324,7 +324,7 @@ input, textarea {
   animation-direction: reverse;
 }
 @keyframes l6-0 {
-  0%,9%,91%,100% { background: #514b82; }
+  0%,9%,91%,100% { background: var(--secondary); }
   10%,90% { background: #0000; }
 }
 @keyframes l6-1 {

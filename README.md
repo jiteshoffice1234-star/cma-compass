@@ -330,4 +330,21 @@ This is a personal project. If you have suggestions or find broken video links, 
 
 ## License
 
-Private — all rights reserved.
+MIT License — See [LICENSE](LICENSE) for details.
+
+You are free to:
+- ✅ Use this project for any purpose
+- ✅ Modify and create derivatives
+- ✅ Distribute copies
+- ✅ Use for commercial purposes
+
+Just include the license notice.
+
+### Copyright & Attribution
+
+**CMA Compass © 2026 Jitesh**
+
+**Important Legal Notice:**
+- This app is **NOT affiliated with ICMAI** (Institute of Cost Accountants of India)
+- The CMA name and syllabus are ICMAI's property
+- This is an independent study tool referencing the public CMA curriculum

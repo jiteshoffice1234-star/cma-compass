@@ -10,6 +10,7 @@ import {
 import type { ChapterProgressRow } from '../lib/db'
 import { BADGES, WEEKLY_CHALLENGES, getChallengeForWeek, weekNumber, levelForXp } from '../lib/levels'
 import { ThemeId, DEFAULT_THEME, normalizeTheme } from '../lib/themes'
+import { checkRateLimit } from '../lib/helpers'
 
 export type ThemeMode = ThemeId
 
@@ -91,46 +92,50 @@ export const useStore = create<AppState>((set, get) => ({
   toast: null,
 
   init: async () => {
-    await initDatabase()
-    const profile = await getProfile()
-    const allProg = await getAllChapterProgress()
-    const progress: Record<number, ChapterProgressRow> = {}
-    allProg.forEach((p) => (progress[p.chapter_id] = p))
-    const xp = await getTotalXp()
-    const streak = await getStreak()
-    const badgeRows = await getBadges()
-    const badges: Record<string, boolean> = {}
-    badgeRows.forEach((b) => (badges[b.badge_id] = !!b.unlocked))
-    const bookmarks = await getBookmarks()
+    try {
+      await initDatabase()
+      const profile = await getProfile()
+      const allProg = await getAllChapterProgress()
+      const progress: Record<number, ChapterProgressRow> = {}
+      allProg.forEach((p) => (progress[p.chapter_id] = p))
+      const xp = await getTotalXp()
+      const streak = await getStreak()
+      const badgeRows = await getBadges()
+      const badges: Record<string, boolean> = {}
+      badgeRows.forEach((b) => (badges[b.badge_id] = !!b.unlocked))
+      const bookmarks = await getBookmarks()
 
-    // weekly challenge (rotate per calendar week)
-    const ws = weekStartStr()
-    let weekly = await getWeeklyChallenge()
-    if (!weekly || weekly.week_start !== ws) {
-      const challenge = getChallengeForWeek(weekNumber())
-      weekly = { id: 1, challenge_id: challenge.id ?? weekNumber() % WEEKLY_CHALLENGES.length, week_start: ws, progress: 0, completed: 0 }
-      await saveWeeklyChallenge(weekly)
+      const ws = weekStartStr()
+      let weekly = await getWeeklyChallenge()
+      if (!weekly || weekly.week_start !== ws) {
+        const challenge = getChallengeForWeek(weekNumber())
+        weekly = { id: 1, challenge_id: challenge.id ?? weekNumber() % WEEKLY_CHALLENGES.length, week_start: ws, progress: 0, completed: 0 }
+        await saveWeeklyChallenge(weekly)
+      }
+
+      set({
+        ready: true,
+        onboardingComplete: !!profile.onboarding_complete,
+        name: profile.name,
+        dailyGoal: profile.daily_goal,
+        level: (profile.level as Level) || 'foundation',
+        uiMode: normalizeTheme(profile.ui_mode),
+        pdfsGenerated: !!profile.pdfs_generated,
+        progress,
+        totalXp: xp,
+        currentStreak: streak.current_streak,
+        longestStreak: streak.longest_streak,
+        lastActiveDate: streak.last_active_date,
+        badges,
+        bookmarks,
+        weeklyChallengeId: weekly.challenge_id,
+        weeklyProgress: weekly.progress,
+      })
+      document.documentElement.setAttribute('data-theme', normalizeTheme(profile.ui_mode))
+    } catch (error) {
+      console.error('[Store] Init failed:', error)
+      set({ ready: true })
     }
-
-    set({
-      ready: true,
-      onboardingComplete: !!profile.onboarding_complete,
-      name: profile.name,
-      dailyGoal: profile.daily_goal,
-      level: (profile.level as Level) || 'foundation',
-      uiMode: normalizeTheme(profile.ui_mode),
-      pdfsGenerated: !!profile.pdfs_generated,
-      progress,
-      totalXp: xp,
-      currentStreak: streak.current_streak,
-      longestStreak: streak.longest_streak,
-      lastActiveDate: streak.last_active_date,
-      badges,
-      bookmarks,
-      weeklyChallengeId: weekly.challenge_id,
-      weeklyProgress: weekly.progress,
-    })
-    document.documentElement.setAttribute('data-theme', normalizeTheme(profile.ui_mode))
   },
 
   completeOnboarding: async (name, dailyGoal, theme, level) => {
@@ -218,8 +223,11 @@ export const useStore = create<AppState>((set, get) => ({
   },
 
   completeQuiz: async (chapterId, score, _total, perfect, attempts) => {
+    if (!checkRateLimit(`quiz_${chapterId}`, 3000)) {
+      get().showToast('Please wait before submitting again')
+      return
+    }
     try {
-      // Validate score against recorded attempts
       const correctCount = attempts.filter(a => a.correct).length
       if (score !== correctCount) {
         console.warn('[Quiz] Score mismatch:', { score, correctCount, attempts: attempts.length })

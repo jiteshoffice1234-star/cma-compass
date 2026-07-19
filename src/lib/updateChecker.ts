@@ -2,7 +2,7 @@
 export const REPO = 'jiteshoffice1234-star/cma-compass'
 
 // Keep in sync with package.json "version" and android versionName.
-export const APP_VERSION = '2.5.0'
+export const APP_VERSION = '2.5.1'
 
 export interface UpdateInfo {
   available: boolean
@@ -12,9 +12,11 @@ export interface UpdateInfo {
   releaseNotes: string
 }
 
+import { withTimeout } from './helpers'
+
 export async function checkForUpdate(currentVersion: string): Promise<UpdateInfo | null> {
   try {
-    const res = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`)
+    const res = await withTimeout(fetch(`https://api.github.com/repos/${REPO}/releases/latest`), 8000)
     if (!res.ok) return null
     const data = await res.json()
     const latest = data.tag_name.replace(/^v/, '')

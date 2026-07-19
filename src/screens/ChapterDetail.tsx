@@ -19,15 +19,15 @@ export function ChapterDetail() {
   const { id } = useParams()
   const chapterId = parseInt(id || '1', 10)
   const nav = useNavigate()
-  const chapter = curriculum.find((c) => c.id === chapterId)!
+  const chapter = curriculum.find((c) => c.id === chapterId)
   const { progress, isUnlocked, markVideoWatched, toggleBookmarkChapter, bookmarks } = useStore()
   const p = progress[chapterId]
   const [tab, setTab] = useState<Tab>('overview')
   const [quizOpen, setQuizOpen] = useState(false)
   const bookmarked = bookmarks.includes(chapterId)
 
-  // Verified lecture options for this chapter; playlist is the fallback and is
-  // always offered as an extra option so students can browse the full course.
+  if (!chapter) return null
+
   const videos = videosForChapter(chapterId)
   const playlistId = playlistForChapter(chapter)
   const [videoIdx, setVideoIdx] = useState(0) // index into videos; -1 = playlist
@@ -89,7 +89,7 @@ export function ChapterDetail() {
             </div>
             {chapter.keyPoints.map((kp, i) => (
               <div key={i} style={{ display: 'flex', gap: 10, marginBottom: 12 }}>
-                <div style={{ width: 8, height: 8, background: color.secondary, border: '1px solid #000', marginTop: 6, flexShrink: 0 }} />
+                <div style={{ width: 8, height: 8, background: color.secondary, border: border.thin, marginTop: 6, flexShrink: 0 }} />
                 <div style={{ fontSize: 14, lineHeight: 1.45, color: color.text, fontWeight: 500 }}>{kp}</div>
               </div>
             ))}

@@ -37,8 +37,11 @@ export function Onboarding() {
             <div style={{ color: color.muted, marginTop: 10, fontSize: 14, fontWeight: 600, lineHeight: 1.5 }}>
               Video lectures, quizzes, flashcards and revision notes for the ICMAI CMA Foundation &amp; Intermediate — Syllabus 2022.
             </div>
-            <TextInput value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" style={{ marginTop: space.xl }} />
-            <Button variant="secondary" onClick={() => name.trim() && slide(1)} style={{ marginTop: space.lg, opacity: name.trim() ? 1 : 0.5 }}>
+            <TextInput value={name} onChange={(e) => {
+              const cleaned = e.target.value.slice(0, 30).replace(/[^a-zA-Z\s'-]/g, '')
+              setName(cleaned)
+            }} placeholder="Your name" style={{ marginTop: space.xl }} />
+            <Button variant="secondary" disabled={name.trim().length < 2} onClick={() => name.trim().length >= 2 && slide(1)} style={{ marginTop: space.lg }}>
               Next
             </Button>
           </motion.div>

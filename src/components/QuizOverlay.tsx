@@ -114,7 +114,7 @@ export function QuizOverlay({ chapterId, onClose }: { chapterId: number; onClose
             </motion.div>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginTop: 16 }}>
               {Array.from({ length: chapterQuestions.length }).map((_, i) => (
-                <Star key={i} size={22} color="#000" fill={i < score ? color.primary : 'none'} />
+                <Star key={i} size={22} color={color.black} fill={i < score ? color.primary : 'none'} />
               ))}
             </div>
             <div style={{ fontWeight: 900, fontSize: 21, marginTop: 16 }}>{passed ? (perfect ? 'Perfect!' : 'Passed!') : 'Almost there'}</div>

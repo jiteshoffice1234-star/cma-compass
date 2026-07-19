@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { color, border, shadow, radius, font } from '../theme'
 
@@ -20,12 +20,12 @@ export function ProgressRing({ value, size = 44, stroke = 5, color: ringColor = 
   )
 }
 
-export function Skeleton({ w = '100%', h = 16, radius: rad = 8, style }: { w?: number | string; h?: number | string; radius?: number; style?: any }) {
+export function Skeleton({ w = '100%', h = 16, radius: rad = 8, style }: { w?: number | string; h?: number | string; radius?: number; style?: CSSProperties }) {
   return <div className="shimmer" style={{ width: w, height: h, borderRadius: rad, ...style }} />
 }
 
 export function Tappable({ children, onClick, className = '', style, activeScale = 0.97, disabled = false }: {
-  children: ReactNode; onClick?: () => void; className?: string; style?: any; activeScale?: number; disabled?: boolean
+  children: ReactNode; onClick?: () => void; className?: string; style?: CSSProperties; activeScale?: number; disabled?: boolean
 }) {
   void activeScale
   return (
@@ -54,7 +54,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
   )
 }
 
-export function Card({ children, style, className = '', onClick }: { children: ReactNode; style?: any; className?: string; onClick?: () => void }) {
+export function Card({ children, style, className = '', onClick }: { children: ReactNode; style?: CSSProperties; className?: string; onClick?: () => void }) {
   return (
     <div className={(onClick ? 'tappable ' : '') + className} onClick={onClick}
       style={{ background: color.card, border: border.thick, borderRadius: radius.md, boxShadow: shadow.md, ...style }}>
@@ -65,13 +65,13 @@ export function Card({ children, style, className = '', onClick }: { children: R
 
 // Primary/secondary/ghost buttons with the hard-shadow press effect.
 export function Button({ children, onClick, variant = 'primary', style, disabled = false }: {
-  children: ReactNode; onClick?: () => void; variant?: 'primary' | 'secondary' | 'ghost' | 'danger'; style?: any; disabled?: boolean
+  children: ReactNode; onClick?: () => void; variant?: 'primary' | 'secondary' | 'ghost' | 'danger'; style?: CSSProperties; disabled?: boolean
 }) {
-  const variants: Record<string, any> = {
-    primary: { background: color.primary, color: color.text },
-    secondary: { background: color.secondary, color: '#FFFFFF' },
+  const variants: Record<string, CSSProperties> = {
+    primary: { background: color.primary, color: color.primaryInk },
+    secondary: { background: color.secondary, color: '#fff' },
     ghost: { background: color.card, color: color.text },
-    danger: { background: color.danger, color: '#FFFFFF' },
+    danger: { background: color.danger, color: '#fff' },
   }
   return (
     <Tappable onClick={onClick} disabled={disabled} style={{

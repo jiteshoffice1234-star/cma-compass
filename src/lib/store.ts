@@ -72,7 +72,7 @@ export async function getProfile(): Promise<UserProfileRow> {
   try {
     const db = getDb()
     const r = await db.query('SELECT * FROM user_profile WHERE id = 1')
-    const row = r.values![0] as UserProfileRow
+    const row = (r.values?.[0] ?? {}) as UserProfileRow
     if (!row.level) row.level = 'foundation'
     return row
   } catch (error) {
@@ -178,7 +178,7 @@ export async function getTotalXp(): Promise<number> {
   try {
     const db = getDb()
     const r = await db.query('SELECT COALESCE(SUM(amount),0) as total FROM xp_transactions')
-    return (r.values![0].total as number) ?? 0
+    return (r.values?.[0]?.total as number) ?? 0
   } catch (error) {
     logDatabaseError({ operation: 'getTotalXp', severity: 'ERROR', message: String(error) })
     return 0
@@ -194,7 +194,7 @@ export async function getXpTodayCount(): Promise<number> {
   try {
     const db = getDb()
     const r = await db.query("SELECT COUNT(*) as c FROM xp_transactions WHERE date(created_at) = date('now')")
-    return (r.values![0].c as number) ?? 0
+    return (r.values?.[0]?.c as number) ?? 0
   } catch (error) {
     logDatabaseError({ operation: 'getXpTodayCount', severity: 'WARNING', message: String(error) })
     return 0
@@ -243,7 +243,7 @@ export async function getStreak(): Promise<StreakRow> {
   try {
     const db = getDb()
     const r = await db.query('SELECT * FROM streaks WHERE id = 1')
-    return r.values![0] as StreakRow
+    return (r.values?.[0] ?? { id: 1, current_streak: 0, longest_streak: 0, last_active_date: null }) as StreakRow
   } catch (error) {
     logDatabaseError({ operation: 'getStreak', severity: 'ERROR', message: String(error) })
     return { id: 1, current_streak: 0, longest_streak: 0, last_active_date: null }
