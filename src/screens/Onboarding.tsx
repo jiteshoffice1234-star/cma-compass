@@ -4,7 +4,9 @@ import { useStore } from '../store'
 import { Level, LEVEL_LABELS, papersForLevel } from '../data/curriculum'
 import { Tappable, Button } from '../components/ui'
 import { Confetti } from '../components/Confetti'
-import { color, border, shadow, font, APP_NAME } from '../theme'
+import { TextInput } from '../components/TextInput'
+import { color, border, shadow, font, space, APP_NAME } from '../theme'
+import { ANIMATION } from '../lib/constants'
 
 const LEVELS: { id: Level; blurb: string }[] = [
   { id: 'foundation', blurb: 'Papers 1–4 · the entry level of the CMA course' },
@@ -35,9 +37,8 @@ export function Onboarding() {
             <div style={{ color: color.muted, marginTop: 10, fontSize: 14, fontWeight: 600, lineHeight: 1.5 }}>
               Video lectures, quizzes, flashcards and revision notes for the ICMAI CMA Foundation &amp; Intermediate — Syllabus 2022.
             </div>
-            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name"
-              style={{ marginTop: 28, background: color.card, border: border.thick, borderRadius: 10, boxShadow: shadow.sm, padding: '14px 16px', color: color.text, fontSize: 16, outline: 'none', fontWeight: 600, fontFamily: font.ui }} />
-            <Button variant="secondary" onClick={() => name.trim() && slide(1)} style={{ marginTop: 24, opacity: name.trim() ? 1 : 0.5 }}>
+            <TextInput value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" style={{ marginTop: space.xl }} />
+            <Button variant="secondary" onClick={() => name.trim() && slide(1)} style={{ marginTop: space.lg, opacity: name.trim() ? 1 : 0.5 }}>
               Next
             </Button>
           </motion.div>
@@ -81,7 +82,7 @@ export function Onboarding() {
             </div>
             <div style={{ display: 'flex', gap: 12, marginTop: 28 }}>
               <Button variant="ghost" onClick={() => slide(-1)} style={{ flex: 1 }}>Back</Button>
-              <Button variant="secondary" onClick={() => { setConfetti(true); setTimeout(() => complete(name || 'Student', goal, 'neo', level), 700) }} style={{ flex: 1 }}>
+              <Button variant="secondary" onClick={() => { setConfetti(true); setTimeout(() => complete(name || 'Student', goal, 'neo', level), ANIMATION.CONFETTI_DELAY) }} style={{ flex: 1 }}>
                 Start Learning
               </Button>
             </div>

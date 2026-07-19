@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import { ArrowLeft, Bookmark, BookmarkCheck, Play, FileText, Check, ListVideo } from 'lucide-react'
+import { ArrowLeft, Bookmark, BookmarkCheck, Play, FileText, Check } from 'lucide-react'
 import { useStore } from '../store'
 import { curriculum, paperById, LEVEL_LABELS, playlistForChapter, videosForChapter } from '../data/curriculum'
-import { Tappable, Card, ProgressRing, Skeleton, IconButton, Button } from '../components/ui'
+import { Card, ProgressRing, IconButton, Button } from '../components/ui'
 import { QuizOverlay } from '../components/QuizOverlay'
 import { FlashcardStack } from '../components/FlashcardStack'
 import { PdfTab } from './PdfTab'
+import { TabButton } from '../components/TabButton'
+import { TabNavigation } from '../components/TabNavigation'
+import { ResponsiveVideo } from '../components/ResponsiveVideo'
 import { color, border, font } from '../theme'
 
 type Tab = 'overview' | 'quiz' | 'flashcards' | 'pdf'
@@ -21,7 +24,6 @@ export function ChapterDetail() {
   const p = progress[chapterId]
   const [tab, setTab] = useState<Tab>('overview')
   const [quizOpen, setQuizOpen] = useState(false)
-  const [videoLoading, setVideoLoading] = useState(true)
   const bookmarked = bookmarks.includes(chapterId)
 
   // Verified lecture options for this chapter; playlist is the fallback and is
@@ -30,7 +32,7 @@ export function ChapterDetail() {
   const playlistId = playlistForChapter(chapter)
   const [videoIdx, setVideoIdx] = useState(0) // index into videos; -1 = playlist
 
-  useEffect(() => { setVideoIdx(videos.length ? 0 : -1); setVideoLoading(true) }, [chapterId])
+  useEffect(() => { setVideoIdx(videos.length ? 0 : -1) }, [chapterId])
 
   const embedSrc = videoIdx >= 0 && videos[videoIdx]
     ? `https://www.youtube.com/embed/${videos[videoIdx].id}?autoplay=0&rel=0&modestbranding=1&playsinline=1`
@@ -52,60 +54,27 @@ export function ChapterDetail() {
         </IconButton>
       </div>
 
-      {/* lecture player */}
-      <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', background: '#000', borderTop: border.thin, borderBottom: border.thin }}>
-        <iframe
-          key={embedSrc}
-          src={embedSrc}
-          style={{ width: '100%', height: '100%', border: 'none' }}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          onLoad={() => setVideoLoading(false)}
-          title={chapter.title}
-        />
-        {videoLoading && (
-          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000', pointerEvents: 'none' }}><Skeleton w={60} h={60} radius={30} /></div>
-        )}
-      </div>
+      <ResponsiveVideo src={embedSrc} title={chapter.title} />
 
-      {/* lecture options — pick a teaching style */}
       {(videos.length > 0) && (
         <div style={{ display: 'flex', gap: 8, overflowX: 'auto', padding: '10px 12px 4px', flexShrink: 0 }}>
           {videos.map((v, i) => (
-            <Tappable key={v.id} onClick={() => { setVideoIdx(i); setVideoLoading(true) }}
-              style={{
-                flexShrink: 0, display: 'flex', alignItems: 'center', gap: 6,
-                background: videoIdx === i ? color.secondary : color.card,
-                color: videoIdx === i ? '#fff' : color.text,
-                border: border.thin, borderRadius: 8,
-                boxShadow: '2px 2px 0 #000',
-                padding: '7px 12px', fontSize: 12, fontWeight: 800,
-              }}>
-              <Play size={12} /> {v.label}
-            </Tappable>
+            <TabButton key={v.id} active={videoIdx === i} onClick={() => setVideoIdx(i)} icon={Play} label={v.label} />
           ))}
-          <Tappable onClick={() => { setVideoIdx(-1); setVideoLoading(true) }}
-            style={{
-              flexShrink: 0, display: 'flex', alignItems: 'center', gap: 6,
-              background: videoIdx === -1 ? color.secondary : color.card,
-              color: videoIdx === -1 ? '#fff' : color.text,
-              border: border.thin, borderRadius: 8,
-              boxShadow: '2px 2px 0 #000',
-              padding: '7px 12px', fontSize: 12, fontWeight: 800,
-            }}>
-            <ListVideo size={13} /> Full course playlist
-          </Tappable>
+          <TabButton active={videoIdx === -1} onClick={() => setVideoIdx(-1)} icon={null} label="Full course playlist" />
         </div>
       )}
 
-      {/* tabs */}
-      <div style={{ display: 'flex', borderBottom: border.thin, marginTop: 6 }}>
-        {(['overview', 'quiz', 'flashcards', 'pdf'] as Tab[]).map((t) => (
-          <Tappable key={t} onClick={() => setTab(t)} style={{ flex: 1, textAlign: 'center', padding: '12px 0', fontWeight: 800, fontSize: 13, color: tab === t ? color.text : color.muted, background: tab === t ? color.primary : 'transparent', borderRight: border.thin, borderRadius: 0 }}>
-            {t.charAt(0).toUpperCase() + t.slice(1)}
-          </Tappable>
-        ))}
-      </div>
+      <TabNavigation
+        tabs={[
+          { id: 'overview', label: 'Overview' },
+          { id: 'quiz', label: 'Quiz' },
+          { id: 'flashcards', label: 'Flashcards' },
+          { id: 'pdf', label: 'PDF' },
+        ]}
+        active={tab}
+        onChange={(t) => setTab(t as Tab)}
+      />
 
       {/* content */}
       <div style={{ flex: 1, overflowY: 'auto', padding: 16 }}>
