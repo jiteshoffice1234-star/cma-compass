@@ -1,19 +1,206 @@
-/* Neobrutalism theme — flat fills, solid black borders, hard offset shadows. */
-:root {
-  --bg: #FBFBF9;
-  --surface: #F3F1E9;
+/* =========================================================================
+   THEME ENGINE
+   Every screen styles itself through theme.ts (color/border/shadow/radius),
+   which resolves to these CSS variables. Switching [data-theme] on <html>
+   restyles the ENTIRE app — colours AND design "physics" (shadow style,
+   border weight, radius, blur, font). Neobrutalism ('neo') is the default.
+   ========================================================================= */
+
+/* ---- 1 · NEOBRUTALISM (default) ---- */
+:root,
+[data-theme='neo'] {
+  --primary: #FDC800;
+  --primary-ink: #1C293C;
+  --secondary: #432DD7;
+  --success: #16A34A;
+  --warning: #D97706;
+  --danger: #DC2626;
+  --surface: #FBFBF9;
   --card: #FFFFFF;
-  --border: #000000;
   --text: #1C293C;
   --muted: #55637A;
-  --accent: #432DD7;
-  --primary: #FDC800;
-  --success: #16A34A;
-  --error: #DC2626;
-  --xp: #D97706;
-  --shadow-sm: 3px 3px 0 #000;
-  --shadow-md: 4px 4px 0 #000;
-  --shadow-lg: 6px 6px 0 #000;
+  --ink: #000000;
+  --primary-tint: #FFF6D6;
+  --secondary-tint: #E8E4FB;
+  --success-tint: #DCFCE7;
+  --warning-tint: #FEF3C7;
+  --danger-tint: #FEE2E2;
+  --sh-sm: 3px 3px 0 var(--ink);
+  --sh-md: 4px 4px 0 var(--ink);
+  --sh-lg: 6px 6px 0 var(--ink);
+  --bd-thin: 2px solid var(--ink);
+  --bd-thick: 3px solid var(--ink);
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px;
+  --blur: none;
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ---- 2 · GLASSMORPHISM ---- */
+[data-theme='glass'] {
+  --primary: #6d5cff;
+  --primary-ink: #ffffff;
+  --secondary: #0ea5e9;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #e11d48;
+  --surface: linear-gradient(150deg, #a1c4fd 0%, #c2b8fb 45%, #fbc2eb 100%) fixed;
+  --card: rgba(255, 255, 255, 0.34);
+  --text: #16233b;
+  --muted: #43537a;
+  --ink: rgba(255, 255, 255, 0.65);
+  --primary-tint: rgba(109, 92, 255, 0.16);
+  --secondary-tint: rgba(14, 165, 233, 0.16);
+  --success-tint: rgba(5, 150, 105, 0.18);
+  --warning-tint: rgba(217, 119, 6, 0.18);
+  --danger-tint: rgba(225, 29, 72, 0.16);
+  --sh-sm: 0 4px 16px rgba(31, 38, 135, 0.16);
+  --sh-md: 0 8px 32px rgba(31, 38, 135, 0.22);
+  --sh-lg: 0 12px 40px rgba(31, 38, 135, 0.26);
+  --bd-thin: 1px solid rgba(255, 255, 255, 0.6);
+  --bd-thick: 1.5px solid rgba(255, 255, 255, 0.7);
+  --r-sm: 12px; --r-md: 18px; --r-lg: 24px;
+  --blur: blur(14px) saturate(1.4);
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ---- 3 · CLAYMORPHISM ---- */
+[data-theme='clay'] {
+  --primary: #7c5cff;
+  --primary-ink: #ffffff;
+  --secondary: #ff8a65;
+  --success: #22b07d;
+  --warning: #f2a33c;
+  --danger: #f0596d;
+  --surface: #edeaff;
+  --card: #f4f1ff;
+  --text: #2b2745;
+  --muted: #6f6a90;
+  --ink: rgba(120, 100, 190, 0.16);
+  --primary-tint: rgba(124, 92, 255, 0.14);
+  --secondary-tint: rgba(255, 138, 101, 0.16);
+  --success-tint: rgba(34, 176, 125, 0.16);
+  --warning-tint: rgba(242, 163, 60, 0.18);
+  --danger-tint: rgba(240, 89, 109, 0.16);
+  --sh-sm: 5px 5px 12px rgba(120, 100, 190, 0.22), -4px -4px 10px rgba(255, 255, 255, 0.85);
+  --sh-md: 8px 8px 18px rgba(120, 100, 190, 0.26), -6px -6px 14px rgba(255, 255, 255, 0.9), inset 2px 2px 4px rgba(255, 255, 255, 0.6);
+  --sh-lg: 12px 12px 26px rgba(120, 100, 190, 0.3), -8px -8px 18px rgba(255, 255, 255, 0.9);
+  --bd-thin: 1px solid rgba(120, 100, 190, 0.10);
+  --bd-thick: 2px solid rgba(120, 100, 190, 0.14);
+  --r-sm: 16px; --r-md: 22px; --r-lg: 28px;
+  --blur: none;
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ---- 4 · NEUMORPHISM ---- */
+[data-theme='neu'] {
+  --primary: #6d5dfc;
+  --primary-ink: #ffffff;
+  --secondary: #4b70e2;
+  --success: #2f9e77;
+  --warning: #d98b2b;
+  --danger: #e0576b;
+  --surface: #e0e5ec;
+  --card: #e0e5ec;
+  --text: #4a5568;
+  --muted: #8793a6;
+  --ink: rgba(163, 177, 198, 0.4);
+  --primary-tint: rgba(109, 93, 252, 0.14);
+  --secondary-tint: rgba(75, 112, 226, 0.14);
+  --success-tint: rgba(47, 158, 119, 0.15);
+  --warning-tint: rgba(217, 139, 43, 0.16);
+  --danger-tint: rgba(224, 87, 107, 0.15);
+  --sh-sm: 4px 4px 8px #a3b1c6, -4px -4px 8px #ffffff;
+  --sh-md: 6px 6px 12px #a3b1c6, -6px -6px 12px #ffffff;
+  --sh-lg: 9px 9px 18px #a3b1c6, -9px -9px 18px #ffffff;
+  --bd-thin: 1px solid rgba(163, 177, 198, 0.3);
+  --bd-thick: 1px solid rgba(163, 177, 198, 0.35);
+  --r-sm: 12px; --r-md: 16px; --r-lg: 20px;
+  --blur: none;
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ---- 5 · SKEUOMORPHISM ---- */
+[data-theme='skeuo'] {
+  --primary: #2f855a;
+  --primary-ink: #ffffff;
+  --secondary: #b7791f;
+  --success: #2f855a;
+  --warning: #b7791f;
+  --danger: #b03a2e;
+  --surface: linear-gradient(180deg, #d8d2c0 0%, #c7c0aa 100%) fixed;
+  --card: #f6f2e7;
+  --text: #2c2617;
+  --muted: #6b6350;
+  --ink: #8c8168;
+  --primary-tint: rgba(47, 133, 90, 0.16);
+  --secondary-tint: rgba(183, 121, 31, 0.18);
+  --success-tint: rgba(47, 133, 90, 0.16);
+  --warning-tint: rgba(183, 121, 31, 0.18);
+  --danger-tint: rgba(176, 58, 46, 0.16);
+  --sh-sm: 0 2px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --sh-md: 0 3px 4px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --sh-lg: 0 5px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --bd-thin: 1px solid #8c8168;
+  --bd-thick: 2px solid #8c8168;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px;
+  --blur: none;
+  --font-ui: Georgia, 'Times New Roman', serif;
+}
+
+/* ---- 6 · RETROFUTURISM / VAPORWAVE ---- */
+[data-theme='vapor'] {
+  --primary: #ff71ce;
+  --primary-ink: #1a0a2a;
+  --secondary: #01cdfe;
+  --success: #05ffa1;
+  --warning: #fffb96;
+  --danger: #ff5470;
+  --surface: linear-gradient(165deg, #2b1055 0%, #4b1e73 45%, #7b2b8f 100%) fixed;
+  --card: rgba(60, 28, 96, 0.5);
+  --text: #ffe6ff;
+  --muted: #c8a9e6;
+  --ink: #ff71ce;
+  --primary-tint: rgba(255, 113, 206, 0.22);
+  --secondary-tint: rgba(1, 205, 254, 0.22);
+  --success-tint: rgba(5, 255, 161, 0.20);
+  --warning-tint: rgba(255, 251, 150, 0.20);
+  --danger-tint: rgba(255, 84, 112, 0.22);
+  --sh-sm: 0 0 10px rgba(255, 113, 206, 0.55);
+  --sh-md: 0 0 14px rgba(255, 113, 206, 0.65), 0 0 5px rgba(1, 205, 254, 0.5);
+  --sh-lg: 0 0 22px rgba(255, 113, 206, 0.7), 0 0 8px rgba(1, 205, 254, 0.55);
+  --bd-thin: 1px solid rgba(1, 205, 254, 0.6);
+  --bd-thick: 2px solid #ff71ce;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px;
+  --blur: blur(6px);
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ---- 7 · CYBERPUNK / SCI-FI ---- */
+[data-theme='cyber'] {
+  --primary: #00e5ff;
+  --primary-ink: #05060a;
+  --secondary: #ff003c;
+  --success: #00ff9c;
+  --warning: #ffcc00;
+  --danger: #ff003c;
+  --surface: radial-gradient(circle at 20% 0%, #0a1420 0%, #05060a 60%) fixed;
+  --card: rgba(10, 18, 28, 0.9);
+  --text: #d6faff;
+  --muted: #6b8496;
+  --ink: #00e5ff;
+  --primary-tint: rgba(0, 229, 255, 0.16);
+  --secondary-tint: rgba(255, 0, 60, 0.16);
+  --success-tint: rgba(0, 255, 156, 0.16);
+  --warning-tint: rgba(255, 204, 0, 0.16);
+  --danger-tint: rgba(255, 0, 60, 0.16);
+  --sh-sm: 0 0 8px rgba(0, 229, 255, 0.4);
+  --sh-md: 0 0 10px rgba(0, 229, 255, 0.5);
+  --sh-lg: 0 0 16px rgba(0, 229, 255, 0.6);
+  --bd-thin: 1px solid rgba(0, 229, 255, 0.4);
+  --bd-thick: 1px solid #00e5ff;
+  --r-sm: 4px; --r-md: 6px; --r-lg: 10px;
+  --blur: none;
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 * {
@@ -33,8 +220,9 @@ html, body, #root {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: var(--bg);
+  font-family: var(--font-ui);
+  background: var(--surface);
+  background-attachment: fixed;
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   font-feature-settings: 'cv11', 'ss01';
@@ -44,10 +232,7 @@ body {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+a { color: inherit; text-decoration: none; }
 
 button {
   font-family: inherit;
@@ -63,46 +248,33 @@ input, textarea {
   -webkit-user-select: text;
 }
 
-/* Thick, visible focus states matching border weight */
 :focus-visible {
-  outline: 3px solid #432DD7;
+  outline: 3px solid var(--secondary);
   outline-offset: 2px;
 }
 
-/* Hide scrollbars everywhere */
-::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  display: none;
-}
-* {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
+::-webkit-scrollbar { width: 0; height: 0; display: none; }
+* { scrollbar-width: none; -ms-overflow-style: none; }
 
-.safe-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
-}
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.no-select { -webkit-user-select: none; user-select: none; }
 
-.no-select {
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-/* Pressing an element sinks it into its hard shadow */
+/* Press feedback + glass backdrop hook (backdrop only bites when --blur set). */
 .tappable {
   transition: transform 70ms ease, box-shadow 70ms ease, opacity 70ms ease;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
 }
 .tappable:active {
-  transform: translate(3px, 3px);
-  box-shadow: 0 0 0 #000 !important;
+  transform: translate(2px, 2px);
+  opacity: 0.92;
 }
 
 .shimmer {
   background: linear-gradient(90deg, var(--surface) 25%, var(--card) 50%, var(--surface) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
-  border: 2px solid #000;
+  border: var(--bd-thin);
 }
 @keyframes shimmer {
   0% { background-position: 200% 0; }
@@ -125,9 +297,42 @@ input, textarea {
   top: -20px;
   width: 8px;
   height: 14px;
-  border: 1px solid #000;
+  border: 1px solid var(--ink);
   animation: confettiFall linear forwards;
 }
 
 .spin { animation: spin 0.9s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* =========================================================================
+   APP LOADER — the one loading animation, used on every loading screen.
+   ========================================================================= */
+.loader {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  animation: l6-0 1.5s infinite linear;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  grid-area: 1/1;
+  background: #514b82;
+  animation: l6-1 1.5s infinite linear, l6-2 1.5s infinite linear;
+}
+.loader:after {
+  --s: -1;
+  animation-direction: reverse;
+}
+@keyframes l6-0 {
+  0%,9%,91%,100% { background: #514b82; }
+  10%,90% { background: #0000; }
+}
+@keyframes l6-1 {
+  0%,33% { clip-path: polygon(0 0,50% 100%,100% 0,100% 100%,0 100%); }
+  66%,100% { clip-path: polygon(50% 0,50% 100%,50% 0,100% 100%,0 100%); }
+}
+@keyframes l6-2 {
+  0%,10%,90%,100% { transform: scale(var(--s,1)) translateY(0); }
+  33%,66% { transform: scale(var(--s,1)) translateY(50%); }
+}

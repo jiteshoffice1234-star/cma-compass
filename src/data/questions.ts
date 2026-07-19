@@ -1,6 +1,7 @@
 import { FOUND_QUESTIONS } from './questions_found'
 import { INTER_A_QUESTIONS } from './questions_inter_a'
 import { INTER_B_QUESTIONS } from './questions_inter_b'
+import { FINAL_QUESTIONS } from './questions_final'
 
 export interface Question {
   id: string
@@ -349,4 +350,5 @@ export const questions: Question[] = [
   ...FOUND_QUESTIONS,
   ...INTER_A_QUESTIONS,
   ...INTER_B_QUESTIONS,
+  ...FINAL_QUESTIONS,
 ]

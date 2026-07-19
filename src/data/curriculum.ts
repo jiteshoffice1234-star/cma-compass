@@ -1,7 +1,7 @@
 // ICMAI CMA Syllabus 2022 — Foundation (Papers 1-4) + Intermediate (Papers 5-12).
 // The user picks ONE level at signup; the app is scoped to that level only.
 
-export type Level = 'foundation' | 'intermediate'
+export type Level = 'foundation' | 'intermediate' | 'final'
 
 // Legacy alias kept so older imports keep compiling. Stages == paper codes now.
 export type Stage = string
@@ -27,7 +27,7 @@ export interface Chapter {
 export interface Paper {
   id: number
   level: Level
-  group?: 'I' | 'II'
+  group?: 'I' | 'II' | 'III' | 'IV'
   code: string
   name: string
 }
@@ -37,6 +37,7 @@ export const SYLLABUS = 'ICMAI CMA Syllabus 2022'
 export const LEVEL_LABELS: Record<Level, string> = {
   foundation: 'CMA Foundation',
   intermediate: 'CMA Intermediate',
+  final: 'CMA Final',
 }
 
 export const PAPERS: Paper[] = [
@@ -55,6 +56,16 @@ export const PAPERS: Paper[] = [
   { id: 10, level: 'intermediate', group: 'II', code: 'CAA', name: 'Corporate Accounting & Auditing' },
   { id: 11, level: 'intermediate', group: 'II', code: 'FMDA', name: 'Financial Management & Business Data Analytics' },
   { id: 12, level: 'intermediate', group: 'II', code: 'MA', name: 'Management Accounting' },
+  // ---- Final Group III ----
+  { id: 13, level: 'final', group: 'III', code: 'CEL', name: 'Corporate and Economic Laws' },
+  { id: 14, level: 'final', group: 'III', code: 'SFM', name: 'Strategic Financial Management' },
+  { id: 15, level: 'final', group: 'III', code: 'DIT', name: 'Direct Tax Laws and International Taxation' },
+  { id: 16, level: 'final', group: 'III', code: 'SCM', name: 'Strategic Cost Management' },
+  // ---- Final Group IV ----
+  { id: 17, level: 'final', group: 'IV', code: 'CMAD', name: 'Cost and Management Audit' },
+  { id: 18, level: 'final', group: 'IV', code: 'CFR', name: 'Corporate Financial Reporting' },
+  { id: 19, level: 'final', group: 'IV', code: 'ITP', name: 'Indirect Tax Laws and Practice' },
+  { id: 20, level: 'final', group: 'IV', code: 'SPMBV', name: 'Strategic Performance Management and Business Valuation' },
 ]
 
 export function paperById(id: number): Paper | undefined {
@@ -69,6 +80,7 @@ import { CURRICULUM_CHAPTERS } from './chapters'
 import { FOUND_EXTRA_CHAPTERS } from './chapters_found_extra'
 import { INTER_A_CHAPTERS } from './chapters_inter_a'
 import { INTER_B_CHAPTERS } from './chapters_inter_b'
+import { FINAL_CHAPTERS } from './chapters_final'
 import { CHAPTER_VIDEOS } from './videos'
 
 export const curriculum: Chapter[] = [
@@ -76,6 +88,7 @@ export const curriculum: Chapter[] = [
   ...FOUND_EXTRA_CHAPTERS,
   ...INTER_A_CHAPTERS,
   ...INTER_B_CHAPTERS,
+  ...FINAL_CHAPTERS,
 ]
 
 export function chaptersForLevel(level: Level): Chapter[] {
@@ -166,9 +179,10 @@ export function playlistForChapter(chapter: Chapter): string {
 }
 
 // ---- Legacy compatibility shims (some screens still import these) ----
-export const STAGES: Level[] = ['foundation', 'intermediate']
+export const STAGES: Level[] = ['foundation', 'intermediate', 'final']
 
 export const STAGE_LABELS: Record<string, string> = {
   foundation: 'CMA Foundation',
   intermediate: 'CMA Intermediate',
+  final: 'CMA Final',
 }

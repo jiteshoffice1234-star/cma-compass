@@ -36,6 +36,7 @@ export const BADGES: BadgeDef[] = [
   { id: 'perfect', name: 'Perfectionist', desc: 'Score 10/10 on any quiz.', icon: 'star' },
   { id: 'foundation', name: 'CMA Foundation', desc: 'Complete every chapter in the Foundation level.', icon: 'layers' },
   { id: 'intermediate', name: 'CMA Intermediate', desc: 'Complete every chapter in the Intermediate level.', icon: 'bar-chart-3' },
+  { id: 'final', name: 'CMA Final', desc: 'Complete every chapter in the Final level.', icon: 'crown' },
   { id: 'speed_run', name: 'Speed Run', desc: 'Complete 3 chapters in one day.', icon: 'zap' },
   { id: 'night_owl', name: 'Night Owl', desc: 'Earn XP after 22:00.', icon: 'moon' },
   { id: 'cfo', name: 'Future CFO', desc: 'Finish every chapter in your level + Grand Final Test.', icon: 'crown' },
@@ -52,6 +53,15 @@ export const BADGES: BadgeDef[] = [
   { id: 'paper_10', name: 'CAA Cleared', desc: 'Complete Paper 10 · Corporate Accounting & Auditing.', icon: 'building-2' },
   { id: 'paper_11', name: 'FMDA Cleared', desc: 'Complete Paper 11 · Financial Management & Analytics.', icon: 'line-chart' },
   { id: 'paper_12', name: 'MA Cleared', desc: 'Complete Paper 12 · Management Accounting.', icon: 'clipboard-list' },
+  // ---- Final papers ----
+  { id: 'paper_13', name: 'CEL Cleared', desc: 'Complete Paper 13 · Corporate & Economic Laws.', icon: 'scale' },
+  { id: 'paper_14', name: 'SFM Cleared', desc: 'Complete Paper 14 · Strategic Financial Management.', icon: 'line-chart' },
+  { id: 'paper_15', name: 'DIT Cleared', desc: 'Complete Paper 15 · Direct Tax Laws & International Taxation.', icon: 'landmark' },
+  { id: 'paper_16', name: 'SCM Cleared', desc: 'Complete Paper 16 · Strategic Cost Management.', icon: 'coins' },
+  { id: 'paper_17', name: 'CMAD Cleared', desc: 'Complete Paper 17 · Cost & Management Audit.', icon: 'clipboard-list' },
+  { id: 'paper_18', name: 'CFR Cleared', desc: 'Complete Paper 18 · Corporate Financial Reporting.', icon: 'book-open' },
+  { id: 'paper_19', name: 'ITP Cleared', desc: 'Complete Paper 19 · Indirect Tax Laws & Practice.', icon: 'building-2' },
+  { id: 'paper_20', name: 'SPMBV Cleared', desc: 'Complete Paper 20 · Strategic Performance Management & Business Valuation.', icon: 'trending-up' },
 ]
 
 export interface WeeklyChallengeDef {

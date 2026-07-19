@@ -21,6 +21,12 @@ const config: CapacitorConfig = {
     CapacitorSQLite: {
       androidIsEncryption: false,
     },
+    // Route fetch()/XHR through native HTTP so cross-origin PDFs (ICMAI
+    // study-material books & past papers on the CloudFront CDN) load without
+    // CORS blocking on Android.
+    CapacitorHttp: {
+      enabled: true,
+    },
   },
 };
 

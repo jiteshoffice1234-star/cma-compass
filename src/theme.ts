@@ -1,44 +1,47 @@
-// Neobrutalism design tokens — single source of truth for the whole app.
-// Rules: flat fills only, 2-3px solid black borders, hard offset shadows
-// (no blur), Inter for UI text, JetBrains Mono for numbers/technical text.
+// Design tokens — single source of truth for the whole app.
+// Values resolve to CSS variables so switching [data-theme] on <html> restyles
+// EVERYTHING at once (see the theme blocks in index.css). Neobrutalism is the
+// default; other themes (glass, clay, neu, skeuo, vapor, cyber) redefine the
+// same variables with their own colours + "physics" (shadow, border, radius, blur).
 
 export const color = {
-  primary: '#FDC800', // highlighted surfaces, primary accents (dark text on top)
-  secondary: '#432DD7', // action buttons, links (white text on top)
-  success: '#16A34A',
-  warning: '#D97706',
-  danger: '#DC2626',
-  surface: '#FBFBF9', // app background
-  card: '#FFFFFF',
-  text: '#1C293C',
-  muted: '#55637A',
-  black: '#000000',
-  // Flat tints for state backgrounds (no translucency)
-  successTint: '#DCFCE7',
-  dangerTint: '#FEE2E2',
-  warningTint: '#FEF3C7',
-  primaryTint: '#FFF6D6',
-  secondaryTint: '#E8E4FB',
+  primary: 'var(--primary)', // highlighted surfaces, primary accents
+  primaryInk: 'var(--primary-ink)', // text/icon colour placed on a primary fill
+  secondary: 'var(--secondary)', // action buttons, links
+  success: 'var(--success)',
+  warning: 'var(--warning)',
+  danger: 'var(--danger)',
+  surface: 'var(--surface)', // app background
+  card: 'var(--card)',
+  text: 'var(--text)',
+  muted: 'var(--muted)',
+  black: 'var(--ink)', // border / shadow ink
+  // State tints
+  successTint: 'var(--success-tint)',
+  dangerTint: 'var(--danger-tint)',
+  warningTint: 'var(--warning-tint)',
+  primaryTint: 'var(--primary-tint)',
+  secondaryTint: 'var(--secondary-tint)',
 } as const
 
 export const shadow = {
-  sm: '3px 3px 0 #000',
-  md: '4px 4px 0 #000',
-  lg: '6px 6px 0 #000',
+  sm: 'var(--sh-sm)',
+  md: 'var(--sh-md)',
+  lg: 'var(--sh-lg)',
   none: 'none',
 } as const
 
 export const border = {
-  thin: '2px solid #000',
-  thick: '3px solid #000',
+  thin: 'var(--bd-thin)',
+  thick: 'var(--bd-thick)',
 } as const
 
-export const radius = { sm: 6, md: 10, lg: 14 } as const
+export const radius = { sm: 'var(--r-sm)', md: 'var(--r-md)', lg: 'var(--r-lg)' } as const
 
 export const space = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 } as const
 
 export const font = {
-  ui: "'Inter', system-ui, -apple-system, sans-serif",
+  ui: 'var(--font-ui)',
   mono: "'JetBrains Mono', 'Courier New', monospace",
 } as const
 
@@ -60,7 +63,7 @@ export const nb = {
   },
   btnPrimary: {
     background: color.primary,
-    color: color.text,
+    color: color.primaryInk,
     border: border.thick,
     borderRadius: radius.md,
     boxShadow: shadow.md,

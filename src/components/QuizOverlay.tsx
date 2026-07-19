@@ -24,7 +24,7 @@ export function QuizOverlay({ chapterId, onClose }: { chapterId: number; onClose
   useEffect(() => {
     if (finished) {
       const perfect = score === chapterQuestions.length
-      completeQuiz(chapterId, score, perfect, attempts)
+      completeQuiz(chapterId, score, chapterQuestions.length, perfect, attempts)
       if (score >= 6 && isUnlocked(chapterId + 1) === false) {
         setConfetti(true)
       }

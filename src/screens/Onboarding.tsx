@@ -80,7 +80,7 @@ export function Onboarding() {
             </div>
             <div style={{ display: 'flex', gap: 12, marginTop: 28 }}>
               <Button variant="ghost" onClick={() => slide(-1)} style={{ flex: 1 }}>Back</Button>
-              <Button variant="secondary" onClick={() => { setConfetti(true); setTimeout(() => complete(name || 'Student', goal, 'light', level), 700) }} style={{ flex: 1 }}>
+              <Button variant="secondary" onClick={() => { setConfetti(true); setTimeout(() => complete(name || 'Student', goal, 'neo', level), 700) }} style={{ flex: 1 }}>
                 Start Learning
               </Button>
             </div>

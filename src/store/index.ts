@@ -9,8 +9,9 @@ import {
 } from '../lib/store'
 import type { ChapterProgressRow } from '../lib/db'
 import { BADGES, WEEKLY_CHALLENGES, getChallengeForWeek, weekNumber, levelForXp } from '../lib/levels'
+import { ThemeId, DEFAULT_THEME, normalizeTheme } from '../lib/themes'
 
-export type ThemeMode = 'dark' | 'light' | 'claude'
+export type ThemeMode = ThemeId
 
 function dateStr(d = new Date()): string {
   return d.toISOString().slice(0, 10)
@@ -53,7 +54,7 @@ export interface AppState {
   setPdfsGenerated: () => Promise<void>
   markVideoWatched: (chapterId: number) => Promise<void>
   markPdfRead: (chapterId: number, type: string) => Promise<void>
-  completeQuiz: (chapterId: number, score: number, perfect: boolean, attempts: { q: string; correct: boolean }[]) => Promise<void>
+  completeQuiz: (chapterId: number, score: number, total: number, perfect: boolean, attempts: { q: string; correct: boolean }[]) => Promise<void>
   isUnlocked: (chapterId: number) => boolean
   reviewFlashcard: (flashcardId: string, quality: number) => Promise<void>
   toggleBookmarkChapter: (chapterId: number) => Promise<void>
@@ -73,7 +74,7 @@ export const useStore = create<AppState>((set, get) => ({
   name: 'Student',
   dailyGoal: 1,
   level: 'foundation',
-  uiMode: 'dark',
+  uiMode: DEFAULT_THEME,
   totalXp: 0,
   currentStreak: 0,
   longestStreak: 0,
@@ -117,7 +118,7 @@ export const useStore = create<AppState>((set, get) => ({
       name: profile.name,
       dailyGoal: profile.daily_goal,
       level: (profile.level as Level) || 'foundation',
-      uiMode: (profile.ui_mode as ThemeMode) || 'dark',
+      uiMode: normalizeTheme(profile.ui_mode),
       pdfsGenerated: !!profile.pdfs_generated,
       progress,
       totalXp: xp,
@@ -129,7 +130,7 @@ export const useStore = create<AppState>((set, get) => ({
       weeklyChallengeId: weekly.challenge_id,
       weeklyProgress: weekly.progress,
     })
-    document.documentElement.setAttribute('data-theme', (profile.ui_mode as ThemeMode) || 'dark')
+    document.documentElement.setAttribute('data-theme', normalizeTheme(profile.ui_mode))
   },
 
   completeOnboarding: async (name, dailyGoal, theme, level) => {
@@ -197,11 +198,12 @@ export const useStore = create<AppState>((set, get) => ({
     get().showToast('+5 XP · PDF read')
   },
 
-  completeQuiz: async (chapterId, score, perfect, attempts) => {
+  completeQuiz: async (chapterId, score, total, perfect, attempts) => {
     for (const a of attempts) {
       await recordQuizAttempt(chapterId, a.q, a.correct)
     }
-    const passed = score >= 6
+    const passMark = Math.max(1, Math.ceil((total || 10) * 0.6))
+    const passed = score >= passMark
     const cur = await getChapterProgress(chapterId)
     const alreadyScored = cur.quiz_completed && cur.quiz_score >= score
 
