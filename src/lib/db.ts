@@ -133,6 +133,9 @@ export async function initDatabase(): Promise<void> {
   if (!res.values || res.values.length === 0) {
     await db.run('INSERT INTO user_profile (id, name, daily_goal, ui_mode, onboarding_complete, pdfs_generated, level) VALUES (1, ?, 1, ?, 0, 0, ?)', ['Student', 'dark', 'foundation'])
   }
+  // prune old XP transactions
+  try { await pruneOldTransactions() } catch { /* non-critical */ }
+
   // ensure streaks row exists
   const sres = await db.query('SELECT id FROM streaks WHERE id = 1')
   if (!sres.values || sres.values.length === 0) {
@@ -143,6 +146,24 @@ export async function initDatabase(): Promise<void> {
 export function getDb(): SQLiteDBConnection {
   if (!db) throw new Error('Database not initialised')
   return db
+}
+
+export const PRUNE_AFTER_DAYS = 90
+
+export async function pruneOldTransactions(): Promise<void> {
+  if (!Capacitor.isNativePlatform()) return
+  try {
+    const conn = getDb()
+    const oldTotal = await conn.query(
+      "SELECT COALESCE(SUM(amount),0) as total FROM xp_transactions WHERE created_at < datetime('now', '-90 days')"
+    )
+    const sum = (oldTotal.values?.[0]?.total as number) ?? 0
+    if (sum === 0) return
+    await conn.run("DELETE FROM xp_transactions WHERE created_at < datetime('now', '-90 days')")
+    await conn.run("INSERT INTO xp_transactions (amount, reason, chapter_id, created_at) VALUES (?, 'pruned', NULL, datetime('now'))", [sum])
+  } catch (error) {
+    console.warn('[DB] Prune failed (non-critical):', error)
+  }
 }
 
 export const sqliteAvailable = Capacitor.isNativePlatform()

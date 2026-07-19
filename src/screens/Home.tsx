@@ -9,7 +9,12 @@ import { color, border, shadow, font, APP_NAME } from '../theme'
 
 export function Home() {
   const nav = useNavigate()
-  const { currentStreak, progress, bookmarks, level, totalXp, name } = useStore()
+  const currentStreak = useStore((s) => s.currentStreak)
+  const progress = useStore((s) => s.progress)
+  const bookmarks = useStore((s) => s.bookmarks)
+  const level = useStore((s) => s.level)
+  const totalXp = useStore((s) => s.totalXp)
+  const name = useStore((s) => s.name)
   const [searchOpen, setSearchOpen] = useState(false)
 
   const levelChapters = useMemo(() => chaptersForLevel(level).sort((a, b) => a.id - b.id), [level])
@@ -62,7 +67,7 @@ export function Home() {
         </Tappable>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px 16px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px 16px' }} className="safe-bottom">
         {/* hero: continue learning */}
         <Card style={{ padding: 16, marginBottom: 16, background: color.primary }}>
           <div style={{ fontSize: 12, color: color.text, fontWeight: 900, letterSpacing: 1.2 }}>

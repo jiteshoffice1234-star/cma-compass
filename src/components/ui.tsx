@@ -24,15 +24,25 @@ export function Skeleton({ w = '100%', h = 16, radius: rad = 8, style }: { w?: n
   return <div className="shimmer" style={{ width: w, height: h, borderRadius: rad, ...style }} />
 }
 
-export function Tappable({ children, onClick, className = '', style, activeScale = 0.97, disabled = false }: {
-  children: ReactNode; onClick?: () => void; className?: string; style?: CSSProperties; activeScale?: number; disabled?: boolean
+export function Tappable({ children, onClick, className = '', style, activeScale = 0.97, disabled = false, 'aria-label': ariaLabel }: {
+  children: ReactNode; onClick?: () => void; className?: string; style?: CSSProperties; activeScale?: number; disabled?: boolean; 'aria-label'?: string
 }) {
   void activeScale
   return (
     <motion.button
-      className={'tappable ' + className}
+      className={'tappable no-text-select ' + className}
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
+      aria-label={ariaLabel}
+      aria-disabled={disabled}
+      role="button"
+      tabIndex={disabled ? -1 : 0}
+      onKeyDown={(e: React.KeyboardEvent) => {
+        if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
+          e.preventDefault()
+          onClick?.()
+        }
+      }}
       style={{ background: 'none', cursor: disabled ? 'default' : 'pointer', fontFamily: font.ui, ...style }}
     >
       {children}
@@ -86,9 +96,12 @@ export function Button({ children, onClick, variant = 'primary', style, disabled
   )
 }
 
-export function IconButton({ children, onClick, size = 44 }: { children: ReactNode; onClick?: () => void; size?: number }) {
+export function IconButton({ children, onClick, size = 44, 'aria-label': ariaLabel }: {
+  children: ReactNode; onClick?: () => void; size?: number; 'aria-label'?: string
+}) {
   return (
-    <button className="tappable" onClick={onClick}
+    <button className="tappable no-text-select" onClick={onClick}
+      aria-label={ariaLabel}
       style={{ width: size, height: size, display: 'flex', alignItems: 'center', justifyContent: 'center', color: color.text, background: color.card, border: border.thin, borderRadius: radius.sm, boxShadow: shadow.sm }}>
       {children}
     </button>

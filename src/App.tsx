@@ -18,6 +18,7 @@ import { PdfViewer } from './screens/PdfViewer'
 import { LoaderScreen } from './components/Loader'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { color } from './theme'
+import { OfflineBanner } from './components/OfflineBanner'
 
 function AppContent() {
   const { ready, onboardingComplete, init, levelUp, badgeUnlock, toast, clearToast } = useStore()
@@ -30,6 +31,10 @@ function AppContent() {
   useEffect(() => {
     if (!ready) return
     if (isNative) setStatusBarColor('light')
+    // Weekly backup reminder (native only)
+    if (isNative) {
+      import('./lib/backupReminder').then((m) => m.maybePromptBackup())
+    }
     const t = setTimeout(async () => {
       const info = await checkForUpdate(APP_VERSION)
       if (info) {
@@ -51,6 +56,7 @@ function AppContent() {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: color.surface, overflow: 'hidden' }}>
+      <OfflineBanner />
       <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
         <AnimatePresence mode="wait">
           <Routes>

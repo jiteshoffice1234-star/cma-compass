@@ -300,6 +300,21 @@ input, textarea {
   animation: confettiFall linear forwards;
 }
 
+.cma-card {
+  background: var(--card);
+  border: var(--bd-thick);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-md);
+}
+.cma-btn-primary {
+  background: var(--primary);
+  color: var(--primary-ink);
+  border: var(--bd-thick);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-md);
+  font-weight: 800;
+}
+
 .spin { animation: spin 0.9s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 

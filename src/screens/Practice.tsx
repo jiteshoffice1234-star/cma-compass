@@ -71,7 +71,7 @@ export function Practice() {
         <div style={{ fontWeight: 900, fontSize: 27 }}>Practice</div>
         <div style={{ color: color.muted, fontSize: 14, marginTop: 2, fontWeight: 600 }}>Drill, test, and revise.</div>
       </div>
-      <div style={{ flex: 1, padding: 16, display: 'flex', flexDirection: 'column', gap: 16, overflowY: 'auto' }}>
+      <div style={{ flex: 1, padding: 16, display: 'flex', flexDirection: 'column', gap: 16, overflowY: 'auto' }} className="safe-bottom">
         
         <Card style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 12, background: color.primaryTint, border: border.thick }} onClick={() => setSheet('setup')}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

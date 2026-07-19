@@ -1,8 +1,8 @@
 // GitHub repo that hosts releases (APK + web-build.zip).
 export const REPO = 'jiteshoffice1234-star/cma-compass'
 
-// Keep in sync with package.json "version" and android versionName.
-export const APP_VERSION = '2.5.1'
+// Injected at build time from package.json via vite define.
+export const APP_VERSION = typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : '2.5.1'
 
 export interface UpdateInfo {
   available: boolean

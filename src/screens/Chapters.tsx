@@ -49,7 +49,7 @@ export function Chapters() {
         </div>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '6px 16px 16px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '6px 16px 16px' }} className="safe-bottom">
         {list.map((c) => {
           const unlocked = isUnlocked(c.id)
           const p = progress[c.id]

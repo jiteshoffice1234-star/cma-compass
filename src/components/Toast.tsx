@@ -14,15 +14,18 @@ export function Toast({ message, onClose }: { message: string | null; onClose: (
     <AnimatePresence>
       {message && (
         <motion.div
+          role="alert"
+          aria-live="polite"
+          onClick={onClose}
           initial={{ y: 120, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 120, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 320, damping: 30 }}
           style={{
-            position: 'absolute', bottom: 96, left: 16, right: 16, zIndex: 200,
+            position: 'absolute', bottom: 120, left: 16, right: 16, zIndex: 200,
             background: color.primary, border: border.thick, borderRadius: 10,
             padding: '14px 16px', color: color.text, fontSize: 14, fontWeight: 800,
-            boxShadow: shadow.md, pointerEvents: 'none',
+            boxShadow: shadow.md, pointerEvents: 'auto', cursor: 'pointer',
           }}
         >
           {message}

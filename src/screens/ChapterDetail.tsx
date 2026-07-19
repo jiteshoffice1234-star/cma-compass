@@ -47,9 +47,9 @@ export function ChapterDetail() {
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: color.surface }}>
       {/* top bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 12px 8px', gap: 8 }}>
-        <IconButton onClick={() => nav(-1)} size={36}><ArrowLeft size={20} /></IconButton>
+        <IconButton onClick={() => nav(-1)} size={36} aria-label="Go back"><ArrowLeft size={20} /></IconButton>
         <div style={{ fontWeight: 800, fontSize: 15, textAlign: 'center', flex: 1, padding: '0 4px' }}>{chapter.title}</div>
-        <IconButton onClick={() => toggleBookmarkChapter(chapterId)} size={36}>
+        <IconButton onClick={() => toggleBookmarkChapter(chapterId)} size={36} aria-label={bookmarked ? 'Remove bookmark' : 'Add bookmark'}>
           {bookmarked ? <BookmarkCheck size={19} color={color.secondary} /> : <Bookmark size={19} />}
         </IconButton>
       </div>
@@ -77,7 +77,7 @@ export function ChapterDetail() {
       />
 
       {/* content */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: 16 }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: 16 }} className="safe-bottom">
         {tab === 'overview' && (
           <div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>

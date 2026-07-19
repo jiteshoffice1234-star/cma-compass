@@ -81,7 +81,7 @@ export function Profile() {
 
   return (
     <PageTransition>
-      <div style={{ height: '100%', overflowY: 'auto', background: color.surface, paddingBottom: 80 }}>
+      <div style={{ height: '100%', overflowY: 'auto', background: color.surface, paddingBottom: 80 }} className="safe-bottom">
         {/* header */}
         <div style={{ padding: '20px 16px 12px', textAlign: 'center' }}>
           <div style={{ width: 60, height: 60, borderRadius: 12, border: border.thick, boxShadow: shadow.md, background: color.primary, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 900, color: color.text }}>

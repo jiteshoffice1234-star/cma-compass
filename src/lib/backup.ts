@@ -4,6 +4,7 @@ import {
 } from './store'
 import type { ChapterProgressRow, UserProfileRow, BadgeRow } from './db'
 import type { StreakRow } from './store'
+import { APP_VERSION } from './updateChecker'
 
 export interface BackupData {
   version: string
@@ -28,7 +29,7 @@ export async function exportProgressToJson(): Promise<string> {
   const backup: BackupData = {
     version: '1.0',
     exported_at: new Date().toISOString(),
-    app_version: '2.5.0',
+    app_version: APP_VERSION,
     data: {
       profile,
       chapters: allProgress,

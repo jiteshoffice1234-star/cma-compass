@@ -13,3 +13,4 @@ android/capacitor-cordova-android-plugins/.cxx/
 .DS_Store
 *.swp
 *.swo
+brain_log.txt

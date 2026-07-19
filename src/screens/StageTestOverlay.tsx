@@ -70,7 +70,7 @@ export function StageTestOverlay({ paperId, grand, level, onClose }: { paperId: 
       transition={{ type: 'spring', stiffness: 300, damping: 32 }}
       style={{ position: 'absolute', inset: 0, zIndex: 460, background: color.surface, display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 16px 10px' }}>
-        <IconButton onClick={onClose} size={36}><X size={20} /></IconButton>
+        <IconButton onClick={onClose} size={36} aria-label="Close test"><X size={20} /></IconButton>
         <div className="mono" style={{ fontSize: 15, fontWeight: 800, fontFamily: font.mono }}>{finished ? title : `${idx + 1} / ${testQuestions.length}`}</div>
         <div style={{ width: 36 }} />
       </div>
@@ -100,8 +100,18 @@ export function StageTestOverlay({ paperId, grand, level, onClose }: { paperId: 
                     style={{ display: 'flex', alignItems: 'center', gap: 12, background: bg, border: brd, borderRadius: 10, boxShadow: answered && !isCorrect && !isSel ? 'none' : shadow.sm, padding: 14, width: '100%', color: color.text, fontWeight: 600, fontSize: 15, textAlign: 'left' }}>
                     <div className="mono" style={{ width: 28, height: 28, borderRadius: 6, border: border.thin, background: answered && isCorrect ? color.success : answered && isSel ? color.danger : color.primary, color: answered && (isCorrect || isSel) ? '#fff' : color.text, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, flexShrink: 0, fontFamily: font.mono }}>{String.fromCharCode(65 + i)}</div>
                     <div style={{ flex: 1 }}>{opt}</div>
-                    {answered && isCorrect && <Check size={20} color={color.success} strokeWidth={3} />}
-                    {answered && isSel && !isCorrect && <XIcon size={20} color={color.danger} strokeWidth={3} />}
+                    {answered && isCorrect && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                        <Check size={20} color={color.success} strokeWidth={3} />
+                        <span style={{ color: color.success, fontSize: 11, fontWeight: 800 }}>Correct</span>
+                      </div>
+                    )}
+                    {answered && isSel && !isCorrect && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                        <XIcon size={20} color={color.danger} strokeWidth={3} />
+                        <span style={{ color: color.danger, fontSize: 11, fontWeight: 800 }}>Incorrect</span>
+                      </div>
+                    )}
                   </Tappable>
                 )
               })}
