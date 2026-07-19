@@ -1,4 +1,5 @@
 import { Capacitor } from '@capacitor/core'
+import { APP_VERSION } from './updateChecker'
 
 export interface VersionInfo {
   apk_version: string
@@ -8,7 +9,7 @@ export interface VersionInfo {
 }
 
 export async function getVersionInfo(): Promise<VersionInfo> {
-  const apkVersion = '2.5.0'
+  const apkVersion = APP_VERSION
   let runningVersion: 'apk' | 'ota' = 'apk'
   let otaVersion: string | null = null
 
