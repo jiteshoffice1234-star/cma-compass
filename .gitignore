@@ -8,6 +8,7 @@ android/capacitor-cordova-android-plugins/.cxx/
 *.apk
 *.aab
 *.log
+*.xlsx
 .env
 .env.local
 .DS_Store

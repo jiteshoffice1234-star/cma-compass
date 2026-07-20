@@ -23,7 +23,7 @@ export interface DatabaseError {
   context?: Record<string, unknown>
 }
 
-const DB_ERROR_LOG_KEY = 'aiq_db_errors'
+const DB_ERROR_LOG_KEY = 'cma_db_errors'
 const MAX_DB_ERRORS = 50
 
 export function logDatabaseError(err: Omit<DatabaseError, 'timestamp'>): void {
@@ -49,7 +49,7 @@ export function clearDbErrorLog(): void {
 }
 
 // ---------- localStorage web fallback ----------
-const LS_PREFIX = 'aiq_'
+const LS_PREFIX = 'cma_'
 function lsGet<T>(key: string, fallback: T): T {
   try {
     const raw = localStorage.getItem(LS_PREFIX + key)

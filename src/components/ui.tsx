@@ -24,10 +24,9 @@ export function Skeleton({ w = '100%', h = 16, radius: rad = 8, style }: { w?: n
   return <div className="shimmer" style={{ width: w, height: h, borderRadius: rad, ...style }} />
 }
 
-export function Tappable({ children, onClick, className = '', style, activeScale = 0.97, disabled = false, 'aria-label': ariaLabel }: {
-  children: ReactNode; onClick?: () => void; className?: string; style?: CSSProperties; activeScale?: number; disabled?: boolean; 'aria-label'?: string
+export function Tappable({ children, onClick, className = '', style, disabled = false, 'aria-label': ariaLabel }: {
+  children: ReactNode; onClick?: () => void; className?: string; style?: CSSProperties; disabled?: boolean; 'aria-label'?: string
 }) {
-  void activeScale
   return (
     <motion.button
       className={'tappable no-text-select ' + className}

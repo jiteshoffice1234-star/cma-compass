@@ -209,8 +209,6 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  user-select: none;
 }
 
 html, body, #root {
@@ -253,8 +251,10 @@ input, textarea {
   outline-offset: 2px;
 }
 
-::-webkit-scrollbar { width: 0; height: 0; display: none; }
-* { scrollbar-width: none; -ms-overflow-style: none; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+* { scrollbar-width: thin; -ms-overflow-style: auto; }
 
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 .no-select { -webkit-user-select: none; user-select: none; }

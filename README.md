@@ -281,6 +281,8 @@ cma-compass/
 │   ├── screens/
 │   │   ├── Onboarding.tsx      # First-run onboarding flow
 │   │   ├── ChapterDetail.tsx   # Chapter screen: video + tabs
+│   │   ├── Chapters.tsx        # Chapter listing screen
+│   │   ├── Home.tsx            # Home dashboard
 │   │   ├── PaperScreen.tsx     # Paper listing with chapters
 │   │   ├── LevelScreen.tsx     # Level selection
 │   │   ├── StageTestOverlay.tsx # Paper-level mock test overlay

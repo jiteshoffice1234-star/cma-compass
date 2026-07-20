@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.accountiq.app',
+  appId: 'com.cmacompass.app',
   appName: 'CMA Compass',
   webDir: 'dist',
   backgroundColor: '#FBFBF9',
@@ -19,7 +19,7 @@ const config: CapacitorConfig = {
       backgroundColor: '#FBFBF9',
     },
     CapacitorSQLite: {
-      androidIsEncryption: false,
+      androidIsEncryption: true,
     },
     // Route fetch()/XHR through native HTTP so cross-origin PDFs (ICMAI
     // study-material books & past papers on the CloudFront CDN) load without

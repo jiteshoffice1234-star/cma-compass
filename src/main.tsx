@@ -5,6 +5,12 @@ import App from './App'
 import './index.css'
 import { setStatusBarColor, isNative } from './lib/capacitor'
 
+if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'production') {
+  const noop = () => {}
+  console.error = noop
+  console.warn = noop
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MemoryRouter>

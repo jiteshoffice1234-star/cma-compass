@@ -144,14 +144,12 @@ export async function generateChapterPdf(chapterId: number, type: PdfType): Prom
 export async function savePdf(chapterId: number, type: PdfType, data: Uint8Array): Promise<string> {
   const fileName = `ch${chapterId}_${type}.pdf`
   if (Capacitor.isNativePlatform()) {
-    await Filesystem.mkdir({ path: 'accountiq/pdfs', directory: Directory.Documents, recursive: true }).catch(() => {})
-    // write base64
-    let binary = ''
+    await Filesystem.mkdir({ path: 'cmacompass/pdfs', directory: Directory.Documents, recursive: true }).catch(() => {})
     const bytes = new Uint8Array(data)
-    for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i])
+    const binary = Array.from(bytes).map(b => String.fromCharCode(b)).join('')
     const b64 = btoa(binary)
-    await Filesystem.writeFile({ path: 'accountiq/pdfs/' + fileName, data: b64, directory: Directory.Documents, recursive: true })
-    return (await Filesystem.getUri({ path: 'accountiq/pdfs/' + fileName, directory: Directory.Documents })).uri
+    await Filesystem.writeFile({ path: 'cmacompass/pdfs/' + fileName, data: b64, directory: Directory.Documents, recursive: true })
+    return (await Filesystem.getUri({ path: 'cmacompass/pdfs/' + fileName, directory: Directory.Documents })).uri
   } else {
     const blob = new Blob([data as any], { type: 'application/pdf' })
     const url = URL.createObjectURL(blob)
@@ -163,7 +161,7 @@ export async function getPdfUri(chapterId: number, type: PdfType): Promise<strin
   const fileName = `ch${chapterId}_${type}.pdf`
   if (Capacitor.isNativePlatform()) {
     try {
-      const r = await Filesystem.getUri({ path: 'accountiq/pdfs/' + fileName, directory: Directory.Documents })
+      const r = await Filesystem.getUri({ path: 'cmacompass/pdfs/' + fileName, directory: Directory.Documents })
       return r.uri
     } catch {
       return null

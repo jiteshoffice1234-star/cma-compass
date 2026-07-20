@@ -411,8 +411,9 @@ async function touchStreak(get: () => AppState, set: (p: Partial<AppState>) => v
   if (cs >= 7) await tryBadge(get, set, 'on_fire')
 }
 
-async function bumpWeekly(get: () => AppState, _set: (p: Partial<AppState>) => void, n: number) {
+async function bumpWeekly(get: () => AppState, set: (p: Partial<AppState>) => void, n: number) {
   await get().bumpWeeklyProgress(n)
+  void set
 }
 
 async function afterXp(

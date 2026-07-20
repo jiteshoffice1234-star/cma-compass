@@ -2,7 +2,7 @@
 export const REPO = 'jiteshoffice1234-star/cma-compass'
 
 // Injected at build time from package.json via vite define.
-export const APP_VERSION = typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : '2.5.1'
+export const APP_VERSION = typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : '2.5.2'
 
 export interface UpdateInfo {
   available: boolean
@@ -14,9 +14,21 @@ export interface UpdateInfo {
 
 import { withTimeout } from './helpers'
 
+// GitHub token for authenticated API calls (avoids 60 req/hr rate limit).
+// Set via VITE_GITHUB_TOKEN env var or localStorage for development.
+function getGitHubToken(): string {
+  if (typeof localStorage !== 'undefined') {
+    try { return localStorage.getItem('github_token') || '' } catch { return '' }
+  }
+  return ''
+}
+
 export async function checkForUpdate(currentVersion: string): Promise<UpdateInfo | null> {
   try {
-    const res = await withTimeout(fetch(`https://api.github.com/repos/${REPO}/releases/latest`), 8000)
+    const headers: Record<string, string> = { Accept: 'application/vnd.github.v3+json' }
+    const token = getGitHubToken()
+    if (token) headers.Authorization = `Bearer ${token}`
+    const res = await withTimeout(fetch(`https://api.github.com/repos/${REPO}/releases/latest`, { headers }), 8000)
     if (!res.ok) return null
     const data = await res.json()
     const latest = data.tag_name.replace(/^v/, '')

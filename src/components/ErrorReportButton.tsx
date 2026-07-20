@@ -14,7 +14,7 @@ export function ErrorReportButton({
     const stack = typeof error === 'string' ? '' : error.stack
 
     const issueBody = encodeURIComponent(
-      `## Error Report\n\n**Error:** ${errorMessage}\n\n**Context:** ${context}\n\n**User Agent:** ${navigator.userAgent}\n\n**Stack Trace:**\n\`\`\`\n${stack || 'N/A'}\n\`\`\`\n\n**Steps to Reproduce:**\n[Describe what you were doing]\n\n**App Version:** Check Settings \u2192 About\n\n---\n*Auto-generated report. Please add details above.*`
+      `## Error Report\n\n**Error:** ${errorMessage}\n\n**Context:** ${context}\n\n**Stack Trace:**\n\`\`\`\n${stack || 'N/A'}\n\`\`\`\n\n**Steps to Reproduce:**\n[Describe what you were doing]\n\n**App Version:** Check Settings → About\n\n---\n*Auto-generated report. Please add details above.*`
     )
 
     window.open(

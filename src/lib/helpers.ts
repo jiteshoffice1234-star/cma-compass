@@ -20,7 +20,7 @@ export async function withRetry<T>(fn: () => Promise<T>, maxRetries = 3): Promis
 export function validateUrl(url: string): boolean {
   try {
     const parsed = new URL(url)
-    return parsed.protocol === 'https:' || parsed.protocol === 'http:'
+    return parsed.protocol === 'https:'
   } catch {
     return false
   }
@@ -35,4 +35,8 @@ export function checkRateLimit(key: string, minIntervalMs: number): boolean {
   if (now - last < minIntervalMs) return false
   rateLimits[key] = now
   return true
+}
+
+export function isProduction(): boolean {
+  return typeof process !== 'undefined' && process.env?.NODE_ENV === 'production'
 }

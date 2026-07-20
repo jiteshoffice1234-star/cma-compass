@@ -37,6 +37,7 @@ jobs:
           cd dist
           zip -r ../web-build.zip .
           cd ..
+          sha256sum web-build.zip | cut -d' ' -f1 > web-build.zip.sha256
 
       - name: Setup Java 21
         uses: actions/setup-java@v4
@@ -102,4 +103,5 @@ jobs:
           files: |
             cma-compass-v${{ steps.version.outputs.VERSION }}.apk
             web-build.zip
+            web-build.zip.sha256
           generate_release_notes: true

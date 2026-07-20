@@ -123,7 +123,7 @@ export async function initDatabase(): Promise<void> {
   if (!Capacitor.isNativePlatform()) return
 
   sqlite = new SQLiteConnection(CapacitorSQLite)
-  const conn = await sqlite.createConnection('accountiq', false, 'no-encryption', 1, false)
+  const conn = await sqlite.createConnection('cmacompass', false, 'secret', 1, false)
   db = conn
   await db.open()
   await db.execute(SCHEMA)

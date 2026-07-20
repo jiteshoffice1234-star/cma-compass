@@ -53,6 +53,31 @@ export async function importProgressFromJson(jsonString: string): Promise<{ succ
       throw new Error('Invalid backup structure')
     }
 
+    // Validate profile fields
+    const profile = backup.data.profile
+    if (typeof profile.name !== 'string' || profile.name.length > 30) {
+      throw new Error('Invalid profile: name must be a string (max 30 chars)')
+    }
+    if (typeof profile.daily_goal !== 'number' || profile.daily_goal < 1 || profile.daily_goal > 10) {
+      throw new Error('Invalid profile: daily_goal must be 1-10')
+    }
+    if (!['foundation', 'intermediate', 'final'].includes(profile.level)) {
+      throw new Error('Invalid profile: level must be foundation/intermediate/final')
+    }
+
+    // Validate chapter progress entries
+    for (const ch of backup.data.chapters) {
+      if (typeof ch.chapter_id !== 'number' || ch.chapter_id < 1) {
+        throw new Error(`Invalid chapter_id: ${ch.chapter_id}`)
+      }
+      if (typeof ch.video_watched !== 'number' || ch.video_watched < 0 || ch.video_watched > 1) {
+        throw new Error(`Invalid video_watched for chapter ${ch.chapter_id}`)
+      }
+      if (typeof ch.quiz_score !== 'number' || ch.quiz_score < 0 || ch.quiz_score > 10) {
+        throw new Error(`Invalid quiz_score for chapter ${ch.chapter_id}`)
+      }
+    }
+
     // Import profile
     await saveProfile(backup.data.profile)
 
@@ -64,7 +89,9 @@ export async function importProgressFromJson(jsonString: string): Promise<{ succ
     // Import badges
     if (backup.data.badges?.length) {
       for (const b of backup.data.badges) {
-        await unlockBadge(b.badge_id)
+        if (typeof b.badge_id === 'string' && b.badge_id.length > 0) {
+          await unlockBadge(b.badge_id)
+        }
       }
     }
 
