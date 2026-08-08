@@ -330,9 +330,6 @@ This is a personal project. If you have suggestions or find broken video links, 
 
 ---
 
-## License
-
-MIT License — See [LICENSE](LICENSE) for details.
 
 You are free to:
 - ✅ Use this project for any purpose
