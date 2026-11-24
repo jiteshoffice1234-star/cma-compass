@@ -1,3 +1,5 @@
+> **Note:** This repository is an older copy of the CMA Compass app. The canonical, actively maintained repository is [compass](https://github.com/jiteshoffice1234-star/compass). Please use it for the latest code, releases, and issues.
+
 <div align="center">
   <img src="assets/icon.svg" width="96" alt="CMA Compass icon">
   <h1>CMA Compass</h1>
