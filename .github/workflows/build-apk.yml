@@ -27,7 +27,9 @@ jobs:
       - name: Check version sync
         run: |
           PKG_VERSION=$(node -p "require('./package.json').version")
-          APP_VERSION=$(node -e "const fs=require('fs'); const m=fs.readFileSync('src/lib/updateChecker.ts','utf8').match(/: '([^']+)'\$/); console.log(m?.[1] || '')")
+          # Match the APP_VERSION literal anywhere in the file (it no longer
+          # sits at EOF, and files may carry CRLF line endings).
+          APP_VERSION=$(node -e "const fs=require('fs'); const m=fs.readFileSync('src/lib/updateChecker.ts','utf8').match(/APP_VERSION[^\n]*: '([^']+)'/); console.log(m?.[1] || '')")
           ANDROID_VERSION=$(grep -o 'versionName "[^"]*"' android/app/build.gradle | sed 's/versionName "//;s/"//')
           test "$PKG_VERSION" = "$APP_VERSION"
           test "$PKG_VERSION" = "$ANDROID_VERSION"
