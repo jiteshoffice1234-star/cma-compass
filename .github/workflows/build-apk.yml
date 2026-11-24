@@ -45,8 +45,14 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Verify Android SDK (runner-provided)
+        # android-actions/setup-android@v3 broke: it installs sdkmanager 'tools',
+        # a package removed in newer cmdline-tools (exit 1). ubuntu-latest already
+        # ships the Android SDK with licenses accepted, so just use it.
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          test -n "$ANDROID_HOME" && test -d "$ANDROID_HOME/platforms"
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
 
       - name: Sync Capacitor Android
         run: npx cap sync android
